@@ -14,7 +14,8 @@
 
 int	main(void)
 {
-	t_ast	*syntax;
+	t_tok_list	*lst;
+	t_ast		*syntax;
 
 	(void)syntax;
 	printf("mgoshell: Hello world!\n");
