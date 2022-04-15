@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 20:21:22 by mgo               #+#    #+#             */
-/*   Updated: 2022/04/15 20:24:29 by mgo              ###   ########.fr       */
+/*   Created: 2022/04/15 20:20:31 by mgo               #+#    #+#             */
+/*   Updated: 2022/04/15 20:22:02 by mgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
+int	main(void)
+{
+	t_ast	*syntax;
 
-#endif
+	(void)syntax;
+	printf("mgoshell: Hello world!\n");
+	return (0);
+}

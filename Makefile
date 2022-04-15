@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/23 17:02:05 by mgo               #+#    #+#              #
-#    Updated: 2022/04/08 09:38:24 by mgo              ###   ########.fr        #
+#    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
+#    Updated: 2022/04/01 16:53:17 by mgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,10 @@ CFLAGS		=	-Wall -Wextra -Werror
 #CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
-INC_PATH	=	./inc/
-SRC_PATH	=	./src/
+INC_LINK	=	-I./incs/ -I./lib/libft/includes/
+LIBFT		=	-L./lib/libft -lft
+
+SRC_PATH	=	./srcs/
 OBJ_PATH	=	./obj/
 
 SRC_LIST	=	main.c
@@ -38,16 +40,19 @@ SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 OBJ_LIST	=	$(SRC_LIST:.c=.o)
 OBJ			=	$(addprefix $(OBJ_PATH), $(OBJ_LIST))
 
-$(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
+$(OBJ_PATH)%.o	:	$(SRC_PATH)$(DIR_MAN)%.c
 	@echo $(YELLOW) "Compling...\t" $< $(ENDCOLOR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -I $(INC_PATH) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC_LINK) -c $< -o $@
 
-$(NAME)	:	$(OBJ)
+$(NAME)	:	$(OBJ) libft
 	@echo $(GREEN) "Source files are compiled!\n" $(ENDCOLOR)
 	@echo $(YELLOW) "Building $(NAME)..."
-	@$(CC) $(CFLAGS) -I $(INC_PATH) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_LINK) $(LIBFT) $(OBJ) -o $(NAME)
 	@echo $(GREEN) "$(NAME) is created!\n" $(ENDCOLOR)
+
+libft	:
+	@make -C ./lib/libft all
 
 all		:	$(NAME)
 
@@ -55,14 +60,16 @@ bonus	:	$(NAME)
 
 clean	:
 	@echo $(YELLOW) "Cleaning object files..." $(ENDCOLOR)
+	@make -C ./lib/libft clean
 	@$(RM) $(OBJ_PATH)
 	@echo $(RED) "Object files are cleaned!\n" $(ENDCOLOR)
 
 fclean	: clean
 	@echo $(YELLOW) "Removing $(NAME)..." $(ENDCOLOR)
-	@$(RM) $(NAME)
+	@make -C ./lib/libft fclean
+	@$(RM) $(OBJ_PATH) $(NAME)
 	@echo $(RED) "$(NAME) is removed!\n" $(ENDCOLOR)
 
-re	:	fclean all
+re		:	fclean all
 
 .PHONY	:	all bonus clean fclean re
