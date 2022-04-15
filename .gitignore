@@ -1,0 +1,6 @@
+.DS_Store
+*.swp
+mgoshell
+minishell
+*.o
+
