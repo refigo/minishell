@@ -19,6 +19,12 @@ enum e_bool
 	TRUE
 };
 
+enum e_result
+{
+	FAIL = -1,
+	SUCCESS
+};
+
 enum e_redir
 {
 	REDIR_IN, 
@@ -35,21 +41,22 @@ typedef struct s_redir_list
 	struct s_redir_list	*next;
 }	t_redir_list;
 
-typedef struct s_cmd_list
+typedef struct s_cmdp_list
 {
 	char				*exec;
 	char				**args;
 	struct s_redir_list	*redirs;
-	struct s_cmd_list	*next;
-}	t_cmd_list;
+	struct s_cmdp_list	*next;
+}	t_cmdp_list;
 
 typedef struct s_exec_data
 {
 	int					num_cmds;
 	int					num_pipes;
 	int					num_heredoc;
-	struct s_cmd_list	*cmd_places;
+	struct s_cmdp_list	*cmd_places;
 	int					*pipes;
+	int					*pids;
 }	t_exec_data;
 
 #endif
