@@ -44,3 +44,4 @@ void		remove_quote(char *dest, char *src);
 int			calc_quote(char *input);
 char		*jump_quotes(char *cur, int c);
 #endif
+

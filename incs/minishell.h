@@ -17,6 +17,22 @@
 
 # include "token.h"
 # include "ast.h"
+# include "exec.h"
+
+
+// mgo's header contents
+enum	e_bool
+{
+	FALSE,
+	TRUE
+};
+
+enum	e_pipe
+{
+	READ,
+	WRITE
+};
+
 
 
 

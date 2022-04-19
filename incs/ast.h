@@ -11,6 +11,8 @@ typedef struct s_ast
 	t_tok_type		type;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	
+	struct s_ast	*parent;
 }					t_ast;
 
 #endif
