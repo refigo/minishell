@@ -21,34 +21,62 @@ BWHITE		=	"\033[1;37m"
 ENDCOLOR	=	"\033[0;0m"
 LINE_CLEAR	=	"\x1b[1A\x1b[M"
 
-NAME		=	mgoshell
+NAME		=	minishell
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+#CFLAGS		=	-Wall -Wextra -Werror
 #CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
-INC_LINK	=	-I./incs/ -I./lib/libft/includes/
+INC_LINK	=	-I./incs/  
+
+FT_LINK		=	-I./lib/libft				# bson
+#FT_LINK	=	-I./lib/libft/includes/		# mgo(not include)
 LIBFT		=	-L./lib/libft -lft
 
-SRC_PATH	=	./srcs/
-OBJ_PATH	=	./obj/
+#RL_LINK	=	-I/usr/local/opt/readline/include/					# bson
+RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
+#READLINE	=	-L/usr/local/opt/readline/lib/ -lreadline			# bson
+READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 
-SRC_LIST	=	main.c
+SRC_PATH	=	./srcs/
+DIR_PARS	=	parsing/
+DIR_EXEC	=	execution/
+OBJ_PATH	=	./objs/
+
+SRC_LIST	=	main.c \
+				$(DIR_PARS)env_manager.c \
+				$(DIR_PARS)env_search.c \
+				$(DIR_PARS)env_insert.c \
+				$(DIR_PARS)make_env_list.c \
+				$(DIR_PARS)shell_info.c \
+				$(DIR_PARS)check_input.c \
+				$(DIR_PARS)tokenizer.c \
+				$(DIR_PARS)tok_insert.c \
+				$(DIR_PARS)tok_modify.c \
+				$(DIR_PARS)tok_init.c \
+				$(DIR_PARS)search_var.c \
+				$(DIR_PARS)lexer.c \
+				$(DIR_PARS)remove_quotes.c \
+				$(DIR_PARS)ast_manager.c \
+				$(DIR_PARS)ast_insert.c \
+				$(DIR_PARS)parser.c \
+				$(DIR_PARS)check_syntax.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 
 OBJ_LIST	=	$(SRC_LIST:.c=.o)
 OBJ			=	$(addprefix $(OBJ_PATH), $(OBJ_LIST))
 
-$(OBJ_PATH)%.o	:	$(SRC_PATH)$(DIR_MAN)%.c
+$(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 	@echo $(YELLOW) "Compling...\t" $< $(ENDCOLOR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) $(INC_LINK) -c $< -o $@
+	@mkdir $(OBJ_PATH)$(DIR_PARS) 2> /dev/null || true
+	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) -c $< -o $@
 
 $(NAME)	:	$(OBJ) libft
 	@echo $(GREEN) "Source files are compiled!\n" $(ENDCOLOR)
 	@echo $(YELLOW) "Building $(NAME)..."
-	@$(CC) $(CFLAGS) $(INC_LINK) $(LIBFT) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) $(LIBFT) $(READLINE) $(OBJ) -o $(NAME)
 	@echo $(GREEN) "$(NAME) is created!\n" $(ENDCOLOR)
 
 libft	:
