@@ -12,6 +12,8 @@
 # include "token.h"
 # include "ast.h"
 
+# include "exec_cmd.h" // mgo
+
 typedef struct s_info
 {
 	t_env_list	*unordered_env;

@@ -61,7 +61,7 @@ int	add_new_redir(t_redir_list **redirs, t_redir_list *new)
 	return (TRUE);
 }
 
-int	set_cmd_and_args(t_tmp_data *data, t_ast *node, t_cmd_list *cmd_place)
+int	set_cmd_and_args(t_exec_data *data, t_ast *node, t_cmd_list *cmd_place)
 {
 	(void)data;
 	(void)node;
@@ -69,7 +69,7 @@ int	set_cmd_and_args(t_tmp_data *data, t_ast *node, t_cmd_list *cmd_place)
 	return (TRUE);
 }
 
-int	trip_and_set_redir(t_tmp_data *data, t_ast *node, t_cmd_list *cmd_place)
+int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmd_list *cmd_place)
 {
 	t_redir_list	*new_redir;
 
@@ -118,7 +118,7 @@ int	trip_and_set_redir(t_tmp_data *data, t_ast *node, t_cmd_list *cmd_place)
 	return (TRUE);
 }
 
-int	trip_and_set_cmd_place(t_tmp_data *data, t_ast *node)
+int	trip_and_set_cmd_place(t_exec_data *data, t_ast *node)
 {
 	t_cmd_list	*new_cmd_place;
 
@@ -136,7 +136,7 @@ int	trip_and_set_cmd_place(t_tmp_data *data, t_ast *node)
 	return (TRUE);
 }
 
-int	trip_pipe(t_tmp_data *data, t_ast *node)
+int	trip_pipe(t_exec_data *data, t_ast *node)
 {
 	if (node->right->type == TOK_TYPE_PIPE)
 		trip_pipe(data, node->right);
@@ -148,7 +148,7 @@ int	trip_pipe(t_tmp_data *data, t_ast *node)
 	return (TRUE);
 }
 
-int	trip_ast_with_saving_data(t_tmp_data *data, t_ast *root)
+int	trip_ast_with_saving_data(t_exec_data *data, t_ast *root)
 {
 	if (root->type == TOK_TYPE_PIPE)
 		trip_pipe(data, root);
@@ -157,7 +157,7 @@ int	trip_ast_with_saving_data(t_tmp_data *data, t_ast *root)
 
 int	execute_ast(t_ast *root)
 {
-	t_tmp_data	data;
+	t_exec_data	data;
 	//int	fd_saver[2];
 
 	// should?
@@ -172,20 +172,4 @@ int	execute_ast(t_ast *root)
 	//dup2(fd_saver[0], STDIN_FILENO);
 	//dup2(fd_saver[1], STDOUT_FILENO);
 	return (1);
-}
-
-int	main(void)
-{
-	//t_tok_list	*lst;
-	//info
-	t_ast		*root;
-
-	root = NULL;
-	printf("mgoshell: Hello world!\n");
-
-	//set_ast_test();
-
-	execute_ast(root);
-
-	return (0);
 }

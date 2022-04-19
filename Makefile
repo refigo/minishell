@@ -61,7 +61,8 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)ast_manager.c \
 				$(DIR_PARS)ast_insert.c \
 				$(DIR_PARS)parser.c \
-				$(DIR_PARS)check_syntax.c
+				$(DIR_PARS)check_syntax.c \
+				$(DIR_EXEC)execute_ast.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 
 OBJ_LIST	=	$(SRC_LIST:.c=.o)
@@ -71,6 +72,7 @@ $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 	@echo $(YELLOW) "Compling...\t" $< $(ENDCOLOR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_PARS) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)$(DIR_EXEC) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) -c $< -o $@
 
 $(NAME)	:	$(OBJ) libft
