@@ -27,11 +27,9 @@ int main(int argc, char **argv, char **envp)
 	add_history(input);
 	check_quote(input);
 	check_escape(input);
-	search_var(&input, info.unordered_env);
+	search_var(&input, info.unordered_env, false);
 	//printf("%s\n", input);
-	token_list = tokenizer(input);
-	lexer(token_list);
-	syntax = parser(token_list);
+	syntax = parser(&info, input);
 
 	execute_ast(&info, syntax); // mgo execution
 
