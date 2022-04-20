@@ -44,5 +44,6 @@ int	execute_ast(t_info *info, t_ast *root)
 	test_exec_data(&data);
 
 	// clear_exec_data
+	// unlink_heredocs
 	return (SUCCESS);
 }

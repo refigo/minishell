@@ -37,7 +37,7 @@ typedef struct s_redir_list
 {
 	char				*file_name;
 	enum e_redir		type;
-	char				*limiter; // to remove?(because of using limiter when only getting inputs)
+	//char				*limiter; // to remove?(because of using limiter when only getting inputs)
 
 	struct s_redir_list	*next;
 }	t_redir_list;
