@@ -16,6 +16,6 @@ typedef struct s_ast
 
 t_ast	*new_ast(t_tok *token);
 t_ast	*ast_insert(t_ast *trunk, t_ast *node);
-void	ast_free(t_ast *ast);
+void	ast_free(t_ast **ast);
 
 #endif
