@@ -8,10 +8,17 @@ int	init_info(t_info *info)
 	ft_assert(info->unordered_env != NULL, \
 	"ERROR : leak resource in init_info()");
 	init_env_list(info->unordered_env);
+	info->tok_list = NULL;
 	return (0);
 }
 
 void	free_info(t_info *info)
 {
-	del_env_list(&(info->unordered_env));
+	if (info->unordered_env != NULL)
+		del_env_list(&(info->unordered_env));
+	if (info->tok_list != NULL)
+		remove_token_list(&(info->tok_list));
+	if (info->syntax != NULL)
+		ast_free(&(info->syntax));
+
 }
