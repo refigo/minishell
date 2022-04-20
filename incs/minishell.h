@@ -17,6 +17,8 @@
 typedef struct s_info
 {
 	t_env_list	*unordered_env;
+	t_tok_list	*tok_list;
+	t_ast		*syntax;
 }	t_info;
 
 int		init_info(t_info *info);
@@ -24,9 +26,9 @@ void	free_info(t_info *info);
 void	make_env_list(t_env_list *env, int argc, char **argv, char **envp);
 int		check_quote(char *input);
 int		is_empty(char *input);
-void	search_var(char **input, t_env_list *env);
+void	search_var(char **input, t_env_list *env, bool escape0);
 void	check_escape(char *input);
-t_ast		*parser(t_tok_list *list);
+t_ast	*parser(t_info *info, char *input);
 
 
 // execution/execute_ast.c
