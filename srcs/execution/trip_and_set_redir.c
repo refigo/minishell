@@ -35,6 +35,7 @@ static int	get_and_save_heredoc(t_exec_data *data, t_redir_list *redir, \
 	is_limiter = FALSE;
 	while (is_limiter == FALSE)
 	{
+		ft_putstr_fd("> ", 1);
 		if (get_next_line(STDIN_FILENO, &input_line) == -1)
 			exit(1);	// todo: modify this error handling
 		if (ft_strncmp(input_line, limiter, ft_strlen(limiter) + 1) == 0) // todo: use macro num

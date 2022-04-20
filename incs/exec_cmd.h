@@ -84,6 +84,12 @@ int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 // set_exec_and_cmd_args.c
 int		set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 
+// execute_on_exec_data.c
+int		execute_on_exec_data(t_exec_data *data);
+
+// process_child.c
+void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx);
+
 // func_cmdp_list.c
 int		add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
 

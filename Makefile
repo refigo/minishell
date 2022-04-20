@@ -66,6 +66,8 @@ SRC_LIST	=	main.c \
 				$(DIR_EXEC)trip_ast.c \
 				$(DIR_EXEC)trip_and_set_redir.c \
 				$(DIR_EXEC)set_exec_and_cmd_args.c \
+				$(DIR_EXEC)execute_on_exec_data.c \
+				$(DIR_EXEC)process_child.c \
 				$(DIR_EXEC)func_cmdp_list.c \
 				$(DIR_EXEC)func_redir_list.c \
 				$(DIR_EXEC)func_pipe_pid.c \
