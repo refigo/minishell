@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-int	execute_on_exec_data()
+int	execute_on_exec_data(t_exec_data *data)
 {
-
+	(void)data;
+	return (SUCCESS);
 }
 
 /*
@@ -42,6 +43,7 @@ int	execute_ast(t_info *info, t_ast *root)
 
 	trip_ast_with_setting_data(&data, root); // with setting_exec_data ?
 	//set_pipe_and_fork_cmd_proc();
+	//execute_on_exec_data(&data);
 
 	dup2(fd_saver[0], STDIN_FILENO);
 	dup2(fd_saver[1], STDOUT_FILENO);
