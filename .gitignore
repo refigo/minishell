@@ -3,4 +3,4 @@
 mgoshell
 minishell
 *.o
-
+*.a

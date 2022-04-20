@@ -38,25 +38,43 @@ typedef struct s_redir_list
 	char				*file_name;
 	enum e_redir		type;
 	char				*limiter;
+
 	struct s_redir_list	*next;
 }	t_redir_list;
 
-typedef struct s_cmdp_list
+typedef struct s_cmda_list
 {
 	char				*exec;
-	char				**args;
+	char				**cmd_args;
 	struct s_redir_list	*redirs;
-	struct s_cmdp_list	*next;
-}	t_cmdp_list;
+
+	struct s_cmda_list	*next;
+}	t_cmda_list;
 
 typedef struct s_exec_data
 {
 	int					num_cmds;
 	int					num_pipes;
-	int					num_heredoc;
-	struct s_cmdp_list	*cmd_places;
+	int					num_heredoc; // for index naming
+
+	struct s_cmda_list	*cmd_areas;
 	int					*pipes;
 	int					*pids;
+
+	void				*info;
 }	t_exec_data;
+
+// trip_ast.c
+int	trip_ast_with_saving_data(t_exec_data *data, t_ast *root);
+int	trip_pipe(t_exec_data *data, t_ast *node);
+int	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
+int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+
+// func_cmdp_list.c
+int	add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
+
+// func_redir_list.c
+int	add_new_redir(t_redir_list **redirs, t_redir_list *new);
 
 #endif

@@ -31,6 +31,7 @@ int	execute_ast(t_info *info, t_ast *root)
 	int			fd_saver[2];
 
 	ft_memset(&data, 0, sizeof(data));
+	data.info = info;
 	fd_saver[0] = dup(STDIN_FILENO);
 	fd_saver[1] = dup(STDOUT_FILENO);
 

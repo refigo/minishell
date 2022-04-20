@@ -29,4 +29,7 @@ void	check_escape(char *input);
 t_ast		*parser(t_tok_list *list);
 
 
+// execution/execute_ast.c
+int	execute_ast(t_info *info, t_ast *root);
+
 #endif

@@ -62,7 +62,10 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)ast_insert.c \
 				$(DIR_PARS)parser.c \
 				$(DIR_PARS)check_syntax.c \
-				$(DIR_EXEC)execute_ast.c
+				$(DIR_EXEC)execute_ast.c \
+				$(DIR_EXEC)trip_ast.c \
+				$(DIR_EXEC)func_cmdp_list.c \
+				$(DIR_EXEC)func_redir_list.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 
 OBJ_LIST	=	$(SRC_LIST:.c=.o)
