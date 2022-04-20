@@ -6,4 +6,5 @@ minishell
 *.a
 *.out
 /.vscode/
+*.dSYM
 
