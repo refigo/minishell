@@ -87,7 +87,7 @@ $(NAME)	:	$(OBJS)
 
 $(OBJ_DIR)%.o		:	$(SRC_DIR)%.c
 	@mkdir $(OBJ_DIR) 2> /dev/null || true
-	@$(CC) $(CFLAGS) $(INC_LINK) -c $< -o $@
+	@$(CC) -g $(CFLAGS) $(INC_LINK) -c $< -o $@
 
 all 	:	$(NAME)
 
