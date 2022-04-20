@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+         #
+#    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/04/01 16:53:17 by mgo              ###   ########.fr        #
+#    Updated: 2022/04/20 15:06:20 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,15 @@ CC			=	gcc
 #CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
-INC_LINK	=	-I./incs/  
+INC_LINK	=	-I./incs/
 
 FT_LINK		=	-I./lib/libft				# bson
 #FT_LINK	=	-I./lib/libft/includes/		# mgo(not include)
 LIBFT		=	-L./lib/libft -lft
 
-#RL_LINK	=	-I/usr/local/opt/readline/include/					# bson
+#RL_LINK	=	-I/usr/local/bson/readline/include/					# bson
 RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
-#READLINE	=	-L/usr/local/opt/readline/lib/ -lreadline			# bson
+#READLINE	=	-L/usr/local/bson/readline/lib/ -lreadline			# bson
 READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 
 SRC_PATH	=	./srcs/

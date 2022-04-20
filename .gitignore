@@ -4,3 +4,6 @@ mgoshell
 minishell
 *.o
 *.a
+*.out
+/.vscode/
+
