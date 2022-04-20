@@ -13,6 +13,8 @@
 #ifndef EXEC_CMD_H
 # define EXEC_CMD_H
 
+# include <fcntl.h>
+
 enum e_bool
 {
 	FALSE,
@@ -25,9 +27,15 @@ enum e_result
 	SUCCESS
 };
 
+enum	e_pipe
+{
+	READ,
+	WRITE
+};
+
 enum e_redir
 {
-	REDIR_IN, 
+	REDIR_IN = 1, 
 	REDIR_OUT, 
 	REDIR_IN_HEREDOC,
 	REDIR_OUT_APPEND
@@ -59,30 +67,34 @@ typedef struct s_exec_data
 
 	struct s_cmda_list	*cmd_areas;
 	int					*pipes;
-	int					*pids;
+	pid_t				*pids;
 
 	void				*info;
 }	t_exec_data;
 
 // trip_ast.c
-int	trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
-int	trip_pipe(t_exec_data *data, t_ast *node);
-int	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
-int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int		trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
+int		trip_pipe(t_exec_data *data, t_ast *node);
+int		trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
+int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 
 // trip_and_set_redir.c
-int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 
 // set_exec_and_cmd_args.c
-int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int		set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 
 // func_cmdp_list.c
-int	add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
+int		add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
 
 // func_redir_list.c
-int	add_new_redir(t_redir_list **redirs, t_redir_list *new);
+int		add_new_redir(t_redir_list **redirs, t_redir_list *new);
 
-
+// func_pipe_pid.c
+int		calloc_pipes_and_pids(t_exec_data *data);
+int		set_pipe_idx(int *pipes, int index);
+int		get_pipe_idx(int *pipes, int index, enum e_pipe ACT);
+void	close_pipe_idx(int *pipes, int index, enum e_pipe ACT);
 
 // test_exec_data.c
 void	test_exec_data(t_exec_data *data);

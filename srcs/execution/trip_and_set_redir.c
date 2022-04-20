@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <fcntl.h>
 
 static int	create_heredoc(t_exec_data *data, t_redir_list *redir)
 {
