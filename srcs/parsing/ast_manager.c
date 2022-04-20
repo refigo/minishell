@@ -22,12 +22,12 @@ t_ast	*new_ast(t_tok *token)
 	return (ret);
 }
 
-void	ast_free(t_ast *ast)
+void	ast_free(t_ast **ast)
 {
-	if (ast->right != NULL)
-		ast_free(ast->right);
-	if (ast->left != NULL)
-		ast_free(ast->left);
-	ft_free((void **)&ast);
+	if ((*ast)->right != NULL)
+		ast_free(&((*ast)->right));
+	if ((*ast)->left != NULL)
+		ast_free(&((*ast)->left));
+	ft_free((void **)ast);
 }
 

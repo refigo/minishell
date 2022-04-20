@@ -35,6 +35,7 @@ typedef struct s_tok_list
 t_tok		*new_token(char *tok);
 t_tok_list	*new_tok_list(void);
 void		insert_tok_end(t_tok_list *list, t_tok *tok);
+void		remove_token_list(t_tok_list **list);
 t_tok_list	*tokenizer(char *input);
 void		lexer(t_tok_list *tok_list);
 void		remove_quotes(t_tok *node);
