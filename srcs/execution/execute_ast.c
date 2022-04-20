@@ -31,14 +31,18 @@ int	execute_ast(t_info *info, t_ast *root)
 	int			fd_saver[2];
 
 	ft_memset(&data, 0, sizeof(data));
-	data.info = info;
+	data.info = (void *)info;
 	fd_saver[0] = dup(STDIN_FILENO);
 	fd_saver[1] = dup(STDOUT_FILENO);
 
-	trip_ast_with_saving_data(&data, root);
+	trip_ast_with_setting_data(&data, root); // with setting_exec_data ?
 	//set_pipe_and_fork_cmd_proc();
 
 	dup2(fd_saver[0], STDIN_FILENO);
 	dup2(fd_saver[1], STDOUT_FILENO);
+
+	test_exec_data(&data);
+
+	// clear_exec_data
 	return (SUCCESS);
 }

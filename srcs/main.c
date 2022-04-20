@@ -33,5 +33,7 @@ int main(int argc, char **argv, char **envp)
 	lexer(token_list);
 	syntax = parser(token_list);
 
+	execute_ast(&info, syntax); // mgo execution
+
 	return (0);
 }
