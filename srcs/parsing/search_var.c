@@ -49,6 +49,7 @@ static char	*jump_word(char *input)
 	개선해야 할점
 	$$형식으로 들어오면 프로세스 id를 반환해야한다
 	$만 들어오면 \$와 동일하게 처리해야한다.
+	sd
 */
 void	search_var(char **input, t_env_list *env)
 {
