@@ -64,6 +64,7 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)check_syntax.c \
 				$(DIR_EXEC)execute_ast.c \
 				$(DIR_EXEC)trip_ast.c \
+				$(DIR_EXEC)trip_and_set_redir.c \
 				$(DIR_EXEC)set_exec_and_cmd_args.c \
 				$(DIR_EXEC)func_cmdp_list.c \
 				$(DIR_EXEC)func_redir_list.c \

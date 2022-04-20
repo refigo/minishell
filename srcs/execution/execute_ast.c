@@ -12,8 +12,13 @@
 
 #include "minishell.h"
 
+int	execute_on_exec_data()
+{
+
+}
+
 /*
-	trip ast with saving data
+	trip ast with saving data [done implementation]
 		pipe(recursively)
 		cmd_place
 			redir(recursively)
