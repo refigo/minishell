@@ -30,8 +30,8 @@ RM			=	rm -rf
 
 INC_LINK	=	-I./incs/
 
-FT_LINK		=	-I./lib/libft				# bson
-#FT_LINK	=	-I./lib/libft/includes/		# mgo(not include)
+#FT_LINK	=	-I./lib/libft				# bson(not include)
+FT_LINK		=	-I./lib/libft/includes/		# mgo
 LIBFT		=	-L./lib/libft -lft
 
 #RL_LINK	=	-I/usr/local/bson/readline/include/					# bson
@@ -64,6 +64,7 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)check_syntax.c \
 				$(DIR_EXEC)execute_ast.c \
 				$(DIR_EXEC)trip_ast.c \
+				$(DIR_EXEC)set_exec_and_cmd_args.c \
 				$(DIR_EXEC)func_cmdp_list.c \
 				$(DIR_EXEC)func_redir_list.c \
 				$(DIR_EXEC)test_exec_data.c

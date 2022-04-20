@@ -69,6 +69,8 @@ int	trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
 int	trip_pipe(t_exec_data *data, t_ast *node);
 int	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
 int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+
+// set_exec_and_cmd_args.c
 int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
 
 // func_cmdp_list.c

@@ -25,7 +25,7 @@ static int	ft_issign(char c)
 	return (c == '+' || c == '-');
 }
 
-static int	ft_isspace(char c)
+static int	mgo_isspace(char c)
 {
 	return (c == '\t' || c == '\n' || c == '\v' \
 	|| c == '\f' || c == '\r' || c == ' ');
@@ -40,7 +40,7 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	num = 0;
 	count = 0;
-	while (ft_isspace(*str))
+	while (mgo_isspace(*str))
 		str++;
 	if (ft_issign(*str))
 		sign = ft_sign(str++, sign);

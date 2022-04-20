@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# include <stdbool.h>
+
 # include "get_next_line.h"
 
 typedef struct s_list
@@ -74,5 +76,12 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 int				mgo_free_2ptr(char	**p);
 int				mgo_free_3ptr(char	***p);
 int				mgo_strcmp(const char *s1, const char *s2);
+
+// bson functions
+void			ft_free(void **ptr);
+void			ft_assert(int flag, char *str);
+bool			ft_isspace(int c);
+char			*ft_strncat(char *dst, const char *src, size_t count);
+char			*ft_strncpy(char *dst, const char *src, size_t count);
 
 #endif
