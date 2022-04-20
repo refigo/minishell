@@ -19,6 +19,8 @@ typedef struct s_info
 	t_env_list	*unordered_env;
 	t_tok_list	*tok_list;
 	t_ast		*syntax;
+
+	char		**envp;
 }	t_info;
 
 int		init_info(t_info *info);

@@ -20,6 +20,7 @@ int main(int argc, char **argv, char **envp)
 	// 	}
 	// }
 	init_info(&info);
+	info.envp = envp;	// mgo: set envp into info
 	make_env_list(info.unordered_env, argc, argv, envp);
 	input = readline("minishell$ ");
 	if (!ft_strlen(input) || is_empty(input))

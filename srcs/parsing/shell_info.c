@@ -9,6 +9,7 @@ int	init_info(t_info *info)
 	"ERROR : leak resource in init_info()");
 	init_env_list(info->unordered_env);
 	info->tok_list = NULL;
+	info->envp = NULL;
 	return (0);
 }
 
