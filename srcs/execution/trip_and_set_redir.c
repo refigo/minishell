@@ -82,9 +82,7 @@ int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 	}
 	else if (ft_strncmp(node->token, "<<", 3) == 0)
 	{
-		// todo: with getting inputs
 		get_and_save_heredoc(data, new_redir, node->left->token);
-
 		new_redir->type = REDIR_IN_HEREDOC;
 		data->num_heredoc += 1;
 	}
