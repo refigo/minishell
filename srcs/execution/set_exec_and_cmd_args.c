@@ -24,12 +24,15 @@ static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
 		cnt++;
 		tmp = tmp->right;
 	}
-	cmd_area->cmd_args = ft_calloc(cnt + 1, sizeof(char *));	// todo: error handling
+	cmd_area->cmd_args = ft_calloc(cnt + 1, sizeof(char *));
+	ft_assert(cmd_area->cmd_args != NULL, "malloc failed in set_cmd_args");
 	cnt = -1;
 	tmp = node;
 	while (tmp)
 	{
-		(cmd_area->cmd_args)[++cnt] = ft_strdup(tmp->token);	// todo: error handling
+		(cmd_area->cmd_args)[++cnt] = ft_strdup(tmp->token);
+		ft_assert(cmd_area->cmd_args[cnt] != NULL, \
+			"ft_strdup failed in set_cmd_args");
 		tmp = tmp->right;
 	}
 }
@@ -43,14 +46,18 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 	i = -1;
 	while (path && path[++i])
 	{
-		cmd_area->exec = ft_strjoin(path[i], cmd);	// todo: error handling
+		cmd_area->exec = ft_strjoin(path[i], cmd);
+		ft_assert(cmd_area->exec != NULL, "ft_strjoin failed in set_exec");
 		if (access(cmd_area->exec, X_OK) == SUCCESS)
 			break ;
 		free(cmd_area->exec);
 		cmd_area->exec = NULL;
 	}
 	if (cmd_area->exec == NULL)
-		cmd_area->exec = ft_strdup(cmd);	// todo: error handling
+	{
+		cmd_area->exec = ft_strdup(cmd);
+		ft_assert(cmd_area->exec != NULL, "ft_strdup failed in set_exec");
+	}
 }
 
 static void	add_slash_to_path(t_exec_data *data, char **path)
@@ -65,7 +72,8 @@ static void	add_slash_to_path(t_exec_data *data, char **path)
 	while (path[++i])
 	{
 		len_path = ft_strlen(path[i]);
-		buf = (char *)ft_calloc(1, len_path + 2);	// todo: error handling
+		buf = (char *)ft_calloc(1, len_path + 2);
+		ft_assert(buf != NULL, "Error: malloc failed in add_slash_to_path");
 		ft_memmove(buf, path[i], len_path);
 		buf[len_path] = '/';
 		free(path[i]);
@@ -79,15 +87,15 @@ int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 	t_env_node	*env_path;
 	char		**path;
 
-	if (node->type != TOK_TYPE_CMD)
-		return (FAIL);	// todo: modify this error handling
+	ft_assert(node->type == TOK_TYPE_CMD, \
+		"Error: not cmd type in set_exec_and_cmd_args func"); // change to assert_in_exec ?
 	info_addr = (t_info *)data->info;
 	data->num_cmds += 1;
 	cmd_area->exec = node->token;
 	env_path = get_env_node(info_addr->unordered_env, "PATH");
-	path = ft_split(env_path->value, ':');	// todo: error handling
-	add_slash_to_path(data, path);	// todo: error handling
+	path = ft_split(env_path->value, ':');
+	add_slash_to_path(data, path);
 	set_exec(data, cmd_area, path);
 	set_cmd_args(data, cmd_area, node);
-	return (TRUE);
+	return (TRUE);	// to remove ?
 }
