@@ -69,7 +69,6 @@ SRC_LIST	=	main.c \
 				$(DIR_EXEC)execute_on_exec_data.c \
 				$(DIR_EXEC)process_child.c \
 				$(DIR_EXEC)func_cmdp_list.c \
-				$(DIR_EXEC)func_redir_list.c \
 				$(DIR_EXEC)func_pipe_pid.c \
 				$(DIR_EXEC)test_exec_data.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))

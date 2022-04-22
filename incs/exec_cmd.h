@@ -93,9 +93,6 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx);
 // func_cmdp_list.c
 int		add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
 
-// func_redir_list.c
-int		add_new_redir(t_redir_list **redirs, t_redir_list *new);
-
 // func_pipe_pid.c
 int		calloc_pipes_and_pids(t_exec_data *data);
 int		set_pipe_idx(int *pipes, int index);
