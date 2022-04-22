@@ -45,7 +45,6 @@ typedef struct s_redir_list
 {
 	char				*file_name;
 	enum e_redir		type;
-	//char				*limiter; // to remove?(because of using limiter when only getting inputs)
 
 	struct s_redir_list	*next;
 }	t_redir_list;
@@ -74,9 +73,8 @@ typedef struct s_exec_data
 
 // trip_ast.c
 int		trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
-int		trip_pipe(t_exec_data *data, t_ast *node);
-int		trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
-int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+void	trip_pipe(t_exec_data *data, t_ast *node);
+void	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
 
 // trip_and_set_redir.c
 int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
@@ -89,9 +87,6 @@ int		execute_on_exec_data(t_exec_data *data);
 
 // process_child.c
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx);
-
-// func_cmdp_list.c
-int		add_new_cmd_area(t_cmda_list **cmd_areas, t_cmda_list *new);
 
 // func_pipe_pid.c
 int		calloc_pipes_and_pids(t_exec_data *data);

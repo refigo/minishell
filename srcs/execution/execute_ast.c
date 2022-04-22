@@ -13,6 +13,13 @@
 #include "minishell.h"
 
 /*
+void	clear_exec_data()
+{
+
+}
+*/
+
+/*
 	trip ast with saving data [done implementation]
 		pipe(recursively)
 		cmd_place
@@ -35,10 +42,10 @@ int	execute_ast(t_info *info, t_ast *root)
 	data.info = (void *)info;
 	fd_saver[0] = dup(STDIN_FILENO);
 	fd_saver[1] = dup(STDOUT_FILENO);
-
-	trip_ast_with_setting_data(&data, root); // with setting_exec_data ?
+	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
 	execute_on_exec_data(&data);
+
 
 	// clear_exec_data
 	// with unlink_heredocs
