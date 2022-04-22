@@ -34,10 +34,12 @@ int main(int argc, char **argv, char **envp)
 		check_escape(input);
 		search_var(&input, info.unordered_env, false);
 		syntax = parser(&info, input);
+		free(input);
 		if (syntax == NULL)
 			continue ;
 		system("leaks minishell");
 		execute_ast(&info, syntax); // mgo execution
+		
 	}
 
 
