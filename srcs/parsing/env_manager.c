@@ -14,6 +14,29 @@ t_env_node	*new_node(char *key, char *value)
 	return (ret);
 }
 
+t_env_node	*copy_node_unlink(t_env_node *node)
+{
+	return (new_node(node->key, node->value));
+}
+
+t_env_list	*env_sort_copy_env(t_env_list *list)
+{
+	t_env_list	*ret;
+	t_env_node	*iter;
+	int			cnt;
+
+	ret = ft_calloc(1, sizeof(t_env_list));
+	ft_assert(ret != NULL, "ERROR : leak resource in env_sort_copy_env()");
+	cnt = -1;
+	iter = list->head;
+	while (++cnt < list->size)
+	{
+		env_insert_asc(ret, copy_node_unlink(iter));
+		iter = iter->next;
+	}
+	return (ret);
+}
+
 int	init_env_list(t_env_list *list)
 {
 	list->head = NULL;
@@ -22,20 +45,4 @@ int	init_env_list(t_env_list *list)
 	return (0);
 }
 
-void	del_env_list(t_env_list **env_list)
-{
-	t_env_node	*iter;
-	t_env_node	*iter_next;
-	int			cnt;
 
-	cnt = 0;
-	iter = (*env_list)->head;
-	while (cnt < (*env_list)->size)
-	{
-		iter_next = iter->next;
-		free(iter);
-		iter = iter_next;
-		++cnt;
-	}
-	ft_free((void **)env_list);
-}

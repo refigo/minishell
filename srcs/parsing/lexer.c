@@ -75,7 +75,7 @@ static void	check_normal(t_tok *iter, bool *flag)
 	2. 모든 이스케이프 문자 제거.
 */
 
-void	lexer(t_tok_list *tok_list)
+int	lexer(t_tok_list *tok_list)
 {
 	bool	flag[2];
 	bool	type;
@@ -95,5 +95,9 @@ void	lexer(t_tok_list *tok_list)
 		++cnt;
 	}
 	if (check_syntax(tok_list))
-			printf("syntax error\n");
+	{
+		ft_putendl_fd("Syntax Error", STDERR_FILENO);
+		return (-1);
+	}
+	return (0);
 }

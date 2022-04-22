@@ -23,3 +23,11 @@ void	free_info(t_info *info)
 		ast_free(&(info->syntax));
 
 }
+
+void	refresh_info(t_info *info)
+{
+	if (info->tok_list != NULL)
+		remove_token_list(&(info->tok_list));
+	if (info->syntax != NULL)
+		ast_free(&(info->syntax));
+}

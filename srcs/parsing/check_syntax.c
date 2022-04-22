@@ -35,6 +35,8 @@ int	check_syntax(t_tok_list *list)
 	cmd_flag = 0;
 	cnt = -1;
 	iter = list->head;
+	if (list->tail->type == TOK_TYPE_PIPE)
+		return (-1);
 	while (++cnt < list->size)
 	{
 		if (syntax_check_pipe(iter, &cmd_flag))

@@ -8,7 +8,8 @@ t_ast	*parser(t_info *info, char *input)
 	int		cnt;
 
 	info->tok_list = tokenizer(input);
-	lexer(info->tok_list);
+	if (lexer(info->tok_list) == -1)
+		return (NULL);
 	iter = info->tok_list->head;
 	trunk = NULL;
 	cnt = 0;

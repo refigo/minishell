@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "env_manager.h"
 
-int	list_insert_first(t_env_list *list, t_env_node *node)
+int	env_insert_first(t_env_list *list, t_env_node *node)
 {
 	t_env_node	*temp;
 
@@ -18,6 +18,7 @@ int	list_insert_first(t_env_list *list, t_env_node *node)
 	{
 		temp = list->head;
 		list->head = node;
+		list->tail->next = list->head;
 		node->prev = list->tail;
 		node->next = temp;
 		temp->prev = node;
@@ -26,7 +27,7 @@ int	list_insert_first(t_env_list *list, t_env_node *node)
 	return (0);
 }
 
-int	list_insert_end(t_env_list *list, t_env_node *node)
+int	env_insert_end(t_env_list *list, t_env_node *node)
 {
 	t_env_node	*temp;
 
@@ -43,6 +44,7 @@ int	list_insert_end(t_env_list *list, t_env_node *node)
 	{
 		temp = list->tail;
 		list->tail = node;
+		list->head->prev = list->tail;
 		node->prev = temp;
 		node->next = list->head;
 		temp->next = node;
@@ -51,7 +53,7 @@ int	list_insert_end(t_env_list *list, t_env_node *node)
 	return (0);
 }
 
-int	list_insert_mid(t_env_list *list, t_env_node *node, int n)
+int	env_insert_mid(t_env_list *list, t_env_node *node, int n)
 {
 	t_env_node	*iter;
 	t_env_node	*prev;
@@ -59,9 +61,15 @@ int	list_insert_mid(t_env_list *list, t_env_node *node, int n)
 	if (list == NULL || node == NULL || n < 0 || n >= list->size)
 		return (-1);
 	if (n == 0)
-		list_insert_first(list, node);
-	else if (n == (list->size - 1))
-		list_insert_end(list, node);
+	{
+		env_insert_first(list, node);
+		return (0);
+	}
+	else if (n == list->size)
+	{
+		env_insert_end(list, node);
+		return (0);
+	}
 	iter = list->head;
 	while (n--)
 		iter = iter->next;
@@ -74,30 +82,26 @@ int	list_insert_mid(t_env_list *list, t_env_node *node, int n)
 	return (0);
 }
 
-int	list_insert_asc(t_env_list *list, t_env_node *node)
+int	env_insert_asc(t_env_list *list, t_env_node *node)
 {
-	int		idx;
+	int			idx;
+	int			cnt;
 	t_env_node	*iter;
 
 	idx = 0;
+	cnt = -1;
 	iter = list->head;
-	if ((list->size == 0 || ft_strncmp(iter->key, node->key, BIG_SIZE) >= 0) \
-		&& list_insert_first(list, node) == -1)
-		return (-1);
-	else if (ft_strncmp(list->tail->key, node->key, BIG_SIZE) < 0 && \
-		list_insert_end(list, node) == -1)
-		return (-1);
-	else
+	while (idx < list->size && ft_strncmp(iter->key, node->key, BIG_SIZE) < 0)
 	{
-		while (ft_strncmp(iter->key, node->key, BIG_SIZE) < 0 && ++idx)
-			iter = iter->next;
-		if (ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
-		{
-			iter->value = node->value;
-			free(node);
-		}
-		else if (list_insert_mid(list, node, idx) == -1)
-			return (-1);
+		iter = iter->next;
+		++idx;
 	}
-	return (0);
+	if (ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
+	{
+		iter->value = node->value;
+		free(node);
+	}
+	else if (env_insert_mid(list, node, idx) == 0)
+		return (0);
+	return (-1);
 }

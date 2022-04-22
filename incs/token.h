@@ -14,7 +14,8 @@ typedef enum e_tok_type
 typedef enum e_flag
 {
 	FLAG_CMD = 0,
-	FLAG_REDIR
+	FLAG_REDIR,
+	FLAG_PIPE
 }	t_flag;
 
 typedef struct s_tok
@@ -37,8 +38,8 @@ t_tok_list	*new_tok_list(void);
 void		insert_tok_end(t_tok_list *list, t_tok *tok);
 void		remove_token_list(t_tok_list **list);
 t_tok_list	*tokenizer(char *input);
-void		lexer(t_tok_list *tok_list);
 void		remove_quotes(t_tok *node);
 char		*jump_quotes(char *cur, int c);
 int			check_syntax(t_tok_list *list);
+int			lexer(t_tok_list *tok_list);
 #endif
