@@ -12,12 +12,48 @@
 
 #include "minishell.h"
 
-/*
-void	clear_exec_data()
+static void	clear_redirs(t_redir_list **redir)
 {
+	t_redir_list	*clearing;
+	t_redir_list	*tmp;
 
+	clearing = *redir;
+	while (clearing)
+	{
+		if (clearing->type == REDIR_IN_HEREDOC)
+			unlink(clearing->file_name);
+		free(clearing->file_name);
+		tmp = clearing->next;
+		free(clearing);
+		clearing = tmp;
+	}
+	*redir = NULL;
 }
-*/
+
+static void	clear_cmd_areas(t_cmda_list **cmda)
+{
+	t_cmda_list	*clearing;
+	t_cmda_list	*tmp;
+
+	clearing = *cmda;
+	while (clearing)
+	{
+		free(clearing->exec);
+		mgo_free_2ptr(clearing->cmd_args);
+		clear_redirs(&(clearing->redirs));
+		tmp = clearing->next;
+		free(clearing);
+		clearing = tmp;
+	}
+	*cmda = NULL;
+}
+
+void	clear_exec_data(t_exec_data *data)
+{
+	clear_cmd_areas(&(data->cmd_areas));
+	free(data->pipes);
+	free(data->pids);
+}
 
 /*
 	trip ast with saving data [done implementation]
@@ -45,13 +81,10 @@ int	execute_ast(t_info *info, t_ast *root)
 	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
 	execute_on_exec_data(&data);
-
-
-	// clear_exec_data
-	// with unlink_heredocs
-
+	clear_exec_data(&data);
 	dup2(fd_saver[0], STDIN_FILENO);
 	dup2(fd_saver[1], STDOUT_FILENO);
 
+	system("leaks minishell");
 	return (SUCCESS);
 }
