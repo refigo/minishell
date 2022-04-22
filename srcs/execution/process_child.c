@@ -17,26 +17,30 @@ static void	set_io_first(t_exec_data *data, int idx)
 	int	stat;
 
 	close_pipe_idx(data->pipes, idx, READ);
-	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);	// todo: EH
+	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);
 	close_pipe_idx(data->pipes, idx, WRITE);
+	ft_assert(stat != FAIL, "dup2 failed in set_io_first");
 }
 
 static void	set_io_mid(t_exec_data *data, int idx)
 {
 	int	stat;
 
-	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);	// todo: EH
+	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);
 	close_pipe_idx(data->pipes, idx - 1, READ);
-	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);	// todo: EH
+	ft_assert(stat != FAIL, "dup2 failed in set_io_mid");
+	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);
 	close_pipe_idx(data->pipes, idx, WRITE);
+	ft_assert(stat != FAIL, "dup2 failed in set_io_mid");
 }
 
 static void	set_io_last(t_exec_data *data, int idx)
 {
 	int	stat;
 	
-	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);	// todo: EH
+	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);
 	close_pipe_idx(data->pipes, idx - 1, READ);
+	ft_assert(stat != FAIL, "dup2 failed in set_io_last");
 }
 
 static void	set_io_on_redir(t_redir_list *redir)
@@ -60,8 +64,7 @@ static void	set_io_on_redir(t_redir_list *redir)
 		stat = dup2(fd, STDOUT_FILENO);
 	}
 	close(fd);
-	if (stat == FAIL)
-		exit(1);	// todo: EH
+	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
 }
 
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
@@ -70,35 +73,24 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 	t_info			*info;
 
 	info = (t_info *)data->info;
-	// todo: exception for only one cmd
-	// set pipe
+	// todo: exception for only one cmd ?
 	if (idx == 0)
 		set_io_first(data, idx);
 	else if (idx == data->num_cmds - 1)
 		set_io_last(data, idx);
 	else
 		set_io_mid(data, idx);
-	
-	// set redirs
 	tmp_redir = cmda->redirs;
 	while (tmp_redir)
 	{
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}
-
-	// execve
 	if (execve(cmda->exec, cmda->cmd_args, info->envp) == -1)
 	{
-		if (access(cmda->exec, X_OK) == -1)
-		{
-			printf("mgosh: command not found: %s\n", (cmda->cmd_args)[0]);
-			// todo: exit code 127
-		}
-		else
-		{
-			exit(1);	// todo: EH
-			//exit_perror(data, 1);
-		}
+		ft_assert(access(cmda->exec, X_OK) == -1, "execve failed in process child");
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd((cmda->cmd_args)[0], 2);
+		exit(127);	// todo: clearing data before exit
 	}
 }
