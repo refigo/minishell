@@ -5,9 +5,7 @@
 
 typedef struct s_ast
 {
-	//bool			root;
 	char			*token;
-	char			**arg;
 	t_tok_type		type;
 	struct s_ast	*left;
 	struct s_ast	*right;

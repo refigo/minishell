@@ -37,6 +37,7 @@ void	remove_token_list(t_tok_list **list)
 	while (cnt < (*list)->size)
 	{
 		iter_next = iter->next;
+		free(iter->token);
 		free(iter);
 		iter = iter_next;
 		++cnt;

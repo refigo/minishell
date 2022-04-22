@@ -86,6 +86,8 @@ void	del_env_list(t_env_list **env_list)
 	while (cnt < (*env_list)->size)
 	{
 		iter_next = iter->next;
+		free(iter->key);
+		free(iter->value);
 		free(iter);
 		iter = iter_next;
 		++cnt;
