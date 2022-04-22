@@ -31,6 +31,7 @@ int		is_empty(char *input);
 void	search_var(char **input, t_env_list *env, bool escape0);
 void	check_escape(char *input);
 t_ast	*parser(t_info *info, char *input);
+void	refresh_info(t_info *info);
 
 
 // execution/execute_ast.c

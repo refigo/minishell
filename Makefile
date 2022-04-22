@@ -48,6 +48,7 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)env_manager.c \
 				$(DIR_PARS)env_search.c \
 				$(DIR_PARS)env_insert.c \
+				$(DIR_PARS)env_remove.c \
 				$(DIR_PARS)make_env_list.c \
 				$(DIR_PARS)shell_info.c \
 				$(DIR_PARS)check_input.c \

@@ -19,7 +19,7 @@ void	make_env_list(t_env_list *env, int argc, char **argv, char **envp)
 	{
 		value = ft_strchr(*envp, '=');
 		*value++ = '\0';
-		list_insert_end(env, \
+		env_insert_end(env, \
 		new_node(ft_strdup(*envp++), ft_strdup(value)));
 	}
 	temp = get_env_node(env, "SHLVL");
