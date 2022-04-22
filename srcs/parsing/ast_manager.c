@@ -18,7 +18,6 @@ t_ast	*new_ast(t_tok *token)
 	ret->left = NULL;
 	ret->right = NULL;
 	ret->parent = NULL;
-	ret->arg = NULL;
 	return (ret);
 }
 
@@ -28,6 +27,7 @@ void	ast_free(t_ast **ast)
 		ast_free(&((*ast)->right));
 	if ((*ast)->left != NULL)
 		ast_free(&((*ast)->left));
+	free((*ast)->token);
 	ft_free((void **)ast);
 }
 
