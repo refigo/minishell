@@ -37,9 +37,7 @@ int main(int argc, char **argv, char **envp)
 		free(input);
 		if (syntax == NULL)
 			continue ;
-		system("leaks minishell");
 		execute_ast(&info, syntax); // mgo execution
-		
 	}
 
 
