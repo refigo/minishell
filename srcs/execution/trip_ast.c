@@ -41,11 +41,11 @@ int	trip_pipe(t_exec_data *data, t_ast *node)
 		trip_pipe(data, node->right);
 	else if (right_type == TOK_TYPE_REDIR || right_type == TOK_TYPE_CMD)
 		trip_and_set_cmd_area(data, node->right);
-	// todo: error when not cmd ?
+	// todo: error when others ?
 
 	if (node->left->type == TOK_TYPE_REDIR || node->left->type == TOK_TYPE_CMD)
 		trip_and_set_cmd_area(data, node->left);
-	// todo: error when not cmd ?
+	// todo: error when ohters ?
 
 	return (SUCCESS);
 }
@@ -60,6 +60,6 @@ int	trip_ast_with_setting_data(t_exec_data *data, t_ast *root)
 	else if (type == TOK_TYPE_REDIR || type == TOK_TYPE_CMD)
 		trip_and_set_cmd_area(data, root);
 
-	// todo: when not cmd
+	// todo: when others
 	return (SUCCESS);
 }

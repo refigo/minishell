@@ -98,7 +98,7 @@ int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 		trip_and_set_redir(data, node->right, cmd_area);
 	else if (node->right->type == TOK_TYPE_CMD)
 		set_exec_and_cmd_args(data, node->right, cmd_area);
-	// todo: error when not cmd ?
+	// todo: error when others ?
 
 	return (TRUE);
 }
