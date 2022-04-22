@@ -14,14 +14,12 @@
 
 void	process_parent(t_exec_data *data, int idx)
 {
+	if (data->num_pipes == 0)
+		return ;
 	if (idx == 0)
-	{
 		close_pipe_idx(data->pipes, idx, WRITE);
-	}
 	else if (idx == data->num_cmds - 1)
-	{
 		close_pipe_idx(data->pipes, idx - 1, READ);
-	}
 	else
 	{
 		close_pipe_idx(data->pipes, idx - 1, READ);
@@ -41,15 +39,15 @@ int	execute_on_exec_data(t_exec_data *data)
 	while ((++i < data->num_cmds) && turn)
 	{
 		if (i < data->num_pipes)
-			set_pipe_idx(data->pipes, i);	// todo: error handling
-		data->pids[i] = fork();	// todo: error handling
+			set_pipe_idx(data->pipes, i);
+		data->pids[i] = fork();
+		ft_assert(data->pids[i] != -1, "fork failed in execute_on_exec_data");
 		if (data->pids[i] == 0)
 			process_child(data, turn, i);
 		else
 			process_parent(data, i);
 		turn = turn->next;
 	}
-	// waitpid
 	i = -1;
 	while (++i < data->num_cmds)
 		waitpid(data->pids[i], &status_child, 0);

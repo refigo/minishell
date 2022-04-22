@@ -14,16 +14,19 @@
 
 int	calloc_pipes_and_pids(t_exec_data *data)
 {
-	data->pipes = ft_calloc(data->num_pipes * 2, sizeof(int));	// todo: error handling
-	data->pids = ft_calloc(data->num_cmds, sizeof(pid_t));	// todo: error handling
+	data->pipes = ft_calloc(data->num_pipes * 2, sizeof(int));
+	ft_assert(data->pipes != NULL, "malloc failed at data->pipes");
+	data->pids = ft_calloc(data->num_cmds, sizeof(pid_t));
+	ft_assert(data->pids != NULL, "malloc failed at data->pids");
 	return (SUCCESS);
 }
 
 int	set_pipe_idx(int *pipes, int index)
 {
-	if (pipe(&(pipes[index * 2])) == -1)
-		return (-1);
-	return (0);
+	int	check;
+	check = pipe(&(pipes[index * 2]));
+	ft_assert(check != FAIL, "pipe failed");
+	return (SUCCESS);
 }
 
 int	get_pipe_idx(int *pipes, int index, enum e_pipe ACT)
