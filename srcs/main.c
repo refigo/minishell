@@ -11,6 +11,7 @@ int main(int argc, char **argv, char **envp)
 	init_info(&info);
 	info.envp = envp;	// mgo: set envp into info
 	make_env_list(info.unordered_env, argc, argv, envp);
+	/*
 	{
 		t_env_list	*sorted;
 		sorted = env_sort_copy_env(info.unordered_env);
@@ -21,6 +22,7 @@ int main(int argc, char **argv, char **envp)
 		printf("-----------------------------------------\n");
 		return (0);
 	}
+	*/
 	while (true)
 	{
 		refresh_info(&info);
@@ -34,6 +36,7 @@ int main(int argc, char **argv, char **envp)
 		syntax = parser(&info, input);
 		if (syntax == NULL)
 			continue ;
+		system("leaks minishell");
 		execute_ast(&info, syntax); // mgo execution
 	}
 

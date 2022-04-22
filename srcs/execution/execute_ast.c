@@ -84,7 +84,5 @@ int	execute_ast(t_info *info, t_ast *root)
 	clear_exec_data(&data);
 	dup2(fd_saver[0], STDIN_FILENO);
 	dup2(fd_saver[1], STDOUT_FILENO);
-
-	system("leaks minishell");
 	return (SUCCESS);
 }

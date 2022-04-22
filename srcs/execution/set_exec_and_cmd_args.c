@@ -96,6 +96,7 @@ int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 	path = ft_split(env_path->value, ':');
 	add_slash_to_path(data, path);
 	set_exec(data, cmd_area, path);
+	mgo_free_2ptr(path);
 	set_cmd_args(data, cmd_area, node);
 	return (TRUE);	// to remove ?
 }
