@@ -51,6 +51,21 @@ int	execute_on_exec_data(t_exec_data *data)
 	i = -1;
 	while (++i < data->num_cmds)
 		waitpid(data->pids[i], &status_child, 0);
-	value_last_cmd = WEXITSTATUS(status_child);	// to use?
+
+	if (WIFEXITED(status_child))
+		value_last_cmd = WEXITSTATUS(status_child);	// to use?
+	else
+	{
+		value_last_cmd = WTERMSIG(status_child);
+		if (value_last_cmd == SIGQUIT)
+			ft_putendl_fd("Quit: 3", STDERR_FILENO);
+		else
+			ft_putendl_fd("", STDERR_FILENO);
+		value_last_cmd = 128 + value_last_cmd;
+
+		printf("child value: [%d]\n", value_last_cmd);
+
+	}
+	
 	return (SUCCESS);
 }

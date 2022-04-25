@@ -71,6 +71,9 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
 	t_redir_list	*tmp_redir;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+
 	if (data->num_cmds != 1)
 	{
 		if (idx == 0)
@@ -91,8 +94,9 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 	{
 		ft_assert(access(cmda->exec, X_OK) == -1, \
 			"execve failed in process_child");
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd((cmda->cmd_args)[0], 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd((cmda->cmd_args)[0], 2);
+		ft_putendl_fd(": command not found", 2);
 		exit(127);	// todo: clearing data before exit
 	}
 }

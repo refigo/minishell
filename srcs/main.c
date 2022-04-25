@@ -1,5 +1,30 @@
 #include "minishell.h"
 
+#include <termios.h>
+static void	off_echoctl()
+{
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag = attr.c_lflag & ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+}
+
+
+void	set_new_rl(int sig)
+{
+	ft_putendl_fd("", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	set_signal_in_prompt()
+{
+	signal(SIGINT, set_new_rl);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_info		info;
@@ -9,9 +34,19 @@ int main(int argc, char **argv, char **envp)
 	make_env_list(info.unordered_env, argc, argv, envp);
 	while (true)
 	{
+		set_signal_in_prompt();
+		off_echoctl();
+
 		refresh_info(&info);
 		info.input = readline("minishell$ ");
-		ft_assert(info.input != NULL, "leak resource in main()");
+
+		if (info.input == NULL)
+		{
+			ft_putendl_fd("exit", STDOUT_FILENO);
+			exit(0);
+		}
+
+		//ft_assert(info.input != NULL, "leak resource in main()");
 		if (!ft_strlen(info.input) || is_empty(info.input))
 			continue ;
 		add_history(info.input);

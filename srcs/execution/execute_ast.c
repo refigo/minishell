@@ -12,6 +12,27 @@
 
 #include "minishell.h"
 
+
+#include <termios.h>
+static void	off_echoctl()
+{
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag = attr.c_lflag & ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+}
+
+static void	on_echoctl()
+{
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag = attr.c_lflag | ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+}
+
+
 static void	clear_redirs(t_redir_list **redir)
 {
 	t_redir_list	*clearing;
@@ -72,19 +93,32 @@ void	clear_exec_data(t_exec_data *data)
 int	execute_ast(t_info *info, t_ast *root)
 {
 	t_exec_data	data;
-	int			fd_saver[2];
+	//int			fd_saver[2];
+
 
 	ft_memset(&data, 0, sizeof(data));
 	data.info = (void *)info;
-	fd_saver[0] = dup(STDIN_FILENO);
-	fd_saver[1] = dup(STDOUT_FILENO);
+	//fd_saver[0] = dup(STDIN_FILENO);
+	//fd_saver[1] = dup(STDOUT_FILENO);
+	/*
 	ft_assert(fd_saver[0] != -1 && fd_saver[1] != -1, \
 		"dup failed in execute_ast");
+	*/
 	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
+
+	on_echoctl();
+
+	// set signal in exec
+	signal(SIGINT, SIG_IGN);
+	//signal(SIGQUIT, SIG_IGN);
+
 	execute_on_exec_data(&data);
+
+	off_echoctl();
+
 	clear_exec_data(&data);
-	dup2(fd_saver[0], STDIN_FILENO);
-	dup2(fd_saver[1], STDOUT_FILENO);
+	//dup2(fd_saver[0], STDIN_FILENO);
+	//dup2(fd_saver[1], STDOUT_FILENO);
 	return (SUCCESS); // to remove ?
 }
