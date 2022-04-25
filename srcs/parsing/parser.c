@@ -7,6 +7,9 @@ t_ast	*parser(t_info *info, char *input)
 	t_ast	*trunk;
 	int		cnt;
 
+	search_var(info->input, info->unordered_env, false);
+	if (info->input == NULL)
+		return (NULL);
 	info->tok_list = tokenizer(input);
 	if (lexer(info->tok_list) == -1)
 		return (NULL);
