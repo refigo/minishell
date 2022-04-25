@@ -3,12 +3,9 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_info		info;
-	t_tok_list	*token_list;
 	t_ast		*syntax;
-	char 		*temp;
 
 	init_info(&info);
-	info.envp = envp;	// mgo: set envp into info
 	make_env_list(info.unordered_env, argc, argv, envp);
 	while (true)
 	{

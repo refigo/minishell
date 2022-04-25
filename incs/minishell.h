@@ -20,7 +20,6 @@ typedef struct s_info
 	t_tok_list	*tok_list;
 	t_ast		*syntax;
 	char		*input;
-	char		**envp;
 }	t_info;
 
 int		init_info(t_info *info);

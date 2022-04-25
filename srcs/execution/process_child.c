@@ -86,7 +86,8 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}
-	if (execve(cmda->exec, cmda->cmd_args, ((t_info *)data->info)->envp) == -1)
+	if (execve(cmda->exec, cmda->cmd_args, \
+		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 	{
 		ft_assert(access(cmda->exec, X_OK) == -1, \
 			"execve failed in process_child");
