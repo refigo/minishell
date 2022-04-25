@@ -29,7 +29,7 @@ void	make_env_list(t_env_list *env, int argc, char **argv, char **envp);
 int		check_input(char *input);
 int		is_empty(char *input);
 void	search_var(char **input, t_env_list *env, bool quote_flag);
-t_ast	*parser(t_info *info, char *input);
+t_ast	*parser(t_info *info);
 void	refresh_info(t_info *info);
 
 // execution/execute_ast.c
