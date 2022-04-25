@@ -74,18 +74,6 @@ int	execute_ast(t_info *info, t_ast *root)
 	t_exec_data	data;
 	int			fd_saver[2];
 
-	
-	// check envp
-	printf("checking envp\n");
-	int	i;
-
-	i = -1;
-	while ((info->envp)[++i])
-	{
-		printf("[%s]\n", (info->envp)[i]);
-	}
-	printf("done checking envp\n");
-
 	ft_memset(&data, 0, sizeof(data));
 	data.info = (void *)info;
 	fd_saver[0] = dup(STDIN_FILENO);
