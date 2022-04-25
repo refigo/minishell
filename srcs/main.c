@@ -36,7 +36,7 @@ int main(int argc, char **argv, char **envp)
 	// }
 	while (true)
 	{
-		system("leaks minishell");
+		//system("leaks minishell");
 		refresh_info(&info);
 		info.input = readline("minishell$ ");
 		ft_assert(info.input != NULL, "leak resource in main()");
@@ -45,7 +45,7 @@ int main(int argc, char **argv, char **envp)
 		add_history(info.input);
 		if (check_input(info.input) == false)
 			continue ;
-		syntax = parser(&info, info.input);
+		syntax = parser(&info);
 		if (syntax == NULL)
 			continue ;
 		execute_ast(&info, syntax); // mgo execution
