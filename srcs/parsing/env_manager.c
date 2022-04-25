@@ -45,4 +45,24 @@ int	init_env_list(t_env_list *list)
 	return (0);
 }
 
+char	**convert_env_char_d_ptr(t_env_list *list)
+{
+	t_env_node	*iter;
+	char		**ret;
+	char		*temp;
+	int			idx;
 
+	ret = ft_calloc(list->size + 1, sizeof(char *));
+	ft_assert(ret != NULL, "leak resource in convert_env...()");
+	iter = list->head;
+	idx = -1;
+	while (++idx < list->size)
+	{
+		if (iter->key)
+		temp = ft_strjoin(iter->key, "=");
+		ret[idx] = ft_strjoin(temp, iter->value);
+		ft_free((void **)&temp);
+		iter = iter->next;
+	}
+	return (ret);
+}
