@@ -78,6 +78,8 @@ int	execute_ast(t_info *info, t_ast *root)
 	data.info = (void *)info;
 	fd_saver[0] = dup(STDIN_FILENO);
 	fd_saver[1] = dup(STDOUT_FILENO);
+	ft_assert(fd_saver[0] != -1 && fd_saver[1] != -1, \
+		"dup failed in execute_ast");
 	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
 	execute_on_exec_data(&data);
