@@ -10,6 +10,8 @@ int	init_info(t_info *info)
 	init_env_list(info->unordered_env);
 	info->tok_list = NULL;
 	info->envp = NULL;
+	info->syntax = NULL;
+	info->input = NULL;
 	return (0);
 }
 
@@ -30,4 +32,6 @@ void	refresh_info(t_info *info)
 		remove_token_list(&(info->tok_list));
 	if (info->syntax != NULL)
 		ast_free(&(info->syntax));
+	if (info->input != NULL)
+		ft_free((void **)&(info->input));
 }
