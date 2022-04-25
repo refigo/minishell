@@ -8,7 +8,7 @@ static void	print_check_error(char *input, char *message)
 	ft_putendl_fd("", STDERR_FILENO);
 }
 
-void	check_escape(char *input)
+static int	check_escape(char *input)
 {
 	char	*iter;
 
@@ -16,12 +16,16 @@ void	check_escape(char *input)
 	while (*iter)
 	{
 		if (*iter == '\\' && (*(iter + 1) == '\0' || *(iter + 1) == ' '))
+		{
 			print_check_error(input, "unspecified special characters");
+			return (false);
+		}
 		iter = jump_quotes(iter, *iter) + 1;
 	}
+	return (true);
 }
 
-int	check_quote(char *input)
+static int	check_quote(char *input)
 {
 	char	*cmd;
 
@@ -55,5 +59,14 @@ int	is_empty(char *input)
 	while (input[++i])
 		if (!ft_isspace(input[i]))
 			return (false);
+	return (true);
+}
+
+int	check_input(char *input)
+{
+	if (check_quote(input) == false)
+		return (false);
+	if (check_escape(input) == false)
+		return (false);
 	return (true);
 }
