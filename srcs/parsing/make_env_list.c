@@ -9,6 +9,18 @@
 	5. 위치 매개 변수
 	6. 특수 매개 변수
 */
+
+char	*ft_strndup(char *str, int n)
+{
+	char	*ret;
+
+	ret = ft_calloc(1, sizeof(char) * (n + 1));
+	if (ret == NULL)
+		return (NULL);
+	ft_strlcpy(ret, str, n + 1);
+	return (ret);
+}
+
 void	make_env_list(t_env_list *env, int argc, char **argv, char **envp)
 {
 	char		*value;
@@ -18,9 +30,10 @@ void	make_env_list(t_env_list *env, int argc, char **argv, char **envp)
 	while (*envp != NULL)
 	{
 		value = ft_strchr(*envp, '=');
-		*value++ = '\0';
 		env_insert_end(env, \
-		new_node(ft_strdup(*envp++), ft_strdup(value)));
+		new_node(ft_substr(*envp, 0, value - *envp), \
+		ft_strdup(value + 1)));
+		++envp;
 	}
 	temp = get_env_node(env, "SHLVL");
 	if (temp != NULL)
