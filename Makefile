@@ -42,6 +42,7 @@ READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 SRC_PATH	=	./srcs/
 DIR_PARS	=	parsing/
 DIR_EXEC	=	execution/
+DIR_BUILT	=	builtin/
 OBJ_PATH	=	./objs/
 
 SRC_LIST	=	main.c \
@@ -63,6 +64,8 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)ast_insert.c \
 				$(DIR_PARS)parser.c \
 				$(DIR_PARS)check_syntax.c \
+				$(DIR_BUILT)builtin_echo.c \
+				$(DIR_BUILT)builtin_exit.c \
 				$(DIR_EXEC)execute_ast.c \
 				$(DIR_EXEC)trip_ast.c \
 				$(DIR_EXEC)trip_and_set_redir.c \
