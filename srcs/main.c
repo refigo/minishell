@@ -3,12 +3,10 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_info		info;
-	char		*input;
 	t_tok_list	*token_list;
 	t_ast		*syntax;
 	char *temp;
 
-	input = NULL;
 	init_info(&info);
 	info.envp = envp;	// mgo: set envp into info
 	make_env_list(info.unordered_env, argc, argv, envp);
@@ -22,23 +20,36 @@ int main(int argc, char **argv, char **envp)
 	// 	printf("-----------------------------------------\n");
 	// 	return (0);
 	// }
+	// {
+	// 	int i = -1;
+	// 	char** my_envp;
+	// 	printf("envp---------------------\n");
+	// 	while (envp[++i] != NULL)
+	// 		printf("<%d> %s\n", i, envp[i]);
+	// 	my_envp = convert_env_char_d_ptr(info.unordered_env);
+	// 	i = -1;
+	// 	printf("my_envp***************************\n");
+	// 	while (my_envp[++i] != NULL)
+	// 		printf("<%d> %s\n", i, my_envp[i]);
+	// 		system("leaks main.out");
+	// 	return (0);
+	// }
 	while (true)
 	{
 		system("leaks minishell");
-		ft_free((void **)&input);
 		refresh_info(&info);
-		input = readline("minishell$ ");
-		if (!ft_strlen(input) || is_empty(input))
+		info.input = readline("minishell$ ");
+		ft_assert(info.input != NULL, "leak resource in main()");
+		if (!ft_strlen(info.input) || is_empty(info.input))
 			continue ;
-		add_history(input);
-		check_quote(input);
-		check_escape(input);
-		search_var(&input, info.unordered_env, false);
-		syntax = parser(&info, input);
+		add_history(info.input);
+		if (check_input(info.input) == false)
+			continue ;
+		syntax = parser(&info, info.input);
 		if (syntax == NULL)
 			continue ;
 		execute_ast(&info, syntax); // mgo execution
-		
+
 	}
 
 
