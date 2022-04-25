@@ -24,7 +24,8 @@ int main(int argc, char **argv, char **envp)
 	// }
 	while (true)
 	{
-		ft_free(&input);
+		system("leaks minishell");
+		ft_free((void **)&input);
 		refresh_info(&info);
 		input = readline("minishell$ ");
 		if (!ft_strlen(input) || is_empty(input))
@@ -34,10 +35,10 @@ int main(int argc, char **argv, char **envp)
 		check_escape(input);
 		search_var(&input, info.unordered_env, false);
 		syntax = parser(&info, input);
-		free(input);
 		if (syntax == NULL)
 			continue ;
 		execute_ast(&info, syntax); // mgo execution
+		
 	}
 
 
