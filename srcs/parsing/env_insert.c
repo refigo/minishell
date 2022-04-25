@@ -58,7 +58,7 @@ int	env_insert_mid(t_env_list *list, t_env_node *node, int n)
 	t_env_node	*iter;
 	t_env_node	*prev;
 
-	if (list == NULL || node == NULL || n < 0 || n >= list->size)
+	if (list == NULL && node == NULL && (n < 0 || n > list->size))
 		return (-1);
 	if (n == 0)
 	{
@@ -85,18 +85,16 @@ int	env_insert_mid(t_env_list *list, t_env_node *node, int n)
 int	env_insert_asc(t_env_list *list, t_env_node *node)
 {
 	int			idx;
-	int			cnt;
 	t_env_node	*iter;
 
 	idx = 0;
-	cnt = -1;
 	iter = list->head;
 	while (idx < list->size && ft_strncmp(iter->key, node->key, BIG_SIZE) < 0)
 	{
 		iter = iter->next;
 		++idx;
 	}
-	if (ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
+	if (iter != NULL &&ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
 	{
 		iter->value = node->value;
 		free(node);
