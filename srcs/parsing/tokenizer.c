@@ -2,9 +2,9 @@
 #include "token.h"
 #include "env_manager.h"
 
-char	*jump_quotes(char *cur, int c)
+char	*jump_quotes(char *cur, int c, int escape)
 {
-	if (c != '\'' && c != '\"')
+	if ((c != '\'' && c != '\"') || escape == true)
 		return (cur);
 	while (*cur)
 	{
@@ -36,7 +36,7 @@ t_tok_list	*tokenizer(char *input)
 		end = begin;
 		while (*end && ft_strchr("<>|", *begin) == NULL \
 					&& ft_strchr("<>| ", *end) == NULL)
-			end = jump_quotes(end, *end) + 1;
+			end = jump_quotes(end, *end, (end != begin && *(end - 1) == '\\')) + 1;
 		if (ft_strchr("<>|", *begin) || (end - begin == 1 && *begin == '\\'))
 			++end;
 		if (*begin && *begin == *(begin + 1) && ft_strchr("<>", *begin))

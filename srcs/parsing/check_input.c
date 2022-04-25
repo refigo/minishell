@@ -20,7 +20,7 @@ static int	check_escape(char *input)
 			print_check_error(input, "unspecified special characters");
 			return (false);
 		}
-		iter = jump_quotes(iter, *iter) + 1;
+		iter = jump_quotes(iter, *iter, (iter != input && *(iter - 1) == '\\')) + 1;
 	}
 	return (true);
 }
@@ -32,15 +32,8 @@ static int	check_quote(char *input)
 	cmd = input;
 	while (*cmd)
 	{
-		if (*cmd == '\"' && (cmd == input || *(cmd - 1) != '\\'))
-			cmd = jump_quotes(cmd, '\"');
-		if (cmd == NULL)
-		{
-			print_check_error(input, "Quotes not paired");
-			return (false);
-		}
-		if (*cmd == '\'' && (input == cmd || *(cmd - 1) != '\\'))
-			cmd = jump_quotes(cmd, '\'');
+		if (ft_strchr("\'\"", *cmd) != NULL)
+			cmd = jump_quotes(cmd, *cmd, (cmd != input && *(cmd - 1) == '\\'));
 		if (cmd == NULL)
 		{
 			print_check_error(input, "Quotes not paired");

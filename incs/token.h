@@ -39,7 +39,7 @@ void		insert_tok_end(t_tok_list *list, t_tok *tok);
 void		remove_token_list(t_tok_list **list);
 t_tok_list	*tokenizer(char *input);
 void		remove_quotes(t_tok *node);
-char		*jump_quotes(char *cur, int c);
+char		*jump_quotes(char *cur, int c, int escape);
 int			check_syntax(t_tok_list *list);
 int			lexer(t_tok_list *tok_list);
 #endif

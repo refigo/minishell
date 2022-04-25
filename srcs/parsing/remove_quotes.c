@@ -14,8 +14,8 @@ static int	calc_quote_and_escape(char *input)
 			++cnt;
 		if (ft_strchr("\'\"", *it) && (input == it || *(it - 1) != '\\'))
 			cnt += 2;
-		if (ft_strchr("\'\"", *it) && (input == it || *(it - 1) != '\\'))
-			it = jump_quotes(it, *it) + 1;
+		if (ft_strchr("\'\"", *it) != NULL)
+			it = jump_quotes(it, *it, (it != input && *(it - 1) == '\\')) + 1;
 		if (*it != '\0')
 			++it;
 	}

@@ -51,7 +51,6 @@ static char	*jump_word(char *input)
 
 /*
 	개선해야 할점
-	$$형식으로 들어오면 프로세스 id를 반환해야한다
 	$만 들어오면 \$와 동일하게 처리해야한다.
 	sd
 */
@@ -66,7 +65,8 @@ void	search_var(char **input, t_env_list *env, bool quote_flag)
 	{
 		if (*iter == '\"' && (iter == *input || *(iter - 1) != '\\'))
 			quote_flag = !quote_flag;
-		else if (*iter == '\'' && quote_flag == false)
+		else if (*iter == '\'' && quote_flag == false && \
+				(iter == *input || *(iter - 1) != '\\'))
 			iter = ft_strchr(iter + 1, '\'');
 		else if (*iter == '<' && *(iter + 1) == '<' && quote_flag == false)
 			iter = jump_word(iter += 2);
