@@ -31,12 +31,11 @@ void		env_remove_first(t_env_list *list);
 void		env_remove_end(t_env_list *list);
 void		env_remove(t_env_list *list, char *key);
 t_env_node	*get_env_node(t_env_list *list, char *key);
-void		iter_env_list(t_env_list *list, void (*f)(t_env_node*));
-void		print_node(t_env_node *node);
 t_env_list	*env_sort_copy_env(t_env_list *list);
 t_env_node	*copy_node_unlink(t_env_node *node);
 char		**convert_env_char_d_ptr(t_env_list *list);
 char		*get_env_value_not_malloc(t_env_list *list, char *key);
 void		env_modify_value_not_malloc(t_env_list *list, char *key, char *value);
+void		print_env(t_env_list *list, char *form, char *except);
 
 #endif

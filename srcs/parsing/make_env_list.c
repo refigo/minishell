@@ -42,5 +42,6 @@ void	make_env_list(t_env_list *env, int argc, char **argv, char **envp)
 		free(temp->value);
 		temp->value = temp_str;
 	}
-	//iter_env_list(env, print_node);
+	env_insert_end(env, \
+		new_node(ft_strdup("?"), ft_strdup("0")));
 }
