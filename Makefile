@@ -46,10 +46,6 @@ DIR_TOOL	=	tool_func/
 DIR_BUILT	=	builtin/
 OBJ_PATH	=	./objs/
 
-
-				#$(DIR_BUILT)builtin_echo.c \
-				$(DIR_BUILT)builtin_exit.c 
-
 SRC_LIST	=	main.c \
 				$(DIR_PARS)env_manager.c \
 				$(DIR_PARS)env_search.c \
