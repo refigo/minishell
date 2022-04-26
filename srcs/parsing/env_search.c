@@ -23,27 +23,6 @@ char	*get_env_value_not_malloc(t_env_list *list, char *key)
 	return (get_env_node(list, key)->value);
 }
 
-// void	print_node(t_env_node *node)
-// {
-// 	printf("%s=%s\n", node->key, node->value);
-// }
-
-// void	iter_env_list(t_env_list *list, void (*f)(t_env_node*))
-// {
-// 	t_env_node	*iter;
-// 	int			cnt;
-
-// 	cnt = 0;
-// 	iter = list->head;
-// 	while (cnt < list->size)
-// 	{
-// 		if (*(iter->key) != '?')
-// 			f(iter);
-// 		iter = iter->next;
-// 		++cnt;
-// 	}
-// }
-
 void	print_env(t_env_list *list, char *form, char *except)
 {
 	t_env_node	*iter;
@@ -53,7 +32,7 @@ void	print_env(t_env_list *list, char *form, char *except)
 	iter = list->head;
 	while (cnt < list->size)
 	{
-		if (ft_strchr(except, *(iter->key)) != 0)
+		if (ft_strchr(except, *(iter->key)) == 0)
 		{
 			if (iter->value == NULL)
 				printf("declare -x %s\n", iter->key);
