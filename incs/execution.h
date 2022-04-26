@@ -89,6 +89,12 @@ int		execute_on_exec_data(t_exec_data *data);
 // process_child.c
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx);
 
+// set_io.c
+void	set_io_first(t_exec_data *data, int idx);
+void	set_io_mid(t_exec_data *data, int idx);
+void	set_io_last(t_exec_data *data, int idx);
+void	set_io_on_redir(t_redir_list *redir);
+
 // func_pipe_pid.c
 void	calloc_pipes_and_pids(t_exec_data *data);
 void	set_pipe_idx(int *pipes, int index);

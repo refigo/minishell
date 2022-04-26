@@ -12,61 +12,6 @@
 
 #include "minishell.h"
 
-static void	set_io_first(t_exec_data *data, int idx)
-{
-	int	stat;
-
-	close_pipe_idx(data->pipes, idx, READ);
-	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);
-	close_pipe_idx(data->pipes, idx, WRITE);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_first");
-}
-
-static void	set_io_mid(t_exec_data *data, int idx)
-{
-	int	stat;
-
-	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);
-	close_pipe_idx(data->pipes, idx - 1, READ);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_mid");
-	stat = dup2(get_pipe_idx(data->pipes, idx, WRITE), STDOUT_FILENO);
-	close_pipe_idx(data->pipes, idx, WRITE);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_mid");
-}
-
-static void	set_io_last(t_exec_data *data, int idx)
-{
-	int	stat;
-
-	stat = dup2(get_pipe_idx(data->pipes, idx - 1, READ), STDIN_FILENO);
-	close_pipe_idx(data->pipes, idx - 1, READ);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_last");
-}
-
-static void	set_io_on_redir(t_redir_list *redir)
-{
-	enum e_redir	type;
-	int				fd;
-	int				stat;
-
-	type = redir->type;
-	if (type == REDIR_IN || type == REDIR_IN_HEREDOC)
-	{
-		fd = open(redir->file_name, O_RDONLY);
-		stat = dup2(fd, STDIN_FILENO);
-	}
-	else if (type == REDIR_OUT || type == REDIR_OUT_APPEND)
-	{
-		if (type == REDIR_OUT)
-			fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (type == REDIR_OUT_APPEND)
-			fd = open(redir->file_name, O_WRONLY | O_APPEND | O_CREAT, 0644);
-		stat = dup2(fd, STDOUT_FILENO);
-	}
-	close(fd);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
-}
-
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
 	t_redir_list	*tmp_redir;
@@ -87,6 +32,12 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}
+
+
+// set is_builtin in set_cmda
+	// check is_builtin
+	
+
 	if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 	{
@@ -96,5 +47,6 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		ft_putstr_fd((cmda->cmd_args)[0], 2);
 		ft_putendl_fd(": command not found", 2);
 		exit(127);	// todo: clearing data before exit
+		// use errno
 	}
 }
