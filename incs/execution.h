@@ -55,6 +55,7 @@ typedef struct s_cmda_list
 	char				*exec;
 	char				**cmd_args;
 	struct s_redir_list	*redirs;
+	int					is_builtin;
 
 	struct s_cmda_list	*next;
 }	t_cmda_list;

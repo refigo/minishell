@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+static int	check_is_builtin(t_cmda_list *cmd_area)
+{
+	char	*cmd_name;
+	
+	cmd_name = cmd_area->exec;
+	cmd_area->is_builtin = FALSE;
+	if (mgo_strcmp(cmd_name, "echo") == 0 \
+		|| mgo_strcmp(cmd_name, "cd") == 0 \
+		|| mgo_strcmp(cmd_name, "pwd") == 0 \
+		|| mgo_strcmp(cmd_name, "export") == 0 \
+		|| mgo_strcmp(cmd_name, "unset") == 0 \
+		|| mgo_strcmp(cmd_name, "env") == 0 \
+		|| mgo_strcmp(cmd_name, "exit") == 0)
+		cmd_area->is_builtin = TRUE;
+	return (cmd_area->is_builtin);
+}
+
 static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
 {
 	t_ast	*tmp;
@@ -58,6 +75,7 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 		cmd_area->exec = ft_strdup(cmd);
 		ft_assert(cmd_area->exec != NULL, "ft_strdup failed in set_exec");
 	}
+	free(cmd);
 }
 
 static void	add_slash_to_path(t_exec_data *data, char **path)
@@ -92,11 +110,16 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 		"Error: not cmd type in set_exec_and_cmd_args func");
 	info_addr = (t_info *)data->info;
 	data->num_cmds += 1;
-	cmd_area->exec = node->token;
-	env_path = get_env_node(info_addr->unordered_env, "PATH");
-	path = ft_split(env_path->value, ':');
-	add_slash_to_path(data, path);
-	set_exec(data, cmd_area, path);
-	mgo_free_2ptr(path);
+	cmd_area->exec = ft_strdup(node->token);
+	ft_assert(cmd_area->exec != NULL, \
+		"Error: malloc failed in set_exec_and_cmd_args");
+	if (check_is_builtin(cmd_area) == FALSE)
+	{
+		env_path = get_env_node(info_addr->unordered_env, "PATH");
+		path = ft_split(env_path->value, ':');
+		add_slash_to_path(data, path);
+		set_exec(data, cmd_area, path);
+		mgo_free_2ptr(path);
+	}
 	set_cmd_args(data, cmd_area, node);
 }
