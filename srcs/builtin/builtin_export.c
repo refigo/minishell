@@ -37,6 +37,19 @@ static void	add_env(char *key_value, t_env_list *env)
 
 int	builtin_export(char **args, t_env_list *env)
 {
+	t_env_list	*env_asc;
+
 	if (*(args + 1) == NULL)
-		print_env(env, "declare -x %s=\"%s\"\n", "?");
+	{
+		env_asc = env_sort_copy_env(env);
+		print_env(env_asc, "declare -x %s=\"%s\"\n", "?");
+		del_env_list(&env_asc);
+	}
+	else
+	{
+		while (*(++args) != NULL)
+		{
+
+		}
+	}
 }

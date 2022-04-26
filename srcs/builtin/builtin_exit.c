@@ -20,10 +20,12 @@ static int	check_args(char **args)
 
 void	builtin_exit(char **args)
 {
-	const char	**e_msg = {"Numeric arguments required", "Too many arguments"};
+	char	*e_msg[2];
 	int			exit_code;
 	char		*temp;
 
+	e_msg[0] = "Numeric arguments required";
+	e_msg[1] = "Too many arguments";
 	exit_code = check_args(args);
 	if (exit_code == 255)
 	{

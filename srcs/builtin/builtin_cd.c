@@ -14,7 +14,7 @@ int	builtin_cd(char **args, t_env_list *env)
 	char	*new_path;
 
 	if (*(args + 1) == NULL)
-		new_path = jstrdup(get_env_value_not_malloc(env, "HOME"));
+		new_path = ft_strdup(get_env_value_not_malloc(env, "HOME"));
 	else
 		new_path = ft_strdup(*(args + 1));
 	old_path = getcwd(NULL, 0);
