@@ -46,6 +46,10 @@ DIR_TOOL	=	tool_func/
 DIR_BUILT	=	builtin/
 OBJ_PATH	=	./objs/
 
+
+				#$(DIR_BUILT)builtin_echo.c \
+				$(DIR_BUILT)builtin_exit.c 
+
 SRC_LIST	=	main.c \
 				$(DIR_PARS)env_manager.c \
 				$(DIR_PARS)env_search.c \
@@ -65,8 +69,6 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)ast_insert.c \
 				$(DIR_PARS)parser.c \
 				$(DIR_PARS)check_syntax.c \
-				$(DIR_BUILT)builtin_echo.c \
-				$(DIR_BUILT)builtin_exit.c \
 				$(DIR_EXEC)execute_ast.c \
 				$(DIR_EXEC)trip_ast.c \
 				$(DIR_EXEC)trip_and_set_redir.c \
@@ -88,6 +90,7 @@ $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH)$(DIR_PARS) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_EXEC) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_TOOL) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)$(DIR_BUILT) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) -c $< -o $@
 
 $(NAME)	:	$(OBJ) libft

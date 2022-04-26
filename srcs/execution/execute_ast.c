@@ -57,21 +57,7 @@ void	clear_exec_data(t_exec_data *data)
 		free(data->pids);
 }
 
-/*
-	trip ast with saving data [done implementation]
-		pipe(recursively)
-		cmd_place
-			redir(recursively)
-			cmd and args
-	calloc pipes and pids
-	execute on exec data
-		set pipe and fork cmd proc
-		set redirs
-		exec cmd
-		wait pids
-	clear data
-*/
-int	execute_ast(t_info *info, t_ast *root)
+void	execute_ast(t_info *info, t_ast *root)
 {
 	t_exec_data	data;
 
@@ -79,12 +65,9 @@ int	execute_ast(t_info *info, t_ast *root)
 	data.info = (void *)info;
 	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
-
 	signal(SIGINT, SIG_IGN);
 	on_echoctl();
 	execute_on_exec_data(&data);
 	off_echoctl();
-
 	clear_exec_data(&data);
-	return (SUCCESS); // to remove ?
 }

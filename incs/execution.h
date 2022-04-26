@@ -73,7 +73,7 @@ typedef struct s_exec_data
 }	t_exec_data;
 
 // trip_ast.c
-int		trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
+void	trip_ast_with_setting_data(t_exec_data *data, t_ast *root);
 void	trip_pipe(t_exec_data *data, t_ast *node);
 void	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
 
@@ -92,8 +92,8 @@ int		execute_on_exec_data(t_exec_data *data);
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx);
 
 // func_pipe_pid.c
-int		calloc_pipes_and_pids(t_exec_data *data);
-int		set_pipe_idx(int *pipes, int index);
+void	calloc_pipes_and_pids(t_exec_data *data);
+void	set_pipe_idx(int *pipes, int index);
 int		get_pipe_idx(int *pipes, int index, enum e_pipe ACT);
 void	close_pipe_idx(int *pipes, int index, enum e_pipe ACT);
 

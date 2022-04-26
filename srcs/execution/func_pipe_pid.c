@@ -12,21 +12,19 @@
 
 #include "minishell.h"
 
-int	calloc_pipes_and_pids(t_exec_data *data)
+void	calloc_pipes_and_pids(t_exec_data *data)
 {
 	data->pipes = ft_calloc(data->num_pipes * 2, sizeof(int));
 	ft_assert(data->pipes != NULL, "malloc failed at data->pipes");
 	data->pids = ft_calloc(data->num_cmds, sizeof(pid_t));
 	ft_assert(data->pids != NULL, "malloc failed at data->pids");
-	return (SUCCESS);
 }
 
-int	set_pipe_idx(int *pipes, int index)
+void	set_pipe_idx(int *pipes, int index)
 {
 	int	check;
 	check = pipe(&(pipes[index * 2]));
 	ft_assert(check != FAIL, "pipe failed");
-	return (SUCCESS);
 }
 
 int	get_pipe_idx(int *pipes, int index, enum e_pipe ACT)

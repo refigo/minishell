@@ -33,7 +33,7 @@ t_ast	*parser(t_info *info);
 void	refresh_info(t_info *info);
 
 // execution/execute_ast.c
-int		execute_ast(t_info *info, t_ast *root);
+void	execute_ast(t_info *info, t_ast *root);
 
 // tool_func/handle_echoctl.c
 void	on_echoctl(void);

@@ -49,7 +49,7 @@ void	trip_pipe(t_exec_data *data, t_ast *node)
 	enum e_tok_type	right_type;
 
 	ft_assert(node->type == TOK_TYPE_PIPE, \
-		"not pipe type in trip_pipe"); // to consider removing
+		"no pipe type error in trip_pipe");
 	data->num_pipes += 1;
 	right_type = node->right->type;
 	if (right_type == TOK_TYPE_PIPE)
@@ -64,7 +64,7 @@ void	trip_pipe(t_exec_data *data, t_ast *node)
 		ft_assert(FALSE, "left type error in trip_pipe");
 }
 
-int	trip_ast_with_setting_data(t_exec_data *data, t_ast *root)
+void	trip_ast_with_setting_data(t_exec_data *data, t_ast *root)
 {
 	enum e_tok_type	type;
 
@@ -75,5 +75,4 @@ int	trip_ast_with_setting_data(t_exec_data *data, t_ast *root)
 		trip_and_set_cmd_area(data, root);
 	else
 		ft_assert(FALSE, "type error in trip_ast_with_setting_data");
-	return (SUCCESS);
 }
