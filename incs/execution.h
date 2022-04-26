@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.h                                         :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 20:18:36 by mgo               #+#    #+#             */
-/*   Updated: 2022/04/19 20:18:40 by mgo              ###   ########.fr       */
+/*   Created: 2022/04/26 12:45:50 by mgo               #+#    #+#             */
+/*   Updated: 2022/04/26 12:45:53 by mgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_CMD_H
-# define EXEC_CMD_H
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
 # include <fcntl.h>
 
-enum e_bool
+enum e_bool // consider: move to minishell.h ?
 {
 	FALSE,
 	TRUE
 };
 
-enum e_result
+enum e_result // consider: move to minishell.h ?
 {
 	FAIL = -1,
 	SUCCESS
