@@ -12,6 +12,32 @@
 
 #include "minishell.h"
 
+int	exec_builtin(t_cmda_list *cmda)
+{
+	int		ret_status;
+	char	*cmd_name;
+	
+	ret_status = 0;
+	cmd_name = cmda->exec;
+	if (mgo_strcmp(cmd_name, "echo") == 0)
+		ret_status = builtin_echo(cmda->cmd_args);
+	else if (mgo_strcmp(cmd_name, "cd") == 0)
+		builtin_cd();
+	else if (mgo_strcmp(cmd_name, "pwd") == 0)
+		builtin_pwd();
+	else if (mgo_strcmp(cmd_name, "export") == 0)
+		builtin_export();
+	else if (mgo_strcmp(cmd_name, "unset") == 0)
+		builtin_unset();
+	else if (mgo_strcmp(cmd_name, "env") == 0)
+		builtin_env();
+	else if (mgo_strcmp(cmd_name, "exit") == 0)
+		builtin_exit();
+	else
+		ft_assert(FALSE, "builtin name error in exec_builtin");
+	return (ret_status);
+}
+
 void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
 	t_redir_list	*tmp_redir;
@@ -33,12 +59,10 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		tmp_redir = tmp_redir->next;
 	}
 
-
-// set is_builtin in set_cmda
 	// check is_builtin
-	
-
-	if (execve(cmda->exec, cmda->cmd_args, \
+	if (cmda->is_builtin == TRUE)
+		exec_builtin(cmda);
+	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 	{
 		ft_assert(access(cmda->exec, X_OK) == -1, \
@@ -49,4 +73,5 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		exit(127);	// todo: clearing data before exit
 		// use errno
 	}
+	exit(0); // consider: exit ?
 }
