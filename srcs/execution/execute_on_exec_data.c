@@ -60,12 +60,8 @@ int	execute_on_exec_data(t_exec_data *data)
 		if (value_last_cmd == SIGQUIT)
 			ft_putendl_fd("Quit: 3", STDERR_FILENO);
 		else
-			ft_putendl_fd("", STDERR_FILENO);
+			ft_putchar_fd('\n', STDERR_FILENO);
 		value_last_cmd = 128 + value_last_cmd;
-
-		printf("child value: [%d]\n", value_last_cmd);
-
 	}
-	
 	return (SUCCESS);
 }

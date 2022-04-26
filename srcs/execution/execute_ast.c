@@ -72,32 +72,17 @@ void	clear_exec_data(t_exec_data *data)
 int	execute_ast(t_info *info, t_ast *root)
 {
 	t_exec_data	data;
-	//int			fd_saver[2];
-
 
 	ft_memset(&data, 0, sizeof(data));
 	data.info = (void *)info;
-	//fd_saver[0] = dup(STDIN_FILENO);
-	//fd_saver[1] = dup(STDOUT_FILENO);
-	/*
-	ft_assert(fd_saver[0] != -1 && fd_saver[1] != -1, \
-		"dup failed in execute_ast");
-	*/
 	trip_ast_with_setting_data(&data, root);
 	calloc_pipes_and_pids(&data);
 
-	on_echoctl();
-
-	// set signal in exec
 	signal(SIGINT, SIG_IGN);
-	//signal(SIGQUIT, SIG_IGN);
-
+	on_echoctl();
 	execute_on_exec_data(&data);
-
 	off_echoctl();
 
 	clear_exec_data(&data);
-	//dup2(fd_saver[0], STDIN_FILENO);
-	//dup2(fd_saver[1], STDOUT_FILENO);
 	return (SUCCESS); // to remove ?
 }
