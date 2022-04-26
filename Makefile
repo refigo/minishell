@@ -71,6 +71,7 @@ SRC_LIST	=	main.c \
 				$(DIR_BUILT)builtin_unset.c \
 				$(DIR_BUILT)builtin_pwd.c \
 				$(DIR_BUILT)builtin_env.c \
+				$(DIR_BUILT)builtin_export.c \
 				$(DIR_EXEC)execute_ast.c \
 				$(DIR_EXEC)trip_ast.c \
 				$(DIR_EXEC)trip_and_set_redir.c \
