@@ -41,5 +41,6 @@ void	off_echoctl(void);
 
 // tool_func/handle_echoctl.c
 void	set_signal_in_prompt(void);
+void	set_signal_in_cmd(void);
 
 #endif

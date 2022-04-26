@@ -64,11 +64,9 @@ typedef struct s_exec_data
 	int					num_cmds;
 	int					num_pipes;
 	int					num_heredoc;
-
 	struct s_cmda_list	*cmd_areas;
 	int					*pipes;
 	pid_t				*pids;
-
 	void				*info;
 }	t_exec_data;
 
@@ -78,11 +76,11 @@ void	trip_pipe(t_exec_data *data, t_ast *node);
 void	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
 
 // trip_and_set_redir.c
-int		trip_and_set_redir(t_exec_data *data, t_ast *node, \
+void	trip_and_set_redir(t_exec_data *data, t_ast *node, \
 	t_cmda_list *cmd_area);
 
 // set_exec_and_cmd_args.c
-int		set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
+void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 	t_cmda_list *cmd_area);
 
 // execute_on_exec_data.c
@@ -96,8 +94,5 @@ void	calloc_pipes_and_pids(t_exec_data *data);
 void	set_pipe_idx(int *pipes, int index);
 int		get_pipe_idx(int *pipes, int index, enum e_pipe ACT);
 void	close_pipe_idx(int *pipes, int index, enum e_pipe ACT);
-
-// test_exec_data.c
-void	test_exec_data(t_exec_data *data);
 
 #endif

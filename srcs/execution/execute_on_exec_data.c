@@ -63,5 +63,5 @@ int	execute_on_exec_data(t_exec_data *data)
 			ft_putchar_fd('\n', STDERR_FILENO);
 		value_last_cmd = 128 + value_last_cmd;
 	}
-	return (SUCCESS);
+	return (value_last_cmd);
 }

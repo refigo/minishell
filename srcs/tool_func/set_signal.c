@@ -14,6 +14,12 @@
 #include <readline/readline.h>
 #include "libft.h"
 
+void	set_signal_in_cmd(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
 static void	set_new_rl(int sig)
 {
 	ft_putchar_fd('\n', STDOUT_FILENO);

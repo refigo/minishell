@@ -87,7 +87,8 @@ static void	add_new_redir(t_redir_list **redirs, t_redir_list *new)
 	}
 }
 
-int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
+void	trip_and_set_redir(t_exec_data *data, t_ast *node, \
+	t_cmda_list *cmd_area)
 {
 	t_redir_list	*new_redir;
 
@@ -101,7 +102,6 @@ int	trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 		trip_and_set_redir(data, node->right, cmd_area);
 	else if (node->right->type == TOK_TYPE_CMD)
 		set_exec_and_cmd_args(data, node->right, cmd_area);
-	// todo: error when others ?
-	// if not cmd, not error just no output
-	return (TRUE);
+	else
+		ft_assert(FALSE, "type error at node of right in trip_and_set_redir");
 }

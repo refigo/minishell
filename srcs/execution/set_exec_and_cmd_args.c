@@ -81,14 +81,15 @@ static void	add_slash_to_path(t_exec_data *data, char **path)
 	}
 }
 
-int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
+void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
+	t_cmda_list *cmd_area)
 {
 	t_info		*info_addr;
 	t_env_node	*env_path;
 	char		**path;
 
 	ft_assert(node->type == TOK_TYPE_CMD, \
-		"Error: not cmd type in set_exec_and_cmd_args func"); // change to assert_in_exec ?
+		"Error: not cmd type in set_exec_and_cmd_args func");
 	info_addr = (t_info *)data->info;
 	data->num_cmds += 1;
 	cmd_area->exec = node->token;
@@ -98,5 +99,4 @@ int	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area)
 	set_exec(data, cmd_area, path);
 	mgo_free_2ptr(path);
 	set_cmd_args(data, cmd_area, node);
-	return (TRUE);	// to remove ?
 }

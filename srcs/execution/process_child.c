@@ -71,9 +71,7 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
 	t_redir_list	*tmp_redir;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-
+	set_signal_in_cmd();
 	if (data->num_cmds != 1)
 	{
 		if (idx == 0)

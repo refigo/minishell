@@ -77,8 +77,7 @@ SRC_LIST	=	main.c \
 				$(DIR_EXEC)process_child.c \
 				$(DIR_EXEC)func_pipe_pid.c \
 				$(DIR_TOOL)handle_echoctl.c \
-				$(DIR_TOOL)set_signal.c \
-				$(DIR_EXEC)test_exec_data.c
+				$(DIR_TOOL)set_signal.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 
 OBJ_LIST	=	$(SRC_LIST:.c=.o)
