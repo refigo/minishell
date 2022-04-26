@@ -28,7 +28,8 @@ int	builtin_cd(char **args, t_env_list *env)
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		return (free_paths(old_path, new_path, 1));
 	}
-	env_modify_value_not_malloc(env, "OLDPWD", old_path);
-	env_modify_value_not_malloc(env, "PWD", new_path);
+	ft_free((void **)&new_path);
+	env_insert(env, "OLDPWD", old_path);
+	env_insert(env, "PWD", getcwd(NULL, 0));
 	return (0);
 }

@@ -10,7 +10,7 @@ int	builtin_echo(char **args)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		return (0);
 	}
-	if (mgo_strcmp("-n", *(args++)) != 0)
+	if (mgo_strcmp("-n", *(++args)) == 0)
 		n_flag = 1;
 	args += n_flag;
 	while (*args != NULL)
@@ -20,7 +20,7 @@ int	builtin_echo(char **args)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		++args;
 	}
-	if (n_flag == true)
+	if (n_flag != true)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
