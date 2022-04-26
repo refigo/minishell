@@ -22,7 +22,8 @@ void	free_info(t_info *info)
 		remove_token_list(&(info->tok_list));
 	if (info->syntax != NULL)
 		ast_free(&(info->syntax));
-
+	if (info->input != NULL)
+		ft_free((void **)&(info->input));
 }
 
 void	refresh_info(t_info *info)

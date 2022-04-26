@@ -51,8 +51,10 @@ static void	clear_cmd_areas(t_cmda_list **cmda)
 void	clear_exec_data(t_exec_data *data)
 {
 	clear_cmd_areas(&(data->cmd_areas));
-	free(data->pipes);
-	free(data->pids);
+	if (data->pipes)
+		free(data->pipes);
+	if (data->pids)
+		free(data->pids);
 }
 
 /*

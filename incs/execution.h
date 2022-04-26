@@ -14,6 +14,7 @@
 # define EXECUTION_H
 
 # include <fcntl.h>
+# include "ast.h"
 
 enum e_bool // consider: move to minishell.h ?
 {
@@ -35,8 +36,8 @@ enum	e_pipe
 
 enum e_redir
 {
-	REDIR_IN = 1, 
-	REDIR_OUT, 
+	REDIR_IN = 1,
+	REDIR_OUT,
 	REDIR_IN_HEREDOC,
 	REDIR_OUT_APPEND
 };
@@ -62,7 +63,7 @@ typedef struct s_exec_data
 {
 	int					num_cmds;
 	int					num_pipes;
-	int					num_heredoc; // for index naming
+	int					num_heredoc;
 
 	struct s_cmda_list	*cmd_areas;
 	int					*pipes;
@@ -77,10 +78,12 @@ void	trip_pipe(t_exec_data *data, t_ast *node);
 void	trip_and_set_cmd_area(t_exec_data *data, t_ast *node);
 
 // trip_and_set_redir.c
-int		trip_and_set_redir(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int		trip_and_set_redir(t_exec_data *data, t_ast *node, \
+	t_cmda_list *cmd_area);
 
 // set_exec_and_cmd_args.c
-int		set_exec_and_cmd_args(t_exec_data *data, t_ast *node, t_cmda_list *cmd_area);
+int		set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
+	t_cmda_list *cmd_area);
 
 // execute_on_exec_data.c
 int		execute_on_exec_data(t_exec_data *data);
