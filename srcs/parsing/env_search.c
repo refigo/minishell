@@ -18,9 +18,9 @@ t_env_node	*get_env_node(t_env_list *list, char *key)
 		return (iter);
 }
 
-char	*get_env_value_malloc(t_env_list *list, char *key)
+char	*get_env_value_not_malloc(t_env_list *list, char *key)
 {
-	return (ft_strdup(get_env_node(list, key)->value));
+	return (get_env_node(list, key)->value);
 }
 
 void	print_node(t_env_node *node)
@@ -41,4 +41,17 @@ void	iter_env_list(t_env_list *list, void (*f)(t_env_node*))
 		iter = iter->next;
 		++cnt;
 	}
+}
+
+void	env_modify_value_not_malloc(t_env_list *list, char *key, char *value)
+{
+	t_env_node	*modify_node;
+
+	if (list == NULL || key == NULL || value == NULL)
+		return ;
+	modify_node = get_env_node(list, key);
+	if (modify_node == NULL)
+		return ;
+	ft_free((void **)&(modify_node->value));
+	modify_node->value = value;
 }
