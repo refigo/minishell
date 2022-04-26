@@ -32,6 +32,13 @@ t_ast	*parser(t_info *info);
 void	refresh_info(t_info *info);
 
 // execution/execute_ast.c
-int	execute_ast(t_info *info, t_ast *root);
+int		execute_ast(t_info *info, t_ast *root);
+
+// tool_func/handle_echoctl.c
+void	on_echoctl(void);
+void	off_echoctl(void);
+
+// tool_func/handle_echoctl.c
+void	set_signal_in_prompt(void);
 
 #endif

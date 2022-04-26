@@ -42,6 +42,7 @@ READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 SRC_PATH	=	./srcs/
 DIR_PARS	=	parsing/
 DIR_EXEC	=	execution/
+DIR_TOOL	=	tool_func/
 OBJ_PATH	=	./objs/
 
 SRC_LIST	=	main.c \
@@ -70,6 +71,8 @@ SRC_LIST	=	main.c \
 				$(DIR_EXEC)execute_on_exec_data.c \
 				$(DIR_EXEC)process_child.c \
 				$(DIR_EXEC)func_pipe_pid.c \
+				$(DIR_TOOL)handle_echoctl.c \
+				$(DIR_TOOL)set_signal.c \
 				$(DIR_EXEC)test_exec_data.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))
 
@@ -81,6 +84,7 @@ $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_PARS) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_EXEC) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)$(DIR_TOOL) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) -c $< -o $@
 
 $(NAME)	:	$(OBJ) libft

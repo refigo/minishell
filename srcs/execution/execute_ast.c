@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-
-#include <termios.h>
-static void	off_echoctl()
-{
-	struct termios	attr;
-
-	tcgetattr(STDIN_FILENO, &attr);
-	attr.c_lflag = attr.c_lflag & ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
-}
-
-static void	on_echoctl()
-{
-	struct termios	attr;
-
-	tcgetattr(STDIN_FILENO, &attr);
-	attr.c_lflag = attr.c_lflag | ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
-}
-
-
 static void	clear_redirs(t_redir_list **redir)
 {
 	t_redir_list	*clearing;
