@@ -18,17 +18,33 @@ t_env_node	*get_env_node(t_env_list *list, char *key)
 		return (iter);
 }
 
-char	*get_env_value_malloc(t_env_list *list, char *key)
+char	*get_env_value_not_malloc(t_env_list *list, char *key)
 {
-	return (ft_strdup(get_env_node(list, key)->value));
+	return (get_env_node(list, key)->value);
 }
 
-void	print_node(t_env_node *node)
-{
-	printf("key : %s | value : %s\n", node->key, node->value);
-}
+// void	print_node(t_env_node *node)
+// {
+// 	printf("%s=%s\n", node->key, node->value);
+// }
 
-void	iter_env_list(t_env_list *list, void (*f)(t_env_node*))
+// void	iter_env_list(t_env_list *list, void (*f)(t_env_node*))
+// {
+// 	t_env_node	*iter;
+// 	int			cnt;
+
+// 	cnt = 0;
+// 	iter = list->head;
+// 	while (cnt < list->size)
+// 	{
+// 		if (*(iter->key) != '?')
+// 			f(iter);
+// 		iter = iter->next;
+// 		++cnt;
+// 	}
+// }
+
+void	print_env(t_env_list *list, char *form, char *except)
 {
 	t_env_node	*iter;
 	int			cnt;
@@ -37,8 +53,27 @@ void	iter_env_list(t_env_list *list, void (*f)(t_env_node*))
 	iter = list->head;
 	while (cnt < list->size)
 	{
-		f(iter);
+		if (ft_strchr(except, *(iter->key)) != 0)
+		{
+			if (iter->value == NULL)
+				printf("declare -x %s\n", iter->key);
+			else
+				printf(form, iter->key, iter->value);
+		}
 		iter = iter->next;
 		++cnt;
 	}
+}
+
+void	env_modify_value_not_malloc(t_env_list *list, char *key, char *value)
+{
+	t_env_node	*modify_node;
+
+	if (list == NULL || key == NULL || value == NULL)
+		return ;
+	modify_node = get_env_node(list, key);
+	if (modify_node == NULL)
+		return ;
+	ft_free((void **)&(modify_node->value));
+	modify_node->value = value;
 }
