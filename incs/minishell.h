@@ -32,6 +32,15 @@ void	search_var(char **input, t_env_list *env, bool quote_flag);
 t_ast	*parser(t_info *info);
 void	refresh_info(t_info *info);
 
+// builtin
+int		builtin_cd(char **args, t_env_list *env);
+int		builtin_echo(char **args);
+int		builtin_pwd(void);
+int		builtin_export(char **args, t_env_list *env);
+int		builtin_unset(char **args, t_env_list *env);
+int		builtin_env(t_env_list *env);
+void	builtin_exit(char **args);
+
 // execution/execute_ast.c
 void	execute_ast(t_info *info, t_ast *root);
 

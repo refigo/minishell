@@ -12,27 +12,29 @@
 
 #include "minishell.h"
 
-int	exec_builtin(t_cmda_list *cmda)
+static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 {
-	int		ret_status;
-	char	*cmd_name;
+	int			ret_status;
+	t_env_list	*env;
+	char		*cmd_name;
 	
-	ret_status = 0;
+	ret_status = 1;
+	env = ((t_info *)data->info)->unordered_env;
 	cmd_name = cmda->exec;
 	if (mgo_strcmp(cmd_name, "echo") == 0)
 		ret_status = builtin_echo(cmda->cmd_args);
 	else if (mgo_strcmp(cmd_name, "cd") == 0)
-		builtin_cd();
+		ret_status = builtin_cd(cmda->cmd_args, env);
 	else if (mgo_strcmp(cmd_name, "pwd") == 0)
-		builtin_pwd();
+		ret_status = builtin_pwd();
 	else if (mgo_strcmp(cmd_name, "export") == 0)
-		builtin_export();
+		ret_status = builtin_export(cmda->cmd_args, env);
 	else if (mgo_strcmp(cmd_name, "unset") == 0)
-		builtin_unset();
+		ret_status = builtin_unset(cmda->cmd_args, env);
 	else if (mgo_strcmp(cmd_name, "env") == 0)
-		builtin_env();
+		ret_status = builtin_env(env);
 	else if (mgo_strcmp(cmd_name, "exit") == 0)
-		builtin_exit();
+		builtin_exit(cmda->cmd_args);
 	else
 		ft_assert(FALSE, "builtin name error in exec_builtin");
 	return (ret_status);
@@ -59,9 +61,8 @@ void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		tmp_redir = tmp_redir->next;
 	}
 
-	// check is_builtin
 	if (cmda->is_builtin == TRUE)
-		exec_builtin(cmda);
+		exec_builtin(data, cmda);
 	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 	{
