@@ -18,7 +18,7 @@ static int	check_args(char **args)
 		return (ft_atoi(*(args + 1)));
 }
 
-int	builtin_exit(char **args)
+void	builtin_exit(char **args)
 {
 	const char	**e_msg = {"Numeric arguments required", "Too many arguments"};
 	int			exit_code;
@@ -37,7 +37,7 @@ int	builtin_exit(char **args)
 	{
 		ft_putstr_fd("exit\nexit: ", STDERR_FILENO);
 		ft_putendl_fd(e_msg[1], STDERR_FILENO);
-		return (exit_code);
+		exit(exit_code);
 	}
 	ft_putendl_fd("exit", STDERR_FILENO);
 	exit(exit_code);
