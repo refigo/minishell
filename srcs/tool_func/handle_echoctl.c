@@ -20,6 +20,7 @@ void	on_echoctl(void)
 	tcgetattr(STDIN_FILENO, &attr);
 	attr.c_lflag = attr.c_lflag | ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+	tcgetattr(STDOUT_FILENO, &attr);
 }
 
 void	off_echoctl(void)
@@ -29,4 +30,5 @@ void	off_echoctl(void)
 	tcgetattr(STDIN_FILENO, &attr);
 	attr.c_lflag = attr.c_lflag & ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &attr);
+	tcgetattr(STDOUT_FILENO, &attr);
 }
