@@ -34,7 +34,7 @@ static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 	else if (mgo_strcmp(cmd_name, "env") == 0)
 		ret_status = builtin_env(env);
 	else if (mgo_strcmp(cmd_name, "exit") == 0)
-		builtin_exit(cmda->cmd_args);
+		ret_status = builtin_exit(cmda->cmd_args);
 	else
 		ft_assert(FALSE, "builtin name error in exec_builtin");
 	return (ret_status);
