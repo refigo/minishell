@@ -5,6 +5,8 @@ t_env_node	*new_node(char *key, char *value)
 {
 	t_env_node	*ret;
 
+	if (key == NULL || value == NULL)
+		return (NULL);
 	ret = malloc(sizeof(t_env_node));
 	ft_assert(ret != NULL, "ERROR : leak resource in new_node()");
 	ret->key = key;
@@ -16,7 +18,14 @@ t_env_node	*new_node(char *key, char *value)
 
 t_env_node	*copy_node_unlink(t_env_node *node)
 {
-	return (new_node(node->key, node->value));
+	char	*m_key;
+	char	*m_value;
+
+	m_key = ft_strdup(node->key);
+	m_value = ft_strdup(node->value);
+	ft_assert(m_key != NULL && m_value != NULL, \
+		"leak resource in copy_node_unlink()");
+	return (new_node(m_key, m_value));
 }
 
 t_env_list	*env_sort_copy_env(t_env_list *list)
