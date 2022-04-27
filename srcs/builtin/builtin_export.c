@@ -1,60 +1,84 @@
 #include "minishell.h"
 
-static void	add_env(char *key_value, t_env_list *env)
-{
-	char		*value;
-	char		*temp_value;
-	t_env_node	*temp;
 
-	value = ft_strchr(key_value, '=');
-	if (value == NULL)
+static int	is_vaild_env(char *key)
+{
+	if (!(ft_isalpha(*key) || *key == '_'))
+		return (0);
+	++key;
+	while (*key != '\0')
 	{
-		if (get_env_node(env, key_value) == NULL)
-			env_insert_end(env, \
-			new_node(ft_strdup(key_value), ft_strdup("")));
+		if (!ft_isalnum(*key))
+			return (0);
+		++key;
+	}
+	return (1);
+}
+
+static void	separate_pair(char **key, char **value, char *key_value)
+{
+	char	*m_key;
+	char	*m_value;
+	char	*wall;
+
+	m_value = ft_strchr(key_value, '=');
+	if (m_value == NULL)
+	{
+		m_value = ft_strdup("");
+		m_key = ft_strdup(key_value);
+		ft_assert(m_key != NULL && m_value != NULL, \
+		"leak resource in separat_pair()");
 	}
 	else
 	{
-		if (*(value - 1) == '+')
-		{
-			*(value - 1) = '\0';
-			*value++ = '\0';
-		}
-		else
-			*(value++) = '\0';
-		temp = get_env_node(env, key_value);
-		if (temp == NULL)
-		{
-			env_insert_end(env, \
-			new_node(ft_strdup(key_value), ft_strdup("")));
-		}
-		else
-		{
-
-		}
+		wall = m_value;
+		if (*(m_value - 1) == '+')
+			--wall;
+		m_key = ft_substr(key_value, 0, wall - key_value);
+		m_value = ft_strdup(++m_value);
+		ft_assert(m_key != NULL && m_value != NULL, \
+		"leak resource in separat_pair()");
 	}
+	*key = m_key;
+	*value = m_value;
 }
 
-int	is_vaild_env(char *key_value)
+static void	add_env(char *key, char *value, t_env_list *env, char *arg)
 {
-	if (ft_isalpha(*key_value) ||)
+	char		*temp;
+
+	temp = ft_strchr(arg, '=');
+	if (temp != NULL && *(temp - 1) == '+')
+		env_insert_attach_value(env, key, value);
+	else
+		env_insert(env, key, value);
 }
 
 int	builtin_export(char **args, t_env_list *env)
 {
 	t_env_list	*env_asc;
+	char		*key;
+	char		*value;
 
 	if (*(args + 1) == NULL)
 	{
 		env_asc = env_sort_copy_env(env);
 		print_env(env_asc, "declare -x %s=\"%s\"\n", "?");
 		del_env_list(&env_asc);
+		return (0);
 	}
-	else
+	while (*(++args) != NULL)
 	{
-		while (*(++args) != NULL)
+		separate_pair(&key, &value, *args);
+		if (is_vaild_env(key) == false)
 		{
-
+			ft_putstr_fd("export: `", STDERR_FILENO);
+			ft_putstr_fd(*args, STDERR_FILENO);
+			ft_putendl_fd("': Not a valid identifier", STDERR_FILENO);
+			return (1);
 		}
+		else
+			add_env(key, value, env, *args);
 	}
+	return (0);
 }
