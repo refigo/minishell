@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:57 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:42:58 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 18:59:40 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*jump_quotes(char *cur, int c, int escape)
 		cur = ft_strchr(cur + 1, c);
 		if (cur == NULL || *(cur - 1) != '\\')
 			break ;
-		//++cur;
 	}
 	return (cur);
 }
@@ -46,9 +45,9 @@ t_tok_list	*tokenizer(char *input)
 		while (ft_isspace(*begin))
 			++begin;
 		end = begin;
-		while (*end && ft_strchr("<>|", *begin) == NULL \
-					&& ft_strchr("<>| ", *end) == NULL)
-			end = jump_quotes(end, *end, (end != begin && *(end - 1) == '\\')) + 1;
+		while (*end && !ft_strchr("<>|", *begin) && !ft_strchr("<>| ", *end))
+			end = jump_quotes(end, *end, \
+					(end != begin && *(end - 1) == '\\')) + 1;
 		if (ft_strchr("<>|", *begin) || (end - begin == 1 && *begin == '\\'))
 			++end;
 		if (*begin && *begin == *(begin + 1) && ft_strchr("<>", *begin))
@@ -61,5 +60,3 @@ t_tok_list	*tokenizer(char *input)
 	}
 	return (ret);
 }
-
-

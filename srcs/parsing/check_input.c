@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:40 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:41 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 18:53:39 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	check_escape(char *input)
 			print_check_error(input, "unspecified special characters");
 			return (false);
 		}
-		iter = jump_quotes(iter, *iter, (iter != input && *(iter - 1) == '\\')) + 1;
+		iter = jump_quotes(iter, *iter, \
+				(iter != input && *(iter - 1) == '\\')) + 1;
 	}
 	return (true);
 }

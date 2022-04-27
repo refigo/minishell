@@ -6,12 +6,11 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:22 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 18:59:55 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	is_vaild_env(char *key)
 {

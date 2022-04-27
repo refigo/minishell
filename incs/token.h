@@ -6,12 +6,12 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:40:51 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:40:52 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 18:47:40 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKNIZER_H
-# define TOKNIZER_H
+#ifndef TOKEN_H
+# define TOKEN_H
 
 typedef enum e_tok_type
 {
