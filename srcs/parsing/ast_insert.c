@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:34 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:34 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:58:17 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ t_ast	*ast_insert_gt(t_ast *trunk, t_ast *node)
 
 t_ast	*ast_insert(t_ast *trunk, t_ast *node)
 {
-	t_ast	*current;
-
 	if (trunk == NULL)
 		return (node);
 	if (node->type < trunk->type)

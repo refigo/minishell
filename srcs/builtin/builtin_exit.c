@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:14 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 19:39:13 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:58:33 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	check_args(char **args)
 int	builtin_exit(char **args)
 {
 	char	*e_msg[2];
-	char	*temp;
 	int		exit_code;
 
 	e_msg[0] = "Numeric arguments required";

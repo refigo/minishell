@@ -6,11 +6,17 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:11 by mgo               #+#    #+#             */
-/*   Updated: 2022/04/27 19:15:51 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:57:56 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	trash_arg(int argc, char **argv)
+{
+	(void)argc;
+	(void)argv;
+}
 
 static int	exit_ctrl_d(void)
 {
@@ -25,8 +31,9 @@ int	main(int argc, char **argv, char **envp)
 	t_info		info;
 	t_ast		*syntax;
 
+	trash_arg(argc, argv);
 	init_info(&info);
-	make_env_list(info.unordered_env, argc, argv, envp);
+	make_env_list(info.unordered_env, envp);
 	while (true)
 	{
 		set_signal_in_prompt();

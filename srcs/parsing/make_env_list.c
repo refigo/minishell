@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:06 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:42:07 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:54:47 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strndup(char *str, int n)
 	return (ret);
 }
 
-void	make_env_list(t_env_list *env, int argc, char **argv, char **envp)
+void	make_env_list(t_env_list *env, char **envp)
 {
 	char		*value;
 	t_env_node	*temp;

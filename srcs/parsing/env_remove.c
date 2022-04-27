@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:57 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:58 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:53:52 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	env_remove_end(t_env_list *list)
 void	env_remove(t_env_list *list, char *key)
 {
 	t_env_node	*temp;
-	int			cnt;
 
 	if (list->size == 0)
 		return ;
