@@ -60,6 +60,7 @@ void	clear_exec_data(t_exec_data *data)
 void	execute_ast(t_info *info, t_ast *root)
 {
 	t_exec_data	data;
+	int			exit_status;
 
 	ft_memset(&data, 0, sizeof(data));
 	data.info = (void *)info;
@@ -67,7 +68,11 @@ void	execute_ast(t_info *info, t_ast *root)
 	calloc_pipes_and_pids(&data);
 	signal(SIGINT, SIG_IGN);
 	on_echoctl();
-	execute_on_exec_data(&data); // todo: get and set exit_status
+
+	exit_status = execute_on_exec_data(&data); // todo: get and set exit_status
+	// env_insert
+	env_insert(info->unordered_env, "?", ft_itoa(exit_status));
+
 	off_echoctl();
 	clear_exec_data(&data);
 }

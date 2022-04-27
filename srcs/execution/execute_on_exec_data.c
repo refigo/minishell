@@ -63,26 +63,12 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 
 	if (cmda->is_builtin == TRUE)
 		exec_builtin(data, cmda);
-	else if (ft_strchr(cmda->exec, '/') \
-		&& execve(cmda->exec, cmda->cmd_args, \
+	else if (ft_strchr(cmda->exec, '/') == NULL)
+		exit_error_not_found(cmda->cmd_args[0]);
+	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
-	{
-		ft_assert(access(cmda->exec, X_OK) == -1, \
-			"execve failed in process_child"); // todo: check_filemode
-		ft_putstr_fd("mbsh: ", 2);
-		ft_putstr_fd((cmda->cmd_args)[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		exit(127);	// todo: clearing data before exit
-		// use errno
-	}
-	else
-	{
-		ft_putstr_fd("mbsh: ", 2);
-		ft_putstr_fd((cmda->cmd_args)[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		exit(127);	// todo: clearing data before exit
-	}
-	exit(0); // consider: exit ?
+		exit_with_finding_error(cmda);
+	exit(1);
 }
 
 static void	process_parent(t_exec_data *data, int idx)

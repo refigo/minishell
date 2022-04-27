@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include "ast.h"
 
+# include <errno.h>
+
 enum e_bool // consider: move to minishell.h ?
 {
 	FALSE,
@@ -93,8 +95,16 @@ void	set_io_mid(t_exec_data *data, int idx);
 void	set_io_last(t_exec_data *data, int idx);
 void	set_io_on_redir(t_redir_list *redir);
 
-// executable.c
+// executable.c // todo: rename find_file?
 int		is_executable(char *checking);
+void	exit_with_finding_error(t_cmda_list *cmda);
+
+// exit_error_on_exec.c
+void	put_sh_cmd_name_for_error(char *cmd_name);
+void	exit_error_not_found(char *cmd_name);
+void	exit_error_noent(char *cmd_name);
+void	exit_error_dir(char *cmd_name);
+void	exit_error_perm_denied(char *cmd_name);
 
 // func_pipe_pid.c
 void	calloc_pipes_and_pids(t_exec_data *data);
