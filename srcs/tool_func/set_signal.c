@@ -22,6 +22,7 @@ void	set_signal_in_cmd(void)
 
 static void	set_new_rl(int sig)
 {
+	(void)sig;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);

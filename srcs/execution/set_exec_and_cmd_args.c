@@ -29,7 +29,7 @@ static int	check_is_builtin(t_cmda_list *cmd_area)
 	return (cmd_area->is_builtin);
 }
 
-static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
+static void	set_cmd_args(t_cmda_list *cmd_area, t_ast *node)
 {
 	t_ast	*tmp;
 	int		cnt;
@@ -54,7 +54,7 @@ static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
 	}
 }
 
-static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
+static void	set_exec(t_cmda_list *cmd_area, char **path)
 {
 	char	*cmd;
 	int		i;
@@ -78,7 +78,7 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 	free(cmd);
 }
 
-static void	add_slash_to_path(t_exec_data *data, char **path)
+static void	add_slash_to_path(char **path)
 {
 	char	*buf;
 	int		len_path;
@@ -117,9 +117,9 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 	{
 		env_path = get_env_node(info_addr->unordered_env, "PATH");
 		path = ft_split(env_path->value, ':');
-		add_slash_to_path(data, path);
-		set_exec(data, cmd_area, path);
+		add_slash_to_path(path);
+		set_exec(cmd_area, path);
 		mgo_free_2ptr(path);
 	}
-	set_cmd_args(data, cmd_area, node);
+	set_cmd_args(cmd_area, node);
 }

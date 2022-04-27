@@ -97,7 +97,8 @@ static int	wait_and_get_status_exit(t_exec_data *data)
 		status_exit = WEXITSTATUS(status_child);
 	else
 	{
-		if (WTERMSIG(status_child) == SIGQUIT)
+		status_exit = WTERMSIG(status_child);
+		if (status_exit == SIGQUIT)
 			ft_putendl_fd("Quit: 3", STDERR_FILENO);
 		else
 			ft_putchar_fd('\n', STDERR_FILENO);
