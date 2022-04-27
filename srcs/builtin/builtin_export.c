@@ -35,6 +35,11 @@ static void	add_env(char *key_value, t_env_list *env)
 	}
 }
 
+int	is_vaild_env(char *key_value)
+{
+	if (ft_isalpha(*key_value) ||)
+}
+
 int	builtin_export(char **args, t_env_list *env)
 {
 	t_env_list	*env_asc;
