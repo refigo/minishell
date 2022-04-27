@@ -34,7 +34,7 @@ void	print_env(t_env_list *list, char *form, char *except)
 	{
 		if (ft_strchr(except, *(iter->key)) == 0)
 		{
-			if (iter->value == NULL)
+			if (*(iter->value) == '\0')
 				printf("declare -x %s\n", iter->key);
 			else
 				printf(form, iter->key, iter->value);
