@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:11 by mgo               #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:12 by mgo              ###   ########.fr       */
+/*   Updated: 2022/04/27 19:15:51 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exit_ctrl_d()
+static int	exit_ctrl_d(void)
 {
 	ft_putstr_fd("\x1b[1A", STDOUT_FILENO);
 	ft_putstr_fd("\033[6C", STDOUT_FILENO);
@@ -20,7 +20,7 @@ static int	exit_ctrl_d()
 	exit(0);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_info		info;
 	t_ast		*syntax;
