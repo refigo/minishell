@@ -6,7 +6,7 @@
 #    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/04/20 15:06:20 by bson             ###   ########.fr        #
+#    Updated: 2022/04/27 18:42:47 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ SRC_LIST	=	main.c \
 				$(DIR_PARS)check_input.c \
 				$(DIR_PARS)tokenizer.c \
 				$(DIR_PARS)tok_insert.c \
-				$(DIR_PARS)tok_modify.c \
 				$(DIR_PARS)tok_init.c \
 				$(DIR_PARS)search_var.c \
 				$(DIR_PARS)lexer.c \
