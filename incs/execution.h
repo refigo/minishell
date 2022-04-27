@@ -87,9 +87,6 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 // execute_on_exec_data.c
 int		execute_on_exec_data(t_exec_data *data);
 
-// process_child.c
-// to remove
-
 // set_io.c
 void	set_io_first(t_exec_data *data, int idx);
 void	set_io_mid(t_exec_data *data, int idx);
