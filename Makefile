@@ -81,7 +81,7 @@ SRC_LIST	=	main.c \
 				$(DIR_EXEC)set_io.c \
 				$(DIR_EXEC)executable.c \
 				$(DIR_EXEC)exit_error_on_exec.c \
-				$(DIR_EXEC)func_pipe_pid.c \
+				$(DIR_EXEC)pipe_pid.c \
 				$(DIR_TOOL)handle_echoctl.c \
 				$(DIR_TOOL)set_signal.c
 SRC			=	$(addprefix $(SRC_PATH), $(SRC_LIST))

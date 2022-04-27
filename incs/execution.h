@@ -106,7 +106,7 @@ void	exit_error_noent(char *cmd_name);
 void	exit_error_dir(char *cmd_name);
 void	exit_error_perm_denied(char *cmd_name);
 
-// func_pipe_pid.c
+// pipe_pid.c
 void	calloc_pipes_and_pids(t_exec_data *data);
 void	set_pipe_idx(int *pipes, int index);
 int		get_pipe_idx(int *pipes, int index, enum e_pipe ACT);
