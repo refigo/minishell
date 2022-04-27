@@ -54,6 +54,7 @@ static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
 	}
 }
 
+// (ing) to replace access
 #include <sys/stat.h>
 int	is_executable()
 {
