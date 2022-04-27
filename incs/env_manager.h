@@ -1,19 +1,31 @@
-#ifndef ENVP_MANAGER_H
-# define ENVP_MANAGER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_manager.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:40:37 by bson              #+#    #+#             */
+/*   Updated: 2022/04/27 18:47:13 by bson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ENV_MANAGER_H
+# define ENV_MANAGER_H
 
 # define BIG_SIZE (4096)
 
 # include <stdio.h>
 
-typedef struct s_envp_node
+typedef struct s_env_node
 {
 	char				*key;
 	char				*value;
-	struct s_envp_node	*next;
-	struct s_envp_node	*prev;
+	struct s_env_node	*next;
+	struct s_env_node	*prev;
 }	t_env_node;
 
-typedef struct s_envp_list
+typedef struct s_env_list
 {
 	t_env_node	*head;
 	t_env_node	*tail;
@@ -37,7 +49,8 @@ t_env_list	*env_sort_copy_env(t_env_list *list);
 t_env_node	*copy_node_unlink(t_env_node *node);
 char		**convert_env_char_d_ptr(t_env_list *list);
 char		*get_env_value_not_malloc(t_env_list *list, char *key);
-void		env_modify_value_not_malloc(t_env_list *list, char *key, char *value);
+void		env_modify_value_not_malloc(t_env_list *list, \
+										char *key, char *value);
 void		print_env(t_env_list *list, char *form, char *except);
 
 #endif

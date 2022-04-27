@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_insert.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:41:46 by bson              #+#    #+#             */
+/*   Updated: 2022/04/27 18:55:38 by bson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "env_manager.h"
 
@@ -94,7 +106,7 @@ int	env_insert_asc(t_env_list *list, t_env_node *node)
 		iter = iter->next;
 		++idx;
 	}
-	if (iter != NULL &&ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
+	if (iter != NULL && ft_strncmp(iter->key, node->key, BIG_SIZE) == 0)
 	{
 		iter->value = node->value;
 		free(node);

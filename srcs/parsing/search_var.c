@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search_var.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
+/*   Updated: 2022/04/27 19:04:06 by bson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*dup_replace_var(t_env_list *list, char **start, char *end)
@@ -49,11 +61,6 @@ static char	*jump_word(char *input)
 	return (input);
 }
 
-/*
-	개선해야 할점
-	$만 들어오면 \$와 동일하게 처리해야한다.
-	sd
-*/
 void	search_var(char **input, t_env_list *env, bool quote_flag)
 {
 	char	*iter;
@@ -69,7 +76,7 @@ void	search_var(char **input, t_env_list *env, bool quote_flag)
 				(iter == *input || *(iter - 1) != '\\'))
 			iter = ft_strchr(iter + 1, '\'');
 		else if (*iter == '<' && *(iter + 1) == '<' && quote_flag == false)
-			iter = jump_word(iter += 2);
+			iter = jump_word(iter + 2);
 		else if (*iter == '$' && (iter == *input || *(iter - 1) != '\\'))
 			iter = expand_input(input, iter, env);
 		++iter;

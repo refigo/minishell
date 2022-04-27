@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:41:14 by bson              #+#    #+#             */
+/*   Updated: 2022/04/27 19:00:42 by bson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	check_args(char **args)
@@ -21,8 +33,8 @@ static int	check_args(char **args)
 void	builtin_exit(char **args)
 {
 	char	*e_msg[2];
-	int			exit_code;
-	char		*temp;
+	char	*temp;
+	int		exit_code;
 
 	e_msg[0] = "Numeric arguments required";
 	e_msg[1] = "Too many arguments";

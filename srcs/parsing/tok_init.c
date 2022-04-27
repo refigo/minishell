@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tok_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:42:20 by bson              #+#    #+#             */
+/*   Updated: 2022/04/27 18:54:05 by bson             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "token.h"
 
@@ -30,7 +42,7 @@ void	remove_token_list(t_tok_list **list)
 {
 	t_tok	*iter;
 	t_tok	*iter_next;
-	int			cnt;
+	int		cnt;
 
 	cnt = 0;
 	iter = (*list)->head;
@@ -44,4 +56,3 @@ void	remove_token_list(t_tok_list **list)
 	}
 	ft_free((void **)list);
 }
-
