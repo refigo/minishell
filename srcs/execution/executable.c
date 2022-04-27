@@ -1,20 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executable.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgo <mgo@student.42seoul.kr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/27 18:10:00 by mgo               #+#    #+#             */
+/*   Updated: 2022/04/27 18:10:01 by mgo              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/stat.h>
 #include "execution.h"
 
-#include <stdio.h>
-
-#include "minishell.h"
-
-/*
-	lstat
-		buf.st_mode
-			S_ISREG
-			S_ISDIR
-			S_IXUSR
-*/
-
-// file? include also folder?
-int	is_executable(char *checking)
+int	is_executable_bin(char *checking)
 {
 	struct stat	stat_buf;
 	int			status;
@@ -29,14 +28,7 @@ int	is_executable(char *checking)
 	return (ret);
 }
 
-// check_exec_errno
-
-	// is a directory
-	// Permission denied
-	// No such file or directory
-
-	// use errno
-void	exit_with_finding_error(t_cmda_list *cmda)
+void	exit_error_finding_not_executable(t_cmda_list *cmda)
 {
 	struct stat	stat_buf;
 	char 		*exec_name;

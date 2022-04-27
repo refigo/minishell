@@ -65,7 +65,7 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 	{
 		cmd_area->exec = ft_strjoin(path[i], cmd);
 		ft_assert(cmd_area->exec != NULL, "ft_strjoin failed in set_exec");
-		if (is_executable(cmd_area->exec) == TRUE)
+		if (is_executable_bin(cmd_area->exec) == TRUE)
 			break ;
 		free(cmd_area->exec);
 		cmd_area->exec = NULL;

@@ -60,15 +60,13 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}
-
 	if (cmda->is_builtin == TRUE)
-		exec_builtin(data, cmda);
+		exit(exec_builtin(data, cmda));
 	else if (ft_strchr(cmda->exec, '/') == NULL)
 		exit_error_not_found(cmda->cmd_args[0]);
 	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
-		exit_with_finding_error(cmda);
-	exit(1);
+		exit_error_finding_not_executable(cmda);
 }
 
 static void	process_parent(t_exec_data *data, int idx)
@@ -118,7 +116,7 @@ int	execute_on_exec_data(t_exec_data *data)
 		waitpid(data->pids[i], &status_child, 0);
 
 	if (WIFEXITED(status_child))
-		status_exit = WEXITSTATUS(status_child);	// to use?
+		status_exit = WEXITSTATUS(status_child);
 	else
 	{
 		status_exit = WTERMSIG(status_child);
