@@ -93,6 +93,9 @@ void	set_io_mid(t_exec_data *data, int idx);
 void	set_io_last(t_exec_data *data, int idx);
 void	set_io_on_redir(t_redir_list *redir);
 
+// executable.c
+int		is_executable(char *checking);
+
 // func_pipe_pid.c
 void	calloc_pipes_and_pids(t_exec_data *data);
 void	set_pipe_idx(int *pipes, int index);

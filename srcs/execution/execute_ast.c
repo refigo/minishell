@@ -67,7 +67,7 @@ void	execute_ast(t_info *info, t_ast *root)
 	calloc_pipes_and_pids(&data);
 	signal(SIGINT, SIG_IGN);
 	on_echoctl();
-	execute_on_exec_data(&data);
+	execute_on_exec_data(&data); // todo: get and set exit_status
 	off_echoctl();
 	clear_exec_data(&data);
 }

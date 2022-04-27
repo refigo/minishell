@@ -54,17 +54,6 @@ static void	set_cmd_args(t_exec_data *data, t_cmda_list *cmd_area, t_ast *node)
 	}
 }
 
-// (ing) to replace access
-#include <sys/stat.h>
-int	is_executable()
-{
-	struct stat	sb;
-
-	stat("./test", &sb);
-	return (1);
-}
-
-
 static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 {
 	char	*cmd;
@@ -76,7 +65,7 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 	{
 		cmd_area->exec = ft_strjoin(path[i], cmd);
 		ft_assert(cmd_area->exec != NULL, "ft_strjoin failed in set_exec");
-		if (access(cmd_area->exec, X_OK) == SUCCESS) // to replace (stat)
+		if (is_executable(cmd_area->exec) == TRUE) // to replace (stat)
 			break ;
 		free(cmd_area->exec);
 		cmd_area->exec = NULL;
@@ -85,7 +74,6 @@ static void	set_exec(t_exec_data *data, t_cmda_list *cmd_area, char **path)
 	{
 		cmd_area->exec = ft_strdup(cmd);
 		ft_assert(cmd_area->exec != NULL, "ft_strdup failed in set_exec");
-		// check executable (stat)
 	}
 	free(cmd);
 }
