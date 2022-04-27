@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:14 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 19:00:42 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/27 19:39:13 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 static int	check_args(char **args)
 {
-	int		exit_code;
 	char	*temp;
 
-	exit_code = 0;
 	temp = *(args + 1);
 	while (temp != NULL && *temp)
-		if (ft_isdigit(*(temp++)))
+		if (ft_isdigit(*(temp++)) == false)
 			return (255);
-	if (exit_code == 0 && *(args + 1) != NULL && *(args + 2) != NULL)
+	if (*(args + 1) != NULL && *(args + 2) != NULL)
 		return (1);
 	if (*(args + 1) == NULL)
 		return (0);
@@ -30,7 +28,7 @@ static int	check_args(char **args)
 		return (ft_atoi(*(args + 1)));
 }
 
-void	builtin_exit(char **args)
+int	builtin_exit(char **args)
 {
 	char	*e_msg[2];
 	char	*temp;
@@ -51,8 +49,8 @@ void	builtin_exit(char **args)
 	{
 		ft_putstr_fd("exit\nexit: ", STDERR_FILENO);
 		ft_putendl_fd(e_msg[1], STDERR_FILENO);
-		exit(exit_code);
+		return (exit_code);
 	}
-	ft_putendl_fd("exit", STDERR_FILENO);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(exit_code);
 }
