@@ -68,11 +68,8 @@ void	execute_ast(t_info *info, t_ast *root)
 	calloc_pipes_and_pids(&data);
 	signal(SIGINT, SIG_IGN);
 	on_echoctl();
-
-	exit_status = execute_on_exec_data(&data); // todo: get and set exit_status
-	// env_insert
-	env_insert(info->unordered_env, "?", ft_itoa(exit_status));
-
+	exit_status = execute_on_exec_data(&data);
 	off_echoctl();
+	env_insert(info->unordered_env, "?", ft_itoa(exit_status));
 	clear_exec_data(&data);
 }

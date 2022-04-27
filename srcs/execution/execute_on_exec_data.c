@@ -17,7 +17,7 @@ static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 	int			ret_status;
 	t_env_list	*env;
 	char		*cmd_name;
-	
+
 	ret_status = 1;
 	env = ((t_info *)data->info)->unordered_env;
 	cmd_name = cmda->exec;
@@ -84,18 +84,36 @@ static void	process_parent(t_exec_data *data, int idx)
 	}
 }
 
-int	execute_on_exec_data(t_exec_data *data)
+static int	wait_and_get_status_exit(t_exec_data *data)
 {
-	t_cmda_list	*curr;
 	int			status_child;
 	int			status_exit;
 	int			i;
 
-	if (data->num_cmds == 1 && data->cmd_areas->is_builtin == TRUE)
+	i = -1;
+	while (++i < data->num_cmds)
+		waitpid(data->pids[i], &status_child, 0);
+	if (WIFEXITED(status_child))
+		status_exit = WEXITSTATUS(status_child);
+	else
 	{
-		status_exit = exec_builtin(data, data->cmd_areas);
-		return (status_exit);
+		if (WTERMSIG(status_child) == SIGQUIT)
+			ft_putendl_fd("Quit: 3", STDERR_FILENO);
+		else
+			ft_putchar_fd('\n', STDERR_FILENO);
+		status_exit = 128 + status_exit;
 	}
+	return (status_exit);
+}
+
+int	execute_on_exec_data(t_exec_data *data)
+{
+	t_cmda_list	*curr;
+	int			ret_status_exit;
+	int			i;
+
+	if (data->num_cmds == 1 && data->cmd_areas->is_builtin == TRUE)
+		return (exec_builtin(data, data->cmd_areas));
 	curr = data->cmd_areas;
 	i = -1;
 	while ((++i < data->num_cmds) && curr)
@@ -110,21 +128,6 @@ int	execute_on_exec_data(t_exec_data *data)
 			process_parent(data, i);
 		curr = curr->next;
 	}
-
-	i = -1;
-	while (++i < data->num_cmds)
-		waitpid(data->pids[i], &status_child, 0);
-
-	if (WIFEXITED(status_child))
-		status_exit = WEXITSTATUS(status_child);
-	else
-	{
-		status_exit = WTERMSIG(status_child);
-		if (status_exit == SIGQUIT)
-			ft_putendl_fd("Quit: 3", STDERR_FILENO);
-		else
-			ft_putchar_fd('\n', STDERR_FILENO);
-		status_exit = 128 + status_exit;
-	}
-	return (status_exit);
+	ret_status_exit = wait_and_get_status_exit(data);
+	return (ret_status_exit);
 }

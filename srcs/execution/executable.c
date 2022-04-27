@@ -31,7 +31,7 @@ int	is_executable_bin(char *checking)
 void	exit_error_finding_not_executable(t_cmda_list *cmda)
 {
 	struct stat	stat_buf;
-	char 		*exec_name;
+	char		*exec_name;
 
 	exec_name = cmda->exec;
 	lstat(exec_name, &stat_buf);

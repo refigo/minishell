@@ -15,7 +15,7 @@
 static int	check_is_builtin(t_cmda_list *cmd_area)
 {
 	char	*cmd_name;
-	
+
 	cmd_name = cmd_area->exec;
 	cmd_area->is_builtin = FALSE;
 	if (mgo_strcmp(cmd_name, "echo") == 0 \
