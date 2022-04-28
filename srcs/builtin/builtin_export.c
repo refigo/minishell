@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:59:55 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 17:34:52 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 static int	is_vaild_env(char *key)
 {
-	if (!(ft_isalpha(*key) || *key == '_'))
+	int cnt;
+
+	cnt = ft_strchr(key, '=') - key;
+	if (cnt == 0)
+		return (0);
+	if (!(ft_isalpha(*key) || *key == '_' || *key == '='))
 		return (0);
 	++key;
-	while (*key != '\0')
+	while (*key != '\0' && --cnt)
 	{
 		if (!ft_isalnum(*key))
 			return (0);
@@ -80,7 +85,6 @@ int	builtin_export(char **args, t_env_list *env)
 	}
 	while (*(++args) != NULL)
 	{
-		separate_pair(&key, &value, *args);
 		if (is_vaild_env(key) == false)
 		{
 			ft_putstr_fd("export: `", STDERR_FILENO);
@@ -88,8 +92,8 @@ int	builtin_export(char **args, t_env_list *env)
 			ft_putendl_fd("': Not a valid identifier", STDERR_FILENO);
 			return (1);
 		}
-		else
-			add_env(key, value, env, *args);
+		separate_pair(&key, &value, *args);
+		add_env(key, value, env, *args);
 	}
 	return (0);
 }
