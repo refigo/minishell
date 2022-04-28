@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 00:24:14 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 01:08:10 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*dup_replace_var(t_env_list *list, char **start, char *end)
 	t_env_node	*node;
 
 	temp = ft_substr(*start, 1, end - *start - 1);
+	ft_assert(temp != NULL, "leak resource in dup_replace_var()");
 	node = get_env_node(list, temp);
 	if (temp != NULL)
 		free(temp);
