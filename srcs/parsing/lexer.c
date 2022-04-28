@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:03 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 20:16:32 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 01:00:46 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	lexer(t_tok_list *tok_list)
 	}
 	if (check_syntax(tok_list))
 	{
-		ft_putendl_fd("Syntax Error", STDERR_FILENO);
+		ft_putendl_fd("mbsh: Syntax Error", STDERR_FILENO);
 		return (-1);
 	}
 	return (0);
