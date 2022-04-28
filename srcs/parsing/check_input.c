@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:40 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:53:39 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 16:35:22 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	print_check_error(char *input, char *message)
 {
+	ft_putstr_fd("mbsh: ", STDERR_FILENO);
 	ft_putstr_fd(input, STDERR_FILENO);
 	ft_putstr_fd(" : ", STDERR_FILENO);
 	ft_putstr_fd(message, STDERR_FILENO);
@@ -32,8 +33,12 @@ static int	check_escape(char *input)
 			print_check_error(input, "unspecified special characters");
 			return (false);
 		}
-		iter = jump_quotes(iter, *iter, \
-				(iter != input && *(iter - 1) == '\\')) + 1;
+		else if (*iter == '\"' && (iter == input || *(iter - 1) != '\\'))
+			iter = jump_quotes(iter, '\"', false) + 1;
+		else if (*iter == '\'' && (iter == input || *(iter - 1) != '\\'))
+			iter = jump_quotes(iter, '\'', false) + 1;
+		else
+			++iter;
 	}
 	return (true);
 }
@@ -45,8 +50,8 @@ static int	check_quote(char *input)
 	cmd = input;
 	while (*cmd)
 	{
-		if (ft_strchr("\'\"", *cmd) != NULL)
-			cmd = jump_quotes(cmd, *cmd, (cmd != input && *(cmd - 1) == '\\'));
+		if (ft_strchr("\'\"", *cmd) && (cmd == input || *(cmd -1) != '\\'))
+			cmd = jump_quotes(cmd, *cmd, false);
 		if (cmd == NULL)
 		{
 			print_check_error(input, "Quotes not paired");

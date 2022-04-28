@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:57 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:59:40 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 16:33:07 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ char	*jump_quotes(char *cur, int c, int escape)
 {
 	if ((c != '\'' && c != '\"') || escape == true)
 		return (cur);
-	while (*cur)
+	while (*cur != '\0')
 	{
-		cur = ft_strchr(cur + 1, c);
-		if (cur == NULL || *(cur - 1) != '\\')
+		if (c == '\'')
+		{
+			cur = ft_strchr(cur + 1, '\'');
 			break ;
+		}
+		else
+		{
+			cur = ft_strchr(cur + 1, c);
+			if (cur == NULL || *(cur - 1) != '\\')
+				break ;
+		}
 	}
 	return (cur);
 }
 
-/*
-	조건
-	1. 기본적으로 공백을 기준으로 토큰을 쪼갠다.
-	2. 따옴표안의 공백은 문자열로 판단한다.
-*/
 t_tok_list	*tokenizer(char *input)
 {
 	t_tok_list	*ret;
