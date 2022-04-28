@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 19:04:06 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 12:43:19 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,17 @@ void	search_var(char **input, t_env_list *env, bool quote_flag)
 	iter = *input;
 	while (*iter != '\0')
 	{
-		if (*iter == '\"' && (iter == *input || *(iter - 1) != '\\'))
+		if (*iter == '\"' && (iter == *input || *(iter - 1) != '\\') && ++iter)
 			quote_flag = !quote_flag;
 		else if (*iter == '\'' && quote_flag == false && \
 				(iter == *input || *(iter - 1) != '\\'))
-			iter = ft_strchr(iter + 1, '\'');
+			iter = ft_strchr(iter + 1, '\'') + 1;
 		else if (*iter == '<' && *(iter + 1) == '<' && quote_flag == false)
 			iter = jump_word(iter + 2);
 		else if (*iter == '$' && (iter == *input || *(iter - 1) != '\\'))
 			iter = expand_input(input, iter, env);
-		++iter;
+		else
+			++iter;
 	}
 	return ;
 }
