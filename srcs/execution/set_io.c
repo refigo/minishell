@@ -49,6 +49,8 @@ void	set_io_on_redir(t_redir_list *redir)
 	int				fd;
 	int				stat;
 
+	fd = -1;
+	stat = FAIL;
 	type = redir->type;
 	if (type == REDIR_IN || type == REDIR_IN_HEREDOC)
 	{
@@ -63,6 +65,8 @@ void	set_io_on_redir(t_redir_list *redir)
 			fd = open(redir->file_name, O_WRONLY | O_APPEND | O_CREAT, 0644);
 		stat = dup2(fd, STDOUT_FILENO);
 	}
+	else
+		ft_assert(FALSE, "type error in set_io_on_redir");
 	close(fd);
 	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
 }
