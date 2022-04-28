@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 12:43:19 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 00:24:14 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static char	*expand_input(char **input, char *var_start, t_env_list *env)
 	while (*var_end && ft_strchr("\"\'<>| $", *var_end) == NULL)
 		++var_end;
 	replace_var = dup_replace_var(env, &var_start, var_end);
-	ft_assert(replace_var != NULL, "ERROR : leak resource in expand_input()");
+	ft_assert(replace_var != NULL, "leak resource in expand_input()");
 	replace_var_len = ft_strlen(*input) - (var_end - var_start) \
 	+ ft_strlen(replace_var);
 	ret = ft_calloc(1, sizeof(char) * (replace_var_len + 1));
-	ft_assert(ret != NULL, "ERROR : leak resource in expand_input()");
+	ft_assert(ret != NULL, "leak resource in expand_input()");
 	ft_strncpy(ret, *input, var_start - *input);
 	ft_strncat(ret, replace_var, replace_var_len);
 	ft_strncat(ret, var_end, ft_strlen(var_end));
