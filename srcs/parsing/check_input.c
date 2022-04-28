@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:40 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 16:35:22 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 00:48:33 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_escape(char *input)
 	iter = input;
 	while (*iter)
 	{
-		if (*iter == '\\' && (*(iter + 1) == '\0' || *(iter + 1) == ' '))
+		if (*iter == '\\' && *(iter + 1) == '\0')
 		{
 			print_check_error(input, "unspecified special characters");
 			return (false);
