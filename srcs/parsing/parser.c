@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:09 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 21:22:01 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 01:04:10 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_ast	*parser(t_info *info)
 	int		cnt;
 
 	search_var(&(info->input), info->unordered_env, false);
-	if (is_empty(info->input))
+	if (info->input == NULL || is_empty(info->input))
 		return (NULL);
 	info->tok_list = tokenizer(info->input);
 	if (lexer(info->tok_list) == -1)
