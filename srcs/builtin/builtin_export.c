@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 17:34:52 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 18:40:02 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_vaild_env(char *key)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = ft_strchr(key, '=') - key;
 	if (cnt == 0)
