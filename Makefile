@@ -6,7 +6,7 @@
 #    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/04/28 17:16:18 by bson             ###   ########.fr        #
+#    Updated: 2022/04/28 18:41:49 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,8 @@ LINE_CLEAR	=	"\x1b[1A\x1b[M"
 NAME		=	minishell
 
 CC			=	gcc
-<<<<<<< HEAD
-#CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=address -g
-=======
 CFLAGS		=	-Wall -Wextra -Werror
-#CFLAGS		+=	-fsanitize=address -g
->>>>>>> 3a56637ff52f3bc477443a68baaf3d29373fc6ad
+CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
 INC_LINK	=	-I./incs/
