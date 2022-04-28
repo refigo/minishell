@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:22 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:42:23 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 18:37:22 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ void	insert_tok_end(t_tok_list *list, t_tok *tok)
 	}
 	++(list->size);
 }
-
-// void	insert_tok_next(t_tok_list	*list, t_tok *target, t_tok *node)
-// {
-// 	t_tok	*temp;
-
-// 	if (list == NULL || node == NULL)
-// 		return ;
-// 	if (list->head == )
-// }

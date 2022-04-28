@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:12 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 16:03:37 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/28 18:39:02 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	overwrite_array(char *start)
 		return ;
 	remover[0] = start;
 	remover[1] = start + 1;
-	while(*remover[1] != '\0')
+	while (*remover[1] != '\0')
 	{
 		*remover[0] = *remover[1];
 		++remover[0];
@@ -78,14 +78,10 @@ void	remove_quotes(t_tok *node)
 		}
 		else if (*not_quote == '\"' && \
 		(not_quote == node->token || *(not_quote - 1) != '\\'))
-		{
 			not_quote = state_double_quote(not_quote);
-		}
 		else if (*not_quote == '\'' && \
 		(not_quote == node->token || *(not_quote - 1) != '\\'))
-		{
 			not_quote = state_single_quote(not_quote);
-		}
 		else
 			++not_quote;
 	}
