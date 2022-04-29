@@ -94,6 +94,7 @@ void	set_io_first(t_exec_data *data, int idx);
 void	set_io_mid(t_exec_data *data, int idx);
 void	set_io_last(t_exec_data *data, int idx);
 void	set_io_on_redir(t_redir_list *redir);
+void	set_io_on_redirs(t_cmda_list *cmda);
 
 // executable.c
 int		is_executable_bin(char *checking);

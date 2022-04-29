@@ -114,7 +114,10 @@ int	execute_on_exec_data(t_exec_data *data)
 	int			i;
 
 	if (data->num_cmds == 1 && data->cmd_areas->is_builtin == TRUE)
+	{
+		set_io_on_redirs(data->cmd_areas);
 		return (exec_builtin(data, data->cmd_areas));
+	}
 	curr = data->cmd_areas;
 	i = -1;
 	while ((++i < data->num_cmds) && curr)

@@ -68,5 +68,24 @@ void	set_io_on_redir(t_redir_list *redir)
 	else
 		ft_assert(FALSE, "type error in set_io_on_redir");
 	close(fd);
-	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
+	//ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
+	if (stat == FAIL)
+	{
+		// infile 없으면 나중에 다시 readline 받도록 고칠거임
+		put_sh_cmd_name_for_error(redir->file_name);
+		ft_putendl_fd(": No such file or directory", 2);
+		ft_putendl_fd("infile 없으면 나중에 다시 readline 받도록 고칠거임\n", 2);
+	}
+}
+
+void	set_io_on_redirs(t_cmda_list *cmda)
+{
+	t_redir_list	*tmp_redir;
+
+	tmp_redir = cmda->redirs;
+	while (tmp_redir)
+	{
+		set_io_on_redir(tmp_redir);
+		tmp_redir = tmp_redir->next;
+	}
 }
