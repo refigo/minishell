@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:14 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 14:15:10 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 15:09:13 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	check_args(char **args)
 	char	*temp;
 
 	temp = *(args + 1);
+	if (temp == NULL)
+		return (0);
 	if (*temp == '-' || *temp == '+')
 		++temp;
 	while (temp != NULL && *temp)
@@ -24,10 +26,7 @@ static int	check_args(char **args)
 			return (255);
 	if (*(args + 1) != NULL && *(args + 2) != NULL)
 		return (256);
-	if (*(args + 1) == NULL)
-		return (0);
-	else
-		return (ft_atoi(*(args + 1)));
+	return (ft_atoi(*(args + 1)));
 }
 
 int	builtin_exit(char **args)
