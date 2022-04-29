@@ -25,7 +25,7 @@ NAME		=	minishell
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=address -g
+#CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
 INC_LINK	=	-I./incs/

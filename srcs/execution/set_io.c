@@ -69,7 +69,7 @@ void	set_io_on_redir(t_redir_list *redir)
 		ft_assert(FALSE, "type error in set_io_on_redir");
 	close(fd);
 
-	//ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
+	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir"); // to remove
 	if (stat == FAIL)
 	{
 		// infile 없으면 나중에 다시 readline 받도록 고칠거임

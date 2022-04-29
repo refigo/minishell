@@ -19,9 +19,9 @@ void	calloc_pipes_and_pids(t_exec_data *data)
 		data->pipes = ft_calloc(data->num_pipes * 2, sizeof(int));
 		ft_assert(data->pipes != NULL, "malloc failed at data->pipes");
 	}
-	if (data->num_cmds)
+	if (data->num_cmdas)
 	{
-		data->pids = ft_calloc(data->num_cmds, sizeof(pid_t));
+		data->pids = ft_calloc(data->num_cmdas, sizeof(pid_t));
 		ft_assert(data->pids != NULL, "malloc failed at data->pids");
 	}
 }

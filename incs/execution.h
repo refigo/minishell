@@ -64,7 +64,7 @@ typedef struct s_cmda_list
 
 typedef struct s_exec_data
 {
-	int					num_cmds;
+	int					num_cmdas;
 	int					num_pipes;
 	int					num_heredoc;
 	struct s_cmda_list	*cmd_areas;
