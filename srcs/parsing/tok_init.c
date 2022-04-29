@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:20 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:54:05 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 01:11:08 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ t_tok	*new_token(char *tok)
 {
 	t_tok	*ret;
 
+	ft_assert(tok != NULL, "leak resource in new_token()");
 	ret = malloc(sizeof(t_tok));
-	ft_assert(ret != NULL, "ERROR : leak resource in new_token()");
+	ft_assert(ret != NULL, "leak resource in new_token()");
 	ret->token = tok;
 	ret->type = TOK_TYPE_UNDEFINE;
 	ret->next = NULL;
