@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 18:40:02 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:15:48 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	builtin_export(char **args, t_env_list *env)
 	{
 		if (is_vaild_env(key) == false)
 		{
-			ft_putstr_fd("export: `", STDERR_FILENO);
+			ft_putstr_fd("mbsh: export: `", STDERR_FILENO);
 			ft_putstr_fd(*args, STDERR_FILENO);
 			ft_putendl_fd("': Not a valid identifier", STDERR_FILENO);
 			return (1);

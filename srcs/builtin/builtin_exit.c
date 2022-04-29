@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:14 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 19:58:33 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:15:10 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static int	check_args(char **args)
 	char	*temp;
 
 	temp = *(args + 1);
+	if (*temp == '-' || *temp == '+')
+		++temp;
 	while (temp != NULL && *temp)
 		if (ft_isdigit(*(temp++)) == false)
 			return (255);
 	if (*(args + 1) != NULL && *(args + 2) != NULL)
-		return (1);
+		return (256);
 	if (*(args + 1) == NULL)
 		return (0);
 	else
@@ -38,18 +40,18 @@ int	builtin_exit(char **args)
 	exit_code = check_args(args);
 	if (exit_code == 255)
 	{
-		ft_putstr_fd("exit\nexit: ", STDERR_FILENO);
+		ft_putstr_fd("exit\nmbsh: exit: ", STDERR_FILENO);
 		ft_putstr_fd(*(args + 1), STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd(e_msg[0], STDERR_FILENO);
-		exit(exit_code);
+		exit(255);
 	}
-	else if (exit_code == 1)
+	else if (exit_code == 256)
 	{
-		ft_putstr_fd("exit\nexit: ", STDERR_FILENO);
+		ft_putstr_fd("exit\nmbsh: exit: ", STDERR_FILENO);
 		ft_putendl_fd(e_msg[1], STDERR_FILENO);
-		return (exit_code);
+		return (1);
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	exit(exit_code);
+	exit((char)exit_code);
 }
