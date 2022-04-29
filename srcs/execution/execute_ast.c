@@ -39,7 +39,8 @@ static void	clear_cmd_areas(t_cmda_list **cmda)
 	while (clearing)
 	{
 		free(clearing->exec);
-		mgo_free_2ptr(clearing->cmd_args);
+		if (clearing->cmd_args)
+			mgo_free_2ptr(clearing->cmd_args);
 		clear_redirs(&(clearing->redirs));
 		tmp = clearing->next;
 		free(clearing);

@@ -25,7 +25,7 @@ NAME		=	minishell
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
-#CFLAGS		+=	-fsanitize=address -g
+CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
 INC_LINK	=	-I./incs/
@@ -33,10 +33,10 @@ INC_LINK	=	-I./incs/
 FT_LINK		=	-I./lib/libft/includes/
 LIBFT		=	-L./lib/libft -lft
 
-RL_LINK	=	-I/Users/bson/.brew/opt/readline/include			# bson
-#RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
-READLINE	=	-L/Users/bson/.brew/opt/readline/lib -lreadline		# bson
-#READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
+#RL_LINK	=	-I/Users/bson/.brew/opt/readline/include			# bson
+RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
+#READLINE	=	-L/Users/bson/.brew/opt/readline/lib -lreadline		# bson
+READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 
 SRC_PATH	=	./srcs/
 DIR_PARS	=	parsing/

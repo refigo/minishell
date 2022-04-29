@@ -68,6 +68,7 @@ void	set_io_on_redir(t_redir_list *redir)
 	else
 		ft_assert(FALSE, "type error in set_io_on_redir");
 	close(fd);
+
 	//ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir");
 	if (stat == FAIL)
 	{
@@ -76,6 +77,8 @@ void	set_io_on_redir(t_redir_list *redir)
 		ft_putendl_fd(": No such file or directory", 2);
 		ft_putendl_fd("infile 없으면 나중에 다시 readline 받도록 고칠거임\n", 2);
 	}
+	// 에러 발생 시키고 이후 redirection은 무시해야함
+	// (자식 프로세스에서는 바로 종료시키면 되는데 부모 프로세스에서는 프롬프트로 나가야한다.)
 }
 
 void	set_io_on_redirs(t_cmda_list *cmda)
@@ -85,6 +88,7 @@ void	set_io_on_redirs(t_cmda_list *cmda)
 	tmp_redir = cmda->redirs;
 	while (tmp_redir)
 	{
+		// if 문 걸어서 return값 받자. return값들을 이용해서 중간에 에러가 나면 바로 프롬프트로 돌아가게 하면 되겠다.
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}

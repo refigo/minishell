@@ -105,10 +105,13 @@ void	trip_and_set_redir(t_exec_data *data, t_ast *node, \
 	ft_assert(new_redir != NULL, "malloc failed in trip_and_set_redir");
 	set_redir(new_redir, data, node);
 	add_new_redir(&(cmd_area->redirs), new_redir);
-	if (node->right->type == TOK_TYPE_REDIR)
-		trip_and_set_redir(data, node->right, cmd_area);
-	else if (node->right->type == TOK_TYPE_CMD)
-		set_exec_and_cmd_args(data, node->right, cmd_area);
-	else
-		ft_assert(FALSE, "type error at node of right in trip_and_set_redir");
+	if (node->right)
+	{
+		if (node->right->type == TOK_TYPE_REDIR)
+			trip_and_set_redir(data, node->right, cmd_area);
+		else if (node->right->type == TOK_TYPE_CMD)
+			set_exec_and_cmd_args(data, node->right, cmd_area);
+		else
+			ft_assert(FALSE, "type error at node of right in trip_and_set_redir");
+	}
 }
