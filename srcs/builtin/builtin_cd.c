@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:02 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 14:15:26 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 20:42:45 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtin_cd(char **args, t_env_list *env)
 		return (free_paths(old_path, new_path, 1));
 	}
 	ft_free((void **)&new_path);
-	env_insert(env, "OLDPWD", old_path);
-	env_insert(env, "PWD", getcwd(NULL, 0));
+	env_insert(env, ft_strdup("OLDPWD"), old_path);
+	env_insert(env, ft_strdup("PWD"), getcwd(NULL, 0));
 	return (0);
 }
