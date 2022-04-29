@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 01:08:10 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 17:00:13 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ static char	*jump_word(char *input)
 	return (input);
 }
 
+static int	is_vaild_expand(char *data, int escape)
+{
+	if (*data != '$')
+		return (0);
+	if (escape == true)
+		return (0);
+	if (*(data + 1) == ' ' || *(data + 1) == '\0' || *(data + 1) == '\'' || \
+		*(data + 1) == '\"')
+		return (0);
+	return (1);
+}
+
 void	search_var(char **input, t_env_list *env, bool quote_flag)
 {
 	char	*iter;
@@ -78,7 +90,8 @@ void	search_var(char **input, t_env_list *env, bool quote_flag)
 			iter = ft_strchr(iter + 1, '\'') + 1;
 		else if (*iter == '<' && *(iter + 1) == '<' && quote_flag == false)
 			iter = jump_word(iter + 2);
-		else if (*iter == '$' && (iter == *input || *(iter - 1) != '\\'))
+		else if (is_vaild_expand(\
+				iter, (iter != *input && *(iter - 1) == '\\')))
 			iter = expand_input(input, iter, env);
 		else
 			++iter;
