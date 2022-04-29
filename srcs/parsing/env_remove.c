@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:57 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 14:55:37 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:28:14 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	env_remove_first(t_env_list *list)
 		temp->next->prev = list->tail;
 		list->head = temp->next;
 		temp->prev->next = list->head;
-		free(temp);
+		del_env_node(&temp);
 	}
 	--(list->size);
 }
@@ -54,7 +54,7 @@ void	env_remove_end(t_env_list *list)
 		temp->prev->next = list->head;
 		list->tail = temp->prev;
 		temp->next->prev = list->tail;
-		free(temp);
+		del_env_node(&temp);
 	}
 	--(list->size);
 }
@@ -79,9 +79,18 @@ void	env_remove(t_env_list *list, char *key)
 	{
 		temp->prev->next = temp->next;
 		temp->next->prev = temp->prev;
-		free(temp);
+		del_env_node(&temp);
 		--(list->size);
 	}
+}
+
+void	del_env_node(t_env_node **node)
+{
+	if (node == NULL || *node == NULL)
+		return ;
+	free((*node)->key);
+	free((*node)->value);
+	ft_free((void **)node);
 }
 
 void	del_env_list(t_env_list **env_list)
