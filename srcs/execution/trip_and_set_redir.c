@@ -41,6 +41,8 @@ static void	set_and_save_heredoc(t_exec_data *data, t_redir_list *redir, \
 		//ft_putstr_fd("> ", 1);
 		input_line = readline("> ");
 		
+		if (input_line == NULL)
+			return ;
 		/*
 		ft_assert(get_next_line(STDIN_FILENO, &input_line) != -1, \
 			"gnl failed in get_and_save_heredoc");
