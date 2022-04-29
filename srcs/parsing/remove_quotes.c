@@ -6,66 +6,88 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:12 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:42:12 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 16:34:34 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "token.h"
 
-static int	calc_quote_and_escape(char *input)
+static void	overwrite_array(char *start)
 {
-	char	*it;
-	int		cnt;
+	char	*remover[2];
 
-	cnt = 0;
-	it = input;
-	while (*it != '\0')
+	if (start == NULL || *(start) == '\0')
+		return ;
+	remover[0] = start;
+	remover[1] = start + 1;
+	while (*remover[1] != '\0')
 	{
-		if (*it == '\\')
-			++cnt;
-		if (ft_strchr("\'\"", *it) && (input == it || *(it - 1) != '\\'))
-			cnt += 2;
-		if (ft_strchr("\'\"", *it) != NULL)
-			it = jump_quotes(it, *it, (it != input && *(it - 1) == '\\')) + 1;
-		if (*it != '\0')
-			++it;
+		*remover[0] = *remover[1];
+		++remover[0];
+		++remover[1];
 	}
-	return (cnt);
+	*remover[0] = *remover[1];
 }
 
-static void	remove_quote_and_escape(char *dest, char *src)
+static char	*state_single_quote(char *s_quote)
 {
-	bool	qoute_flag;
-	int		s_idx;
-	int		d_idx;
+	if (s_quote == NULL)
+		ft_assert(false, "Not NULL pointer in state_single_quote()");
+	overwrite_array(s_quote);
+	s_quote = ft_strchr(s_quote, '\'');
+	overwrite_array(s_quote);
+	return (s_quote);
+}
 
-	qoute_flag = false;
-	s_idx = 0;
-	d_idx = 0;
-	while (src[s_idx] != '\0')
+static char	*state_double_quote(char *d_quote)
+{
+	if (d_quote == NULL)
+		ft_assert(false, "Not NULL pointer in state_double_quote()");
+	overwrite_array(d_quote);
+	while (1)
 	{
-		if (src[s_idx] == '\\' && qoute_flag == false)
-			++s_idx;
-		if (ft_strchr("\'\"", src[s_idx]) \
-			&& (s_idx == 0 || src[s_idx - 1] != '\\'))
+		if ((*d_quote == '\\' && *(d_quote + 1) == '\"') || \
+		(*d_quote == '\\' && *(d_quote + 1) == '$'))
 		{
-			qoute_flag = !qoute_flag;
-			++s_idx;
+			overwrite_array(d_quote);
+			++d_quote;
 		}
-		dest[d_idx++] = src[s_idx++];
+		else if (*d_quote == '\"')
+		{
+			overwrite_array(d_quote);
+			break ;
+		}
+		else
+			++d_quote;
 	}
+	return (d_quote);
 }
 
 void	remove_quotes(t_tok *node)
 {
-	char	*temp;
+	char	*not_quote;
+	char	*ret;
 
-	temp = ft_calloc(1, \
-	ft_strlen(node->token) - calc_quote_and_escape(node->token) + 1);
-	ft_assert(temp != NULL, "ERROR : leak resource in lexer()");
-	temp[ft_strlen(node->token) - calc_quote_and_escape(node->token)] = '\0';
-	remove_quote_and_escape(temp, node->token);
+	not_quote = node->token;
+	while (*not_quote != '\0')
+	{
+		if (*not_quote == '\\')
+		{
+			overwrite_array(not_quote);
+			++not_quote;
+		}
+		else if (*not_quote == '\"' && \
+		(not_quote == node->token || *(not_quote - 1) != '\\'))
+			not_quote = state_double_quote(not_quote);
+		else if (*not_quote == '\'' && \
+		(not_quote == node->token || *(not_quote - 1) != '\\'))
+			not_quote = state_single_quote(not_quote);
+		else
+			++not_quote;
+	}
+	ret = ft_strdup(node->token);
+	ft_assert(ret != NULL, "leak resource in remove_quotes()");
 	free(node->token);
-	node->token = temp;
+	node->token = ret;
 }

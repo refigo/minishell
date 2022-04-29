@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:02 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:02 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:15:26 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_cd(char **args, t_env_list *env)
 	error_code = chdir(new_path);
 	if (error_code < 0)
 	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd("mbsh: cd: ", STDERR_FILENO);
 		ft_putstr_fd(new_path, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		return (free_paths(old_path, new_path, 1));

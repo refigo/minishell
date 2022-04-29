@@ -6,7 +6,7 @@
 #    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/04/27 20:03:21 by bson             ###   ########.fr        #
+#    Updated: 2022/04/29 18:16:21 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,13 +25,12 @@ NAME		=	minishell
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
-#CFLAGS		+=	-fsanitize=address -g
+CFLAGS		+=	-fsanitize=address -g
 RM			=	rm -rf
 
 INC_LINK	=	-I./incs/
 
-#FT_LINK	=	-I./lib/libft				# bson(not include)
-FT_LINK		=	-I./lib/libft/includes/		# mgo
+FT_LINK		=	-I./lib/libft/includes/
 LIBFT		=	-L./lib/libft -lft
 
 #RL_LINK	=	-I/Users/bson/.brew/opt/readline/include			# bson

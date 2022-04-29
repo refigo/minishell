@@ -62,7 +62,8 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 	}
 	if (cmda->is_builtin == TRUE)
 		exit(exec_builtin(data, cmda));
-	else if (ft_strchr(cmda->exec, '/') == NULL)
+	else if (ft_strchr(cmda->exec, '/') == NULL \
+	&& get_env_node(((t_info *)data->info)->unordered_env, "PATH"))
 		exit_error_not_found(cmda->cmd_args[0]);
 	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
@@ -114,7 +115,10 @@ int	execute_on_exec_data(t_exec_data *data)
 	int			i;
 
 	if (data->num_cmds == 1 && data->cmd_areas->is_builtin == TRUE)
+	{
+		set_io_on_redirs(data->cmd_areas);
 		return (exec_builtin(data, data->cmd_areas));
+	}
 	curr = data->cmd_areas;
 	i = -1;
 	while ((++i < data->num_cmds) && curr)

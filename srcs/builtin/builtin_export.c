@@ -6,18 +6,28 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:59:55 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:22:40 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_vaild_env(char *key)
+int	is_vaild_env(char *key)
 {
-	if (!(ft_isalpha(*key) || *key == '_'))
+	char	*temp;
+	int		cnt;
+
+	temp = ft_strchr(key, '=');
+	if (temp == key)
+		return (0);
+	if (temp == NULL)
+		cnt = ft_strlen(key);
+	else
+		cnt = temp - key;
+	if (!(ft_isalpha(*key) || *key == '_' || *key == '='))
 		return (0);
 	++key;
-	while (*key != '\0')
+	while (*key != '\0' && --cnt)
 	{
 		if (!ft_isalnum(*key))
 			return (0);
@@ -74,22 +84,21 @@ int	builtin_export(char **args, t_env_list *env)
 	if (*(args + 1) == NULL)
 	{
 		env_asc = env_sort_copy_env(env);
-		print_env(env_asc, "declare -x %s=\"%s\"\n", "?");
+		print_env(env_asc, "declare -x %s=\"%s\"\n", "?", true);
 		del_env_list(&env_asc);
 		return (0);
 	}
 	while (*(++args) != NULL)
 	{
-		separate_pair(&key, &value, *args);
-		if (is_vaild_env(key) == false)
+		if (is_vaild_env(*args) == false)
 		{
-			ft_putstr_fd("export: `", STDERR_FILENO);
+			ft_putstr_fd("mbsh: export: `", STDERR_FILENO);
 			ft_putstr_fd(*args, STDERR_FILENO);
 			ft_putendl_fd("': Not a valid identifier", STDERR_FILENO);
 			return (1);
 		}
-		else
-			add_env(key, value, env, *args);
+		separate_pair(&key, &value, *args);
+		add_env(key, value, env, *args);
 	}
 	return (0);
 }

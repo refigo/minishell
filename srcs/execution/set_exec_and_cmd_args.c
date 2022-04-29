@@ -116,10 +116,13 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 	if (check_is_builtin(cmd_area) == FALSE)
 	{
 		env_path = get_env_node(info_addr->unordered_env, "PATH");
-		path = ft_split(env_path->value, ':');
-		add_slash_to_path(path);
-		set_exec(cmd_area, path);
-		mgo_free_2ptr(path);
+		if (env_path)
+		{
+			path = ft_split(env_path->value, ':');
+			add_slash_to_path(path);
+			set_exec(cmd_area, path);
+			mgo_free_2ptr(path);
+		}
 	}
 	set_cmd_args(cmd_area, node);
 }

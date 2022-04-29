@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:40:37 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:47:13 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:27:34 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char		**convert_env_char_d_ptr(t_env_list *list);
 char		*get_env_value_not_malloc(t_env_list *list, char *key);
 void		env_modify_value_not_malloc(t_env_list *list, \
 										char *key, char *value);
-void		print_env(t_env_list *list, char *form, char *except);
+void		print_env(t_env_list *list, char *form, char *except, int detail);
+void		del_env_node(t_env_node **node);
 
 #endif

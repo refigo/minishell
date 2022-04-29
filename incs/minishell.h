@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:40:44 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 19:55:01 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 16:24:41 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		builtin_export(char **args, t_env_list *env);
 int		builtin_unset(char **args, t_env_list *env);
 int		builtin_env(t_env_list *env);
 int		builtin_exit(char **args);
+int		is_vaild_env(char *key);
 
 // execution/execute_ast.c
 void	execute_ast(t_info *info, t_ast *root);

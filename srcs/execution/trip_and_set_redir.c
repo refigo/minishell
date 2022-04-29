@@ -38,9 +38,16 @@ static void	set_and_save_heredoc(t_exec_data *data, t_redir_list *redir, \
 	is_limiter = FALSE;
 	while (is_limiter == FALSE)
 	{
-		ft_putstr_fd("> ", 1);
+		//ft_putstr_fd("> ", 1);
+		input_line = readline("> ");
+		
+		/*
 		ft_assert(get_next_line(STDIN_FILENO, &input_line) != -1, \
 			"gnl failed in get_and_save_heredoc");
+		*/
+		// when ctrl+d(input_line == null) -> prompt(with delete heredoc)
+		// ctrl+c
+
 		if (ft_strncmp(input_line, limiter, ft_strlen(limiter) + 1) == 0)
 			is_limiter = TRUE;
 		if (is_limiter == FALSE)
@@ -98,10 +105,13 @@ void	trip_and_set_redir(t_exec_data *data, t_ast *node, \
 	ft_assert(new_redir != NULL, "malloc failed in trip_and_set_redir");
 	set_redir(new_redir, data, node);
 	add_new_redir(&(cmd_area->redirs), new_redir);
-	if (node->right->type == TOK_TYPE_REDIR)
-		trip_and_set_redir(data, node->right, cmd_area);
-	else if (node->right->type == TOK_TYPE_CMD)
-		set_exec_and_cmd_args(data, node->right, cmd_area);
-	else
-		ft_assert(FALSE, "type error at node of right in trip_and_set_redir");
+	if (node->right)
+	{
+		if (node->right->type == TOK_TYPE_REDIR)
+			trip_and_set_redir(data, node->right, cmd_area);
+		else if (node->right->type == TOK_TYPE_CMD)
+			set_exec_and_cmd_args(data, node->right, cmd_area);
+		else
+			ft_assert(FALSE, "type error at node of right in trip_and_set_redir");
+	}
 }

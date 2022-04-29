@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		info.input = readline("mbsh$ ");
 		if (info.input == NULL)
 			exit_ctrl_d();
-		if (!ft_strlen(info.input) || is_empty(info.input))
+		if (!ft_strlen(info.input))
 			continue ;
 		add_history(info.input);
 		if (check_input(info.input) == false)

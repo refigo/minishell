@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:09 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:10 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:22:47 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	builtin_env(t_env_list *env)
 {
-	print_env(env, "%s=%s\n", "?");
+	print_env(env, "%s=%s\n", "?", false);
 	return (0);
 }
