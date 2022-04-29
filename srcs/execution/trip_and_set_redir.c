@@ -38,9 +38,16 @@ static void	set_and_save_heredoc(t_exec_data *data, t_redir_list *redir, \
 	is_limiter = FALSE;
 	while (is_limiter == FALSE)
 	{
-		ft_putstr_fd("> ", 1);
+		//ft_putstr_fd("> ", 1);
+		input_line = readline("> ");
+		
+		/*
 		ft_assert(get_next_line(STDIN_FILENO, &input_line) != -1, \
 			"gnl failed in get_and_save_heredoc");
+		*/
+		// when ctrl+d(input_line == null) -> prompt(with delete heredoc)
+		// ctrl+c
+
 		if (ft_strncmp(input_line, limiter, ft_strlen(limiter) + 1) == 0)
 			is_limiter = TRUE;
 		if (is_limiter == FALSE)
