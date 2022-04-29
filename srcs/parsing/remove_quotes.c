@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:12 by bson              #+#    #+#             */
-/*   Updated: 2022/04/28 18:39:02 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 15:06:05 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static char	*state_double_quote(char *d_quote)
 	overwrite_array(d_quote);
 	while (1)
 	{
-		if (*d_quote == '\\' && *(d_quote + 1) == '\"')
+		if (*d_quote == '\\' && *(d_quote + 1) == '\"' || \
+		*d_quote == '\\' && *(d_quote + 1) == '$')
 		{
 			overwrite_array(d_quote);
 			++d_quote;
