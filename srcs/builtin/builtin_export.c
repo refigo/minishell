@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 16:24:31 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:22:40 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	builtin_export(char **args, t_env_list *env)
 	if (*(args + 1) == NULL)
 	{
 		env_asc = env_sort_copy_env(env);
-		print_env(env_asc, "declare -x %s=\"%s\"\n", "?");
+		print_env(env_asc, "declare -x %s=\"%s\"\n", "?", true);
 		del_env_list(&env_asc);
 		return (0);
 	}

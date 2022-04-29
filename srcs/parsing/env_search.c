@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:00 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:42:01 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:41:44 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_env_value_not_malloc(t_env_list *list, char *key)
 	return (get_env_node(list, key)->value);
 }
 
-void	print_env(t_env_list *list, char *form, char *except)
+void	print_env(t_env_list *list, char *form, char *except, int detail)
 {
 	t_env_node	*iter;
 	int			cnt;
@@ -46,10 +46,18 @@ void	print_env(t_env_list *list, char *form, char *except)
 	{
 		if (ft_strchr(except, *(iter->key)) == 0)
 		{
-			if (*(iter->value) == '\0')
-				printf("declare -x %s\n", iter->key);
+			if (detail == true)
+			{
+				if (*(iter->value) == '\0')
+					printf("declare -x %s\n", iter->key);
+				else
+					printf(form, iter->key, iter->value);
+			}
 			else
-				printf(form, iter->key, iter->value);
+			{
+				if (*(iter->value) != '\0')
+					printf(form, iter->key, iter->value);
+			}
 		}
 		iter = iter->next;
 		++cnt;

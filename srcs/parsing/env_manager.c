@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:54 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 18:10:55 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:46:28 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_env_node	*new_node(char *key, char *value)
 	t_env_node	*ret;
 
 	ft_assert(key != NULL && value != NULL, \
-	"ERROR : leak resource in new_node()");
+	"leak resource in new_node()");
 	ret = malloc(sizeof(t_env_node));
-	ft_assert(ret != NULL, "ERROR : leak resource in new_node()");
+	ft_assert(ret != NULL, "leak resource in new_node()");
 	ret->key = key;
 	ret->value = value;
 	ret->next = NULL;
@@ -47,7 +47,7 @@ t_env_list	*env_sort_copy_env(t_env_list *list)
 	int			cnt;
 
 	ret = ft_calloc(1, sizeof(t_env_list));
-	ft_assert(ret != NULL, "ERROR : leak resource in env_sort_copy_env()");
+	ft_assert(ret != NULL, "leak resource in env_sort_copy_env()");
 	cnt = -1;
 	iter = list->head;
 	while (++cnt < list->size)
