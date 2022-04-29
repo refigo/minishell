@@ -42,7 +42,7 @@ static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 
 static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
-	t_redir_list	*tmp_redir;
+	//t_redir_list	*tmp_redir;
 
 	set_signal_in_cmd();
 	if (data->num_cmdas != 1)
@@ -54,12 +54,18 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		else
 			set_io_mid(data, idx);
 	}
+
+	/*
 	tmp_redir = cmda->redirs;
 	while (tmp_redir)
 	{
 		set_io_on_redir(tmp_redir);
 		tmp_redir = tmp_redir->next;
 	}
+	*/
+	if (set_io_on_redirs(cmda) == FAIL)
+		exit(1);
+
 	if (cmda->exec == NULL)
 		exit(0);
 	if (cmda->is_builtin == TRUE)
@@ -118,8 +124,10 @@ int	execute_on_exec_data(t_exec_data *data)
 
 	if (data->num_cmdas == 1 && data->cmd_areas->is_builtin == TRUE)
 	{
-		set_io_on_redirs(data->cmd_areas);
-		return (exec_builtin(data, data->cmd_areas));
+		if (set_io_on_redirs(data->cmd_areas) == FAIL)
+			return (1);
+		ret_status_exit = exec_builtin(data, data->cmd_areas);
+		return (ret_status_exit);
 	}
 	curr = data->cmd_areas;
 	i = -1;
