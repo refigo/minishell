@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:54 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:55 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 18:10:55 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_env_node	*new_node(char *key, char *value)
 {
 	t_env_node	*ret;
 
-	if (key == NULL || value == NULL)
-		return (NULL);
+	ft_assert(key != NULL && value != NULL, \
+	"ERROR : leak resource in new_node()");
 	ret = malloc(sizeof(t_env_node));
 	ft_assert(ret != NULL, "ERROR : leak resource in new_node()");
 	ret->key = key;
