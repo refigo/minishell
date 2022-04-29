@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 14:15:48 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 14:44:38 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 static int	is_vaild_env(char *key)
 {
-	int	cnt;
+	char	*temp;
+	int		cnt;
 
-	cnt = ft_strchr(key, '=') - key;
-	if (cnt == 0)
+	temp = ft_strchr(key, '=');
+	if (temp == key)
 		return (0);
+	if (temp == NULL)
+		cnt = ft_strlen(key);
+	else
+		cnt = temp - key;
 	if (!(ft_isalpha(*key) || *key == '_' || *key == '='))
 		return (0);
 	++key;
@@ -85,7 +90,7 @@ int	builtin_export(char **args, t_env_list *env)
 	}
 	while (*(++args) != NULL)
 	{
-		if (is_vaild_env(key) == false)
+		if (is_vaild_env(*args) == false)
 		{
 			ft_putstr_fd("mbsh: export: `", STDERR_FILENO);
 			ft_putstr_fd(*args, STDERR_FILENO);
