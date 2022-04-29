@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:43 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:43 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 21:13:24 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 #include "token.h"
 #include <stdio.h>
 
-int	syntax_check_pipe(t_tok *node, int *cmd_flag)
+int	syntax_check_pipe(t_tok *node, t_tok_list *list)
 {
 	if (node->type == TOK_TYPE_PIPE)
 	{
-		if (*cmd_flag == 0)
+		if (node->next == list->head)
 			return (-1);
-		*cmd_flag = 0;
 	}
 	return (0);
 }
@@ -51,7 +50,7 @@ int	check_syntax(t_tok_list *list)
 		return (-1);
 	while (++cnt < list->size)
 	{
-		if (syntax_check_pipe(iter, &cmd_flag))
+		if (syntax_check_pipe(iter, list))
 			return (-1);
 		if (syntax_check_file(iter))
 			return (-1);
