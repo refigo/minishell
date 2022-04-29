@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:28 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 14:15:55 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/29 16:26:32 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_unset(char **args, t_env_list *env)
 		return (exit_code);
 	while (*(++args) != NULL)
 	{
-		if (ft_isalpha(**args) == false)
+		if (is_vaild_env(*args) == false)
 		{
 			exit_code = 1;
 			ft_putstr_fd("mbsh: unset: `", STDERR_FILENO);
