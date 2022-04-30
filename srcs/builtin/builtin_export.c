@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:21 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 18:22:40 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/30 14:01:23 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ int	is_vaild_env(char *key)
 		cnt = ft_strlen(key);
 	else
 		cnt = temp - key;
-	if (!(ft_isalpha(*key) || *key == '_' || *key == '='))
-		return (0);
-	++key;
-	while (*key != '\0' && --cnt)
+	while (*key != '\0' && cnt--)
 	{
-		if (!ft_isalnum(*key))
+		if (!(ft_isalnum(*key) || *key == '_'))
 			return (0);
 		++key;
 	}
