@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:43 by bson              #+#    #+#             */
-/*   Updated: 2022/04/29 21:28:41 by bson             ###   ########.fr       */
+/*   Updated: 2022/04/30 15:02:54 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	syntax_check_pipe(t_tok *node, t_tok_list *list)
 	return (0);
 }
 
-int	syntax_check_file(t_tok *node)
+int	syntax_check_file(t_tok *node, t_tok_list *list)
 {
-	if (node->type == TOK_TYPE_FILE && node->token[0] == '|')
+	if (node->type == TOK_TYPE_REDIR && node == list->tail)
+		return (-1);
+	if (node->type == TOK_TYPE_REDIR && node->next->type == TOK_TYPE_PIPE)
 		return (-1);
 	return (0);
 }
@@ -44,7 +46,7 @@ int	check_syntax(t_tok_list *list)
 	{
 		if (syntax_check_pipe(iter, list))
 			return (-1);
-		if (syntax_check_file(iter))
+		if (syntax_check_file(iter, list))
 			return (-1);
 		iter = iter->next;
 	}
