@@ -76,6 +76,11 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 		exit_error_finding_not_executable(cmda);
+	else
+	{
+		printf("what?\n");
+		exit(0);
+	}
 }
 
 static void	process_parent(t_exec_data *data, int idx)

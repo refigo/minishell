@@ -9,3 +9,4 @@ minishell
 *.dSYM
 
 .heredoc*
+test/

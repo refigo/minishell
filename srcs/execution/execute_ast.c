@@ -77,6 +77,12 @@ void	execute_ast(t_info *info, t_ast *root)
 	exit_status = execute_on_exec_data(&data);
 	off_echoctl();
 	env_insert(info->unordered_env, ft_strdup("?"), ft_itoa(exit_status));
+
+	if (isatty(STDIN_FILENO) == FALSE)
+		close(STDIN_FILENO);
+	if (isatty(STDOUT_FILENO) == FALSE)
+		close(STDOUT_FILENO);
+
 	clear_exec_data(&data);
 	fd_saver[0] = dup2(fd_saver[0], STDIN_FILENO);
 	fd_saver[1] = dup2(fd_saver[1], STDOUT_FILENO);
