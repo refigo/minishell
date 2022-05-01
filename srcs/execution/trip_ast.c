@@ -33,8 +33,7 @@ void	trip_and_set_cmd_area(t_exec_data *data, t_ast *node)
 {
 	t_cmda_list	*new_cmd_area;
 
-	data->num_cmdas += 1; // add
-
+	data->num_cmdas += 1;
 	ft_assert(node->type == TOK_TYPE_REDIR || node->type == TOK_TYPE_CMD, \
 		"type error in trip_and_set_cmd_area");
 	new_cmd_area = ft_calloc(1, sizeof(t_cmda_list));

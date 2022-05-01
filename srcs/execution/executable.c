@@ -36,12 +36,16 @@ void	exit_error_finding_not_executable(t_cmda_list *cmda)
 	exec_name = cmda->exec;
 	lstat(exec_name, &stat_buf);
 	if (errno == ENOENT)
+	{
 		exit_error_noent(cmda->cmd_args[0]);
+		exit(127);
+	}
 	else if (errno == EACCES)
 	{
 		if ((stat_buf.st_mode & S_IFMT) == S_IFDIR)
 			exit_error_dir(cmda->cmd_args[0]);
 		else
 			exit_error_perm_denied(cmda->cmd_args[0]);
+		exit(126);
 	}
 }

@@ -109,7 +109,6 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 	ft_assert(node->type == TOK_TYPE_CMD, \
 		"Error: not cmd type in set_exec_and_cmd_args func");
 	info_addr = (t_info *)data->info;
-	//data->num_cmds += 1;
 	cmd_area->exec = ft_strdup(node->token);
 	ft_assert(cmd_area->exec != NULL, \
 		"Error: malloc failed in set_exec_and_cmd_args");

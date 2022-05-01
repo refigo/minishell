@@ -50,6 +50,44 @@ int	set_io_on_redir(t_redir_list *redir)
 	int				stat;
 
 	fd = -1;
+	type = redir->type;
+	if (type == REDIR_IN || type == REDIR_IN_HEREDOC)
+		fd = open(redir->file_name, O_RDONLY);
+	else if (type == REDIR_OUT)
+		fd = open(redir->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (type == REDIR_OUT_APPEND)
+		fd = open(redir->file_name, O_WRONLY | O_APPEND | O_CREAT, 0644);
+	else
+		ft_assert(FALSE, "type error in set_io_on_redir");	
+	if (fd == -1)
+	{
+		if (errno == ENOENT)
+		{
+			put_sh_cmd_name_for_error(redir->file_name);
+			ft_putendl_fd(": No such file or directory", 2);
+		}
+		else if (errno == EACCES)
+		{
+			
+			put_sh_cmd_name_for_error(redir->file_name);
+			ft_putendl_fd(": Permission denied", 2);
+		}
+		else
+			ft_putendl_fd("open failed in set_io_on_redir");
+		return (FAIL);
+	}
+	// dup
+	stat = FAIL;
+	if (type == REDIR_IN || type == REDIR_IN_HEREDOC)
+		stat = dup2(fd, STDIN_FILENO);
+	else if (type == REDIR_OUT || type == REDIR_OUT_APPEND)
+		stat = dup2(fd, STDOUT_FILENO);
+	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir"); // to remove
+	close(fd);
+	return (SUCCESS);
+
+/*
+	fd = -1;
 	stat = FAIL;
 	type = redir->type;
 	if (type == REDIR_IN || type == REDIR_IN_HEREDOC)
@@ -79,6 +117,7 @@ int	set_io_on_redir(t_redir_list *redir)
 		close(fd);
 	ft_assert(stat != FAIL, "dup2 failed in set_io_on_redir"); // to remove
 	return (SUCCESS);
+*/
 }
 
 int	set_io_on_redirs(t_cmda_list *cmda)

@@ -42,8 +42,6 @@ static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 
 static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
-	//t_redir_list	*tmp_redir;
-
 	set_signal_in_cmd();
 	if (data->num_cmdas != 1)
 	{
@@ -54,18 +52,8 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 		else
 			set_io_mid(data, idx);
 	}
-
-	/*
-	tmp_redir = cmda->redirs;
-	while (tmp_redir)
-	{
-		set_io_on_redir(tmp_redir);
-		tmp_redir = tmp_redir->next;
-	}
-	*/
 	if (set_io_on_redirs(cmda) == FAIL)
 		exit(1);
-
 	if (cmda->exec == NULL)
 		exit(0);
 	if (cmda->is_builtin == TRUE)
@@ -76,11 +64,7 @@ static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 	else if (execve(cmda->exec, cmda->cmd_args, \
 		convert_env_char_d_ptr(((t_info *)data->info)->unordered_env)) == -1)
 		exit_error_finding_not_executable(cmda);
-	else
-	{
-		printf("what?\n");
-		exit(0);
-	}
+	ft_assert(FALSE, "undefined command");
 }
 
 static void	process_parent(t_exec_data *data, int idx)
@@ -105,7 +89,7 @@ static int	wait_and_get_status_exit(t_exec_data *data)
 	int			i;
 
 	i = -1;
-	while (++i < data->num_cmdas) // modify
+	while (++i < data->num_cmdas)
 		waitpid(data->pids[i], &status_child, 0);
 	if (WIFEXITED(status_child))
 		status_exit = WEXITSTATUS(status_child);
@@ -124,15 +108,13 @@ static int	wait_and_get_status_exit(t_exec_data *data)
 int	execute_on_exec_data(t_exec_data *data)
 {
 	t_cmda_list	*curr;
-	int			ret_status_exit;
 	int			i;
 
 	if (data->num_cmdas == 1 && data->cmd_areas->is_builtin == TRUE)
 	{
 		if (set_io_on_redirs(data->cmd_areas) == FAIL)
 			return (1);
-		ret_status_exit = exec_builtin(data, data->cmd_areas);
-		return (ret_status_exit);
+		return (exec_builtin(data, data->cmd_areas));
 	}
 	curr = data->cmd_areas;
 	i = -1;
@@ -148,6 +130,5 @@ int	execute_on_exec_data(t_exec_data *data)
 			process_parent(data, i);
 		curr = curr->next;
 	}
-	ret_status_exit = wait_and_get_status_exit(data);
-	return (ret_status_exit);
+	return (wait_and_get_status_exit(data));
 }
