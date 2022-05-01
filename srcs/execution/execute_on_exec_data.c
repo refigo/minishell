@@ -43,15 +43,8 @@ static int	exec_builtin(t_exec_data *data, t_cmda_list *cmda)
 static void	process_child(t_exec_data *data, t_cmda_list *cmda, int idx)
 {
 	set_signal_in_cmd();
-	if (data->num_cmdas != 1)
-	{
-		if (idx == 0)
-			set_io_first(data, idx);
-		else if (idx == data->num_cmdas - 1)
-			set_io_last(data, idx);
-		else
-			set_io_mid(data, idx);
-	}
+	if (data->num_cmdas > 1)
+		set_io_pipe_in_order(data, idx);
 	if (set_io_on_redirs(cmda) == FAIL)
 		exit(1);
 	if (cmda->exec == NULL)

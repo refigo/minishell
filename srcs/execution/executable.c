@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <sys/stat.h>
+#include "libft.h"
 #include "execution.h"
 
 int	is_executable_bin(char *checking)
@@ -37,15 +38,20 @@ void	exit_error_finding_not_executable(t_cmda_list *cmda)
 	lstat(exec_name, &stat_buf);
 	if (errno == ENOENT)
 	{
-		exit_error_noent(cmda->cmd_args[0]);
+		error_noent(cmda->cmd_args[0]);
 		exit(127);
 	}
 	else if (errno == EACCES)
 	{
 		if ((stat_buf.st_mode & S_IFMT) == S_IFDIR)
-			exit_error_dir(cmda->cmd_args[0]);
+			error_dir(cmda->cmd_args[0]);
 		else
-			exit_error_perm_denied(cmda->cmd_args[0]);
+			error_perm_denied(cmda->cmd_args[0]);
 		exit(126);
+	}
+	else
+	{
+		ft_putendl_fd("undefined error", 2);
+		exit(1);
 	}
 }

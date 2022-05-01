@@ -24,8 +24,7 @@
 # include "env_manager.h"
 # include "token.h"
 # include "ast.h"
-
-# include "execution.h" // mgo
+# include "execution.h"
 
 typedef struct s_info
 {
@@ -61,7 +60,7 @@ void	execute_ast(t_info *info, t_ast *root);
 void	on_echoctl(void);
 void	off_echoctl(void);
 
-// tool_func/handle_echoctl.c
+// tool_func/set_signal.c
 void	set_signal_in_prompt(void);
 void	set_signal_in_cmd(void);
 

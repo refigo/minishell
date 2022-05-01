@@ -14,17 +14,16 @@
 # define EXECUTION_H
 
 # include <fcntl.h>
+# include <errno.h>
 # include "ast.h"
 
-# include <errno.h>
-
-enum e_bool // consider: move to minishell.h ?
+enum e_bool
 {
 	FALSE,
 	TRUE
 };
 
-enum e_result // consider: move to minishell.h ?
+enum e_result
 {
 	FAIL = -1,
 	SUCCESS
@@ -89,23 +88,22 @@ void	set_exec_and_cmd_args(t_exec_data *data, t_ast *node, \
 // execute_on_exec_data.c
 int		execute_on_exec_data(t_exec_data *data);
 
-// set_io.c
-void	set_io_first(t_exec_data *data, int idx);
-void	set_io_mid(t_exec_data *data, int idx);
-void	set_io_last(t_exec_data *data, int idx);
-int		set_io_on_redir(t_redir_list *redir);
+// set_io_pipe.c
+void	set_io_pipe_in_order(t_exec_data *data, int idx);
+
+// set_io_redir.c
 int		set_io_on_redirs(t_cmda_list *cmda);
 
 // executable.c
 int		is_executable_bin(char *checking);
 void	exit_error_finding_not_executable(t_cmda_list *cmda);
 
-// exit_error_on_exec.c
+// error_on_exec.c
 void	put_sh_cmd_name_for_error(char *cmd_name);
 void	exit_error_not_found(char *cmd_name);
-void	exit_error_noent(char *cmd_name);
-void	exit_error_dir(char *cmd_name);
-void	exit_error_perm_denied(char *cmd_name);
+void	error_noent(char *cmd_name);
+void	error_dir(char *cmd_name);
+void	error_perm_denied(char *cmd_name);
 
 // pipe_pid.c
 void	calloc_pipes_and_pids(t_exec_data *data);
