@@ -40,7 +40,7 @@ static void	set_and_save_heredoc(t_exec_data *data, t_redir_list *redir, \
 	{
 		input_line = readline("> ");
 		if (input_line == NULL)
-			return ;
+			break ;
 		if (ft_strncmp(input_line, limiter, ft_strlen(limiter) + 1) == 0)
 			is_limiter = TRUE;
 		if (is_limiter == FALSE)
