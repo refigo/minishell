@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:41:06 by bson              #+#    #+#             */
-/*   Updated: 2022/04/27 18:41:06 by bson             ###   ########.fr       */
+/*   Updated: 2022/05/02 14:45:11 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	builtin_echo(char **args)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		return (0);
 	}
-	if (mgo_strcmp("-n", *(++args)) == 0)
-		n_flag = 1;
-	args += n_flag;
+	while (*(++args) != NULL && **args == '-')
+	{
+		if (ft_strchr(*args, 'n'))
+			n_flag = 1;
+	}
 	while (*args != NULL)
 	{
 		ft_putstr_fd(*args, STDOUT_FILENO);
