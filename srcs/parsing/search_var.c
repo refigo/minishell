@@ -6,7 +6,7 @@
 /*   By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:42:15 by bson              #+#    #+#             */
-/*   Updated: 2022/04/30 14:17:25 by bson             ###   ########.fr       */
+/*   Updated: 2022/05/02 15:08:31 by bson             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*expand_input(char **input, char *var_start, t_env_list *env)
 	var_end = var_start + 1;
 	if (*var_end == '_')
 		++var_end;
-	while (*var_end && ft_strchr("\"\'<>| $", *var_end) == NULL)
+	while (*var_end && ft_strchr("\"\'<>| $=", *var_end) == NULL)
 		++var_end;
 	replace_var = dup_replace_var(env, &var_start, var_end);
 	ft_assert(replace_var != NULL, "leak resource in expand_input()");
@@ -70,7 +70,7 @@ static int	is_vaild_expand(char *data, int escape)
 		return (0);
 	if (escape == true)
 		return (0);
-	if (ft_strchr(" \'\"`~!@#$%^&*()-+={}[]:;,./", *(data + 1)) \
+	if (ft_strchr(" `~!@#$%^&*()-+={}[]:;,./\'\"", *(data + 1)) \
 			|| *(data + 1) == '\0')
 		return (0);
 	return (1);

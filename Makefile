@@ -6,7 +6,7 @@
 #    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/05/02 09:46:00 by mgo              ###   ########.fr        #
+#    Updated: 2022/05/02 13:40:18 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ LIBFT		=	-L./lib/libft -lft
 RL_LINK		=	-I./lib/readline/8.1.2/include/
 READLINE	=	-L./lib/readline/8.1.2/lib/ -lreadline
 
-#RL_LINK	=	-I/Users/bson/.brew/opt/readline/include			# bson
-RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
-#READLINE	=	-L/Users/bson/.brew/opt/readline/lib -lreadline		# bson
-READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
+RL_LINK	=	-I/Users/bson/.brew/opt/readline/include			# bson
+#RL_LINK		=	-I/goinfre/mgo/.brew/opt/readline/include/			# mgo
+READLINE	=	-L/Users/bson/.brew/opt/readline/lib -lreadline		# bson
+#READLINE	=	-L/goinfre/mgo/.brew/opt/readline/lib/ -lreadline	# mgo
 
 SRC_PATH	=	./srcs/
 DIR_PARS	=	parsing/
