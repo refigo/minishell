@@ -6,7 +6,7 @@
 #    By: bson <bson@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/06 14:54:02 by mgo               #+#    #+#              #
-#    Updated: 2022/05/02 13:40:18 by bson             ###   ########.fr        #
+#    Updated: 2022/05/02 15:16:08 by bson             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,9 +94,9 @@ $(OBJ_PATH)%.o	:	$(SRC_PATH)%.c
 	@echo $(YELLOW) "Compling...\t" $< $(ENDCOLOR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_PARS) 2> /dev/null || true
+	@mkdir $(OBJ_PATH)$(DIR_BUILT) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_EXEC) 2> /dev/null || true
 	@mkdir $(OBJ_PATH)$(DIR_TOOL) 2> /dev/null || true
-	@mkdir $(OBJ_PATH)$(DIR_BUILT) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_LINK) $(FT_LINK) $(RL_LINK) -c $< -o $@
 
 $(NAME)	:	$(OBJ) libft
@@ -126,4 +126,4 @@ fclean	: clean
 
 re		:	fclean all
 
-.PHONY	:	all bonus clean fclean re
+.PHONY	:	libft all bonus clean fclean re
